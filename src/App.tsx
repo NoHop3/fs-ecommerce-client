@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+
+import { RootState } from "./typescript/redux/store/";
+import importTemplate from "./hooks/useImports";
+import ErrorPage from "./components/pages/ErrorPage";
+import Home from "./components/pages/Home";
+import Contact from "./components/pages/Contact";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 function App() {
+  const { BrowserRouter, Routes, Route } = importTemplate();
+  const { navClass } = useSelector((state: RootState) => state.navState);
+  const { lamp } = useSelector((state: RootState) => state.themeState);
+  const pageBody = navClass + " " + lamp;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={pageBody}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='*' element={<ErrorPage />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

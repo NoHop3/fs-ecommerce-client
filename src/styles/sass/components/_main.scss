@@ -1,0 +1,17 @@
+@use "../sass-utils/variables" as var;
+/* General styles */
+
+body {
+  margin: 0;
+  font-family: var.$ff-primary;
+  font-size: var.$fs-body;
+  line-height: 1.6;
+}
+.wapper.false {
+  background: var.$clr-light;
+  color: var.$clr-dark;
+}
+.wapper.true {
+  background: var.$clr-dark;
+  color: var.$clr-light;
+}

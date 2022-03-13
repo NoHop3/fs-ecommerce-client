@@ -1,0 +1,23 @@
+$tablet-width: 800px;
+$laptop-width: 1200px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$laptop-width}-1px) {
+    :root {
+      --fs-h1: 3rem;
+      --fs-h2: 2rem;
+      --fs-h3: 1.5rem;
+      --fs-body: 1.125rem;
+    }
+  }
+}
+@mixin laptop {
+  @media (min-width: #{$laptop-width}) {
+    :root {
+      --fs-h1: 3.5rem;
+      --fs-h2: 2.5rem;
+      --fs-h3: 2rem;
+      --fs-body: 1.65rem;
+    }
+  }
+}

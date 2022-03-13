@@ -1,0 +1,96 @@
+@use "../sass-utils/variables" as var;
+.svgAnimations::before{
+  content: 'No such page found';
+  font-size: var.$fs-h1;
+}
+
+.svgAnimations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#Ether {
+  transform-origin: center;
+  animation: etherium 6s linear infinite;
+}
+#Vector_37 {
+  animation: etherium_right-lower-part 6s ease-in-out infinite;
+}
+#Vector_36 {
+  animation: etherium_left-lower-part 6s ease-in-out infinite;
+}
+#Vector_32,
+#Vector_34 {
+  animation: etherium_left-upper-part 6s ease-in-out infinite;
+}
+#Vector_33,
+#Vector_35 {
+  animation: etherium_right-upper-part 6s ease-in-out infinite;
+}
+
+#Boy-head,
+#Girl-head,
+#Girl-hand {
+  animation: boy_girl 5s linear infinite;
+}
+
+@keyframes etherium_left-upper-part {
+
+  75% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes etherium_right-upper-part {
+
+  75% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes etherium_right-lower-part {
+  25% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes etherium_left-lower-part {
+  25% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes etherium {
+  25% {
+    transform: scale(0.7, 0.7);
+  }
+  75% {
+    transform: scale(0.9, 0.9);
+  }
+  50% {
+    transform: scale(0.8, 0.8);
+  }
+}
+
+@keyframes boy_girl {
+  75% {
+    transform: translateY(2px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(-2px);
+  }
+}
