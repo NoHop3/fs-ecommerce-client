@@ -27,27 +27,29 @@ export default function Navigation() {
         <ul onClick={() => dispatch(toggleNav())} className='nav__list'>
           <li className='nav__item'>
             <Link to={"/"} className='nav__link'>
-              Home
+              Home 🏠
             </Link>
           </li>
           <li className='nav__item'>
             <Link to={"/products"} className='nav__link'>
-              Products
+              Products 🛒
             </Link>
           </li>
           <li className='nav__item'>
             <Link to={"/orders"} className='nav__link'>
-              My orders
+              My orders 💳
             </Link>
           </li>
           <li className='nav__item'>
             <Link to={"/contact"} className='nav__link'>
-              Contact
+              Contact 📇
             </Link>
           </li>
-          <li className='nav__item' onClick={()=>dispatch(toggleAuth())}>
-            <Link to={auth==='Sign in'?`/${auth}`:'/'} className='nav__link'>
-              {auth}
+          <li className='nav__item' onClick={() => dispatch(toggleAuth())}>
+            <Link
+              to={auth === "Sign in" ? `/${auth}` : "/"}
+              className='nav__link'>
+              {auth === "Sign in" ? "Sign in 🔐" : "Sign out 🗝️"}
             </Link>
           </li>
         </ul>
