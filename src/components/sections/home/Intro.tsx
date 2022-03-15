@@ -1,6 +1,6 @@
 export default function Intro() {
   return (
-    <section>
+    <section className="intro">
       
     </section>
   );

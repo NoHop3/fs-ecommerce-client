@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { toggleAuth, toggleNav, toggleTheme } from "../../redux/actions/actions";
+import { toggleNav, toggleTheme } from "../../redux/actions/actions";
 import { RootState } from "../../typescript/redux/store";
 
 export default function Navigation() {
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state: RootState) => state.authState)
   const { lamp } = useSelector((state: RootState) => state.themeState);
-  const { auth} = useSelector((state: RootState) => state.navState)
   return (
     <>
       <button
@@ -45,11 +45,11 @@ export default function Navigation() {
               Contact 📇
             </Link>
           </li>
-          <li className='nav__item' onClick={() => dispatch(toggleAuth())}>
+          <li className='nav__item'>
             <Link
-              to={auth === "Sign in" ? `/${auth}` : "/"}
+              to={!isLoggedIn ? "/authentication" : "/"}
               className='nav__link'>
-              {auth === "Sign in" ? "Sign in 🔐" : "Sign out 🗝️"}
+              {!isLoggedIn ? "Sign in 🔐" : "Sign out 🗝️"}
             </Link>
           </li>
         </ul>

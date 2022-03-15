@@ -1,0 +1,12 @@
+@use "../sass-utils/variables" as var;
+
+.signIn {
+  &__rotated {
+    background-color: var.$clr-auth;
+    transform: translate(-40%, -60%) rotateZ(122deg);
+    z-index: -1;
+  }
+  &__form{
+
+  }
+}

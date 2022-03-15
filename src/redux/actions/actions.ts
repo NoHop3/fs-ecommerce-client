@@ -1,11 +1,15 @@
 import {
-  TOGGLE_AUTH,
+  GET_TOKEN,
+  TOGGLE_LOGGED_IN,
   TOGGLE_NAV,
+  TOGGLE_SIGN_IN,
   TOGGLE_THEME,
 } from "../../typescript/redux/actions/action_const";
 import {
-  toggleAuthAction,
+  getTokenAction,
+  toggleIsLoggedInAction,
   toggleNavAction,
+  toggleSignInAction,
   toggleThemeAction,
 } from "../../typescript/redux/actions/action_types";
 
@@ -21,8 +25,20 @@ export function toggleNav(): toggleNavAction {
   };
 }
 
-export function toggleAuth(): toggleAuthAction {
+export function toggleIsLoggedIn(): toggleIsLoggedInAction {
   return {
-    type: TOGGLE_AUTH,
+    type: TOGGLE_LOGGED_IN,
+  }
+}
+
+export function toggleSignIn(): toggleSignInAction{
+  return {
+    type: TOGGLE_SIGN_IN,
+  }
+}
+export function getToken(token: string): getTokenAction{
+  return{
+    type: GET_TOKEN,
+    payload: token,
   }
 }

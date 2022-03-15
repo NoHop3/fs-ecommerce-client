@@ -2,6 +2,7 @@
 $clr-light: #ffffff;
 $clr-dark: #303030;
 $clr-accent: #16e0bd;
+$clr-auth: #3d8170;
 
 // Font family//
 $ff-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -22,3 +23,21 @@ $fw-bold: 700;
 // Shadows //
 $bs: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.25),
   0.125em 0.125em 0.25em rgba(0, 0, 0, 0.15);
+
+// Media //
+$tablet-width: 800px;
+$laptop-width: 1200px;
+
+@media (min-width: #{$tablet-width}) and (max-width: #{$laptop-width}-1px) {
+  $fs-h1: 3rem;
+  $fs-h2: 2rem;
+  $fs-h3: 1.5rem;
+  $fs-body: 1.125rem;
+}
+
+@media (min-width: #{$laptop-width}) {
+  $fs-h1: 3.5rem;
+  $fs-h2: 2.5rem;
+  $fs-h3: 2rem;
+  $fs-body: 1.65rem;
+}

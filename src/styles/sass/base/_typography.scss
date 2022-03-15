@@ -1,5 +1,5 @@
 @use "../sass-utils/variables" as var;
-@use "../sass-utils/media";
+
 // Typography //
 body {
   font-family: var.$ff-primary;
@@ -22,13 +22,10 @@ p {
   font-family: var.$ff-secondary;
 }
 strong {
-  font-weight: var(--fw-bold);
+  font-weight: var.$fw-bold;
 }
 
 :focus {
-  outline: 3px solid var(--clr-accent);
+  outline: 3px solid var.$clr-accent;
   outline-offset: 3px;
 }
-
-@include media.tablet;
-@include media.laptop;

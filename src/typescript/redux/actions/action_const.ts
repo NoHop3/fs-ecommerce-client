@@ -1,3 +1,5 @@
 export const TOGGLE_THEME = "TOGGLE_THEME";
 export const TOGGLE_NAV = "TOGGLE_NAV";
-export const TOGGLE_AUTH = "TOGGLE_AUTH"
+export const TOGGLE_LOGGED_IN = "TOGGLE_LOGGED_IN";
+export const TOGGLE_SIGN_IN = "TOGGLE_SIGN_IN";
+export const GET_TOKEN = "GET_TOKEN";

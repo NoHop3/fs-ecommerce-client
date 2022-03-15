@@ -1,3 +1,4 @@
+@use "../sass-utils/variables" as var;
 .contact-box {
   max-width: 400px;
   margin: 0 auto;
@@ -9,7 +10,7 @@
 }
 
 .contact-box h2 {
-  font-size: var(--fs-h3);
+  font-size: var.$fs-h3;
   margin: 0 0 30px;
   padding: 0;
   color: #fff;

@@ -1,6 +1,8 @@
 import {
-  TOGGLE_AUTH,
+  GET_TOKEN,
+  TOGGLE_LOGGED_IN,
   TOGGLE_NAV,
+  TOGGLE_SIGN_IN,
   TOGGLE_THEME,
 } from "./action_const";
 
@@ -12,8 +14,15 @@ export type toggleNavAction = {
   type: typeof TOGGLE_NAV;
 };
 
-export type toggleAuthAction = {
-  type: typeof TOGGLE_AUTH
+export type toggleIsLoggedInAction = {
+  type: typeof TOGGLE_LOGGED_IN,
+}
+export type toggleSignInAction = {
+  type: typeof TOGGLE_SIGN_IN,
+}
+export type getTokenAction = {
+  type: typeof GET_TOKEN,
+  payload: string
 }
 
-export type actionType = toggleNavAction | toggleThemeAction | toggleAuthAction;
+export type actionType = toggleNavAction | toggleThemeAction | toggleIsLoggedInAction | toggleSignInAction | getTokenAction;

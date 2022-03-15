@@ -2,9 +2,11 @@
 /* Header */
 
 header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding: 1em;
+  z-index: 1;
 }
 
 .logo--png {

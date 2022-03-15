@@ -38,30 +38,14 @@ p {
 }
 
 strong {
-  font-weight: var(--fw-bold);
+  font-weight: 700;
 }
 
 :focus {
-  outline: 3px solid var(--clr-accent);
+  outline: 3px solid #16e0bd;
   outline-offset: 3px;
 }
 
-@media (min-width: 800px) and (max-width: 1200px-1px) {
-  :root {
-    --fs-h1: 3rem;
-    --fs-h2: 2rem;
-    --fs-h3: 1.5rem;
-    --fs-body: 1.125rem;
-  }
-}
-@media (min-width: 1200px) {
-  :root {
-    --fs-h1: 3.5rem;
-    --fs-h2: 2.5rem;
-    --fs-h3: 2rem;
-    --fs-body: 1.65rem;
-  }
-}
 /* General styles */
 body {
   margin: 0;
@@ -82,9 +66,11 @@ body {
 
 /* Header */
 header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding: 1em;
+  z-index: 1;
 }
 
 .logo--png {
@@ -205,6 +191,40 @@ header {
   bottom: 6px;
 }
 
+/* Footer */
+.footer {
+  position: relative;
+  background: #303030;
+  color: #16e0bd;
+  text-align: center;
+  padding: 0.5em 0;
+  font-size: 1.15rem;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.social-list__link:hover {
+  opacity: 0.7;
+}
+
+.social-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.social-list__item {
+  margin: 0 0.5em;
+}
+
+.social-list__link {
+  padding: 0.5em;
+}
+
 .contact-box {
   max-width: 400px;
   margin: 0 auto;
@@ -216,7 +236,7 @@ header {
 }
 
 .contact-box h2 {
-  font-size: var(--fs-h3);
+  font-size: 1.15rem;
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
@@ -366,39 +386,11 @@ header {
     bottom: 100%;
   }
 }
-/* Footer */
-.footer {
-  background: #303030;
-  color: #16e0bd;
-  text-align: center;
-  padding: 0.5em 0;
-  font-size: 1.15rem;
+.signIn__rotated {
+  background-color: #3d8170;
+  transform: translate(-40%, -60%) rotateZ(122deg);
+  z-index: -1;
 }
-
-.footer a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.social-list__link:hover {
-  opacity: 0.7;
-}
-
-.social-list {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-}
-
-.social-list__item {
-  margin: 0 0.5em;
-}
-
-.social-list__link {
-  padding: 0.5em;
-}
-
 .svgAnimations::before {
   content: "No such page found";
   font-size: 2.8rem;
@@ -492,6 +484,12 @@ header {
   }
   25% {
     transform: translateY(-2px);
+  }
+}
+@media (min-width: 1200px) {
+  .signIn__rotated {
+    min-width: 240vh;
+    min-height: 100vh;
   }
 }
 

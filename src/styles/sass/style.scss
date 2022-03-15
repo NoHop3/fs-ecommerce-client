@@ -1,5 +1,16 @@
 // Home //
 @use "pages/home";
 
+// Contact //
+@use "pages/contact";
+
+// Authentication //
+@use "pages/sign-in";
+
 // Error Page //
-@use "pages/error"
+@use "pages/error";
+
+// Media Queries //
+@use "./sass-utils/media";
+@include media.tablet;
+@include media.laptop;
