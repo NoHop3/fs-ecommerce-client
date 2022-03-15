@@ -1,3 +1,5 @@
+import axios from "axios";
+import { Dispatch } from "redux";
 import {
   GET_TOKEN,
   TOGGLE_LOGGED_IN,
@@ -12,6 +14,7 @@ import {
   toggleSignInAction,
   toggleThemeAction,
 } from "../../typescript/redux/actions/action_types";
+import { valuesSignUp } from "../../typescript/types";
 
 export function toggleTheme(): toggleThemeAction {
   return {
@@ -28,17 +31,30 @@ export function toggleNav(): toggleNavAction {
 export function toggleIsLoggedIn(): toggleIsLoggedInAction {
   return {
     type: TOGGLE_LOGGED_IN,
-  }
+  };
 }
 
-export function toggleSignIn(): toggleSignInAction{
+export function toggleSignIn(): toggleSignInAction {
   return {
     type: TOGGLE_SIGN_IN,
-  }
+  };
 }
-export function getToken(token: string): getTokenAction{
-  return{
+export function getToken(token: string): getTokenAction {
+  return {
     type: GET_TOKEN,
     payload: token,
-  }
+  };
+}
+
+export function signUpAction(values: valuesSignUp) {
+  return (dispatch: Dispatch) => {
+    axios
+      .post("http://localhost:5000/api/v1/users", values)
+      .then((res: any) => {
+        console.log(res.data);
+      })
+      .catch((err: string) => {
+        console.error(err);
+      });
+  };
 }

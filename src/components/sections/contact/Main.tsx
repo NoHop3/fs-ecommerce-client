@@ -43,49 +43,51 @@ function Contact() {
       [toSend]
     );
   return (
-    <div className='contact-box' id='contact'>
-      <h2>Contact me!</h2>
-      <form onSubmit={onSubmit}>
-        <div className='form-box'>
-          <input
-            onChange={handleChange}
-            type='text'
-            name='from_name'
-            id='from_name'
-            required={true}
-          />
-          <label htmlFor='name'>Full Name</label>
-        </div>
-        <div className='form-box'>
-          <input
-            onChange={handleChange}
-            type='email'
-            name='from_email'
-            id='from_email'
-            required
-          />
-          <label htmlFor='email'>Email</label>
-        </div>
-        <div className='form-box'>
-          <textarea
-            onChange={handleMessChange}
-            name='message'
-            id='message'
-            required
-            cols={35}
-            rows={5}></textarea>
-          <label htmlFor='message'>Your message here</label>
-        </div>
-        <div className='submitFormBtn'>
-          <button>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Submit
-          </button>
-        </div>
-      </form>
+    <div className="form">
+      <div className='contact-box' id='contact'>
+        <h2>Contact me!</h2>
+        <form onSubmit={onSubmit}>
+          <div className='form-box'>
+            <input
+              onChange={handleChange}
+              type='text'
+              name='from_name'
+              id='from_name'
+              required={true}
+            />
+            <label htmlFor='name'>Full Name</label>
+          </div>
+          <div className='form-box'>
+            <input
+              onChange={handleChange}
+              type='email'
+              name='from_email'
+              id='from_email'
+              required
+            />
+            <label htmlFor='email'>Email</label>
+          </div>
+          <div className='form-box'>
+            <textarea
+              onChange={handleMessChange}
+              name='message'
+              id='message'
+              required
+              cols={35}
+              rows={5}></textarea>
+            <label htmlFor='message'>Your message here</label>
+          </div>
+          <div className='submitFormBtn'>
+            <button>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

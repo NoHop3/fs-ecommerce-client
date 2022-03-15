@@ -7,6 +7,14 @@ import {
 } from "../../typescript/redux/actions/action_const";
 
 const initialState: InitialAuthState = {
+  loggedUser: {
+    email: "",
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    image: "",
+  },
   authToken: "",
   isLoggedIn: false,
   isInSignIn: false,
@@ -22,12 +30,12 @@ const navReducer = (state = initialState, action: actionType) => {
     case TOGGLE_SIGN_IN:
       return {
         ...state,
-        isLoggedIn: !state.isLoggedIn,
+        isInSignIn: !state.isInSignIn,
       };
     case TOGGLE_LOGGED_IN:
       return {
         ...state,
-        isInSignIn: !state.isInSignIn,
+        isLoggedIn: !state.isLoggedIn,
       };
     default:
       return state;

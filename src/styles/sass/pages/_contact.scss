@@ -1,4 +1,12 @@
 @use "../sass-utils/variables" as var;
+
+.form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
 .contact-box {
   max-width: 400px;
   margin: 0 auto;

@@ -6,10 +6,10 @@
 }
 @mixin laptop {
   @media (min-width: #{var.$laptop-width}) {
-    .signIn{   
+    .authentication{   
       &__rotated {
-        min-width: 240vh;
-        min-height: 100vh;
+        min-width: 50vw;
+        min-height: 60vh;
       }
     }
   }

@@ -193,7 +193,10 @@ header {
 
 /* Footer */
 .footer {
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
   background: #303030;
   color: #16e0bd;
   text-align: center;
@@ -223,6 +226,13 @@ header {
 
 .social-list__link {
   padding: 0.5em;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
 }
 
 .contact-box {
@@ -386,11 +396,32 @@ header {
     bottom: 100%;
   }
 }
-.signIn__rotated {
+.authentication {
+  height: 100vh;
+}
+.authentication__rotated {
   background-color: #3d8170;
-  transform: translate(-40%, -60%) rotateZ(122deg);
+  transform: translate(-35%, -60%) rotateZ(122deg);
   z-index: -1;
 }
+.authentication__form {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 15%;
+  bottom: 0;
+  left: 10%;
+  right: 0;
+  width: 80%;
+  height: 60vh;
+}
+.authentication__form--signIn {
+  background-color: aqua;
+}
+.authentication__form--signUp {
+  background-color: blue;
+}
+
 .svgAnimations::before {
   content: "No such page found";
   font-size: 2.8rem;
@@ -487,9 +518,9 @@ header {
   }
 }
 @media (min-width: 1200px) {
-  .signIn__rotated {
-    min-width: 240vh;
-    min-height: 100vh;
+  .authentication__rotated {
+    min-width: 50vw;
+    min-height: 60vh;
   }
 }
 
