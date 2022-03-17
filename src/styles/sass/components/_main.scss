@@ -1,4 +1,5 @@
 @use "../sass-utils/variables" as var;
+
 /* General styles */
 
 body {
@@ -7,11 +8,10 @@ body {
   font-size: var.$fs-body;
   line-height: 1.6;
 }
+
 .wapper.false {
-  background: var.$clr-light;
-  color: var.$clr-dark;
+  @include var.theme-colors($light-theme:true);
 }
 .wapper.true {
-  background: var.$clr-dark;
-  color: var.$clr-light;
+  @include var.theme-colors($light-theme:false);
 }

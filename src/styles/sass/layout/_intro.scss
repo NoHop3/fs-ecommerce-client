@@ -1,0 +1,18 @@
+@use "../sass-utils/variables" as var;
+.intro {
+  position: relative;
+  &__title {
+      position: absolute;
+      width: 163px;
+    top: 30%;
+    left: 5%;
+  }
+}
+.player__wrapper {
+  margin-top: -4rem;
+  &--video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}

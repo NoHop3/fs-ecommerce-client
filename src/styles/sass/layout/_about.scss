@@ -1,0 +1,27 @@
+@use "../sass-utils/variables" as var;
+.about {
+  margin-top: 1rem;
+  width: 100%;
+  &--title {
+    text-align: center;
+  }
+  &__info {
+    display: grid;
+    gap: 1rem;
+    &--item {
+      .item__container {
+        box-shadow: var.$bs;
+        margin: 0.52rem;
+        padding: 0.2rem;
+        min-height: 92px;
+        border: 2px solid;
+        text-align: center;
+        transition: 1s ease all;
+        &:hover {
+          background-color: var.$clr-auth;
+          border-radius: 6%;
+        }
+      }
+    }
+  }
+}

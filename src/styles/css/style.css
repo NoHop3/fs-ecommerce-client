@@ -22,7 +22,7 @@ code {
 }
 
 h1 {
-  font-size: 2.8rem;
+  font-size: 1.4rem;
 }
 
 h2 {
@@ -57,11 +57,13 @@ body {
 .wapper.false {
   background: #ffffff;
   color: #303030;
+  border-color: #303030;
 }
 
 .wapper.true {
   background: #303030;
   color: #ffffff;
+  border-color: #ffffff;
 }
 
 /* Header */
@@ -191,10 +193,61 @@ header {
   bottom: 6px;
 }
 
+.intro {
+  position: relative;
+}
+.intro__title {
+  position: absolute;
+  width: 163px;
+  top: 30%;
+  left: 5%;
+}
+
+.player__wrapper {
+  margin-top: -4rem;
+}
+.player__wrapper--video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.about {
+  margin-top: 1rem;
+  width: 100%;
+}
+.about--title {
+  text-align: center;
+}
+.about__info {
+  display: grid;
+  gap: 1rem;
+}
+.about__info--item .item__container {
+  box-shadow: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.25), 0.125em 0.125em 0.25em rgba(0, 0, 0, 0.15);
+  margin: 0.52rem;
+  padding: 0.2rem;
+  min-height: 92px;
+  border: 2px solid;
+  text-align: center;
+  transition: 1s ease all;
+}
+.about__info--item .item__container:hover {
+  background-color: #3d8170;
+  border-radius: 6%;
+}
+
+.team {
+  margin-top: 2rem;
+  margin-bottom: 7rem;
+}
+.team--title {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 /* Footer */
 .footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
   height: 80px;
   background: #303030;
@@ -597,7 +650,7 @@ header {
 }
 .svgAnimations::before {
   content: "No such page found";
-  font-size: 2.8rem;
+  font-size: 1.4rem;
 }
 
 .svgAnimations {
@@ -691,6 +744,22 @@ header {
   }
 }
 @media only screen and (min-width: 800px) and (max-width: 1199px) {
+  h1 {
+    font-size: 2.8rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  body {
+    font-size: 1.125rem;
+  }
+
   .signUp__form {
     width: 32rem;
     height: 36rem;
@@ -699,8 +768,43 @@ header {
     margin-top: 2rem;
     font-size: 1.5rem;
   }
+
+  .intro {
+    position: relative;
+  }
+  .intro__title {
+    position: absolute;
+    width: 300px;
+    top: 20%;
+    left: 5%;
+  }
+
+  .about {
+    margin-top: 5rem !important;
+    max-width: 35rem;
+    margin: 0 auto;
+  }
+  .about--title {
+    margin-bottom: 1rem;
+  }
 }
 @media only screen and (min-width: 1200px) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  body {
+    font-size: 1.65rem;
+  }
+
   .authentication__rotated {
     min-width: 50vw;
     min-height: 60vh;
@@ -713,6 +817,47 @@ header {
   .signUp__form .error {
     margin-top: 2rem;
     font-size: 1.5rem;
+  }
+
+  .player__wrapper {
+    margin-top: -7rem;
+  }
+
+  .intro {
+    position: relative;
+  }
+  .intro__title {
+    position: absolute;
+    width: 26rem;
+    top: 20%;
+    left: 5%;
+  }
+
+  .about {
+    margin-top: 5rem !important;
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+  .about--title {
+    margin-bottom: 1rem;
+  }
+  .about__info {
+    min-height: 600px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .about__info--item .item__container {
+    min-height: 400px;
+  }
+  .about__info--item .item__container:hover {
+    min-height: 450px;
+  }
+
+  .team {
+    margin-top: 0;
+  }
+  .team .team__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 

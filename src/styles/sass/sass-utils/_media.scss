@@ -1,37 +1,90 @@
 @use "../sass-utils/variables" as var;
 
-@mixin mobile {
-  @media only screen and (min-width: #{var.$mobile-width}) and (max-width: #{(var.$tablet-width)-1px}) {
-    
-  }
-}
-
 @mixin tablet {
   @media only screen and (min-width: #{var.$tablet-width}) and (max-width: #{(var.$laptop-width)-1px}) {
+    @include var.fs_tablet;
     .signUp__form {
-      width:32rem;
+      width: 32rem;
       height: 36rem;
-      .error{
+      .error {
         margin-top: 2rem;
         font-size: 1.5rem;
       }
+    }
+    .intro {
+      position: relative;
+      &__title {
+        position: absolute;
+        width: 300px;
+        top: 20%;
+        left: 5%;
+      }
+    }
+    .about {
+      &--title {
+        margin-bottom: 1rem;
+      }
+      margin-top: 5rem !important;
+      max-width: 35rem;
+      margin: 0 auto;
     }
   }
 }
 @mixin laptop {
   @media only screen and (min-width: #{var.$laptop-width}) {
-    .authentication{   
+    @include var.fs_laptop;
+    .authentication {
       &__rotated {
         min-width: 50vw;
         min-height: 60vh;
       }
     }
     .signUp__form {
-      width:34rem;
+      width: 34rem;
       height: 36rem;
-      .error{
+      .error {
         margin-top: 2rem;
         font-size: 1.5rem;
+      }
+    }
+    .player__wrapper {
+      margin-top: -7rem;
+    }
+    .intro {
+      position: relative;
+      &__title {
+        position: absolute;
+        width: 26rem;
+        top: 20%;
+        left: 5%;
+      }
+    }
+    .about {
+      &--title {
+        margin-bottom: 1rem;
+      }
+      margin-top: 5rem !important;
+      max-width: 60rem;
+      margin: 0 auto;
+      &__info {
+        min-height: 600px;
+        grid-template-columns: 1fr 1fr 1fr;
+        &--item {
+          .item__container {
+            min-height: 400px;
+            &:hover {
+              min-height: 450px;
+            }
+          }
+        }
+      }
+    }
+    .team {
+      margin-top: 0;
+      // padding-bottom: 12rem;
+      .team__wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
       }
     }
   }
