@@ -12,5 +12,6 @@
 
 // Media Queries //
 @use "./sass-utils/media";
+@include media.mobile;
 @include media.tablet;
 @include media.laptop;

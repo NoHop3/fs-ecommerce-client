@@ -13,4 +13,5 @@ export type InitialAuthState = {
   authToken: string;
   isLoggedIn: boolean;
   isInSignIn: boolean;
+  authError: string
 };

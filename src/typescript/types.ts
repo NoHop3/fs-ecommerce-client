@@ -10,13 +10,18 @@ export type valuesSignUp = {
 };
 
 export type user = {
+  _id: string;
+  __v: number;
+  orders: [];
+  favourites: [];
   email: string;
   username: string;
   password: string;
   firstName: string;
   lastName: string;
     image: string;
-    // orders, favourites
+  isAdmin: boolean;
+  hasWriteAccess: boolean;
 };
 
 export type evtKeyboardType = React.KeyboardEvent;
