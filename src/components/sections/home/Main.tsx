@@ -4,10 +4,10 @@ import {Team} from "./Team"
 
 export default function Main({ theme }: { theme: string }) {
   return (
-    <main>
+    <div className="home__wrapper">
       <Intro />
       <About />
       <Team theme={theme} />
-    </main>
+    </div>
   );
 }

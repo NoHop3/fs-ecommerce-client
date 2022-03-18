@@ -1,0 +1,88 @@
+@use "../components/button";
+@use "../sass-utils/variables" as var;
+.profile__wrapper {
+  margin-bottom: 5rem;
+
+  &--grid {
+    display: grid;
+    grid-template-rows: repeat(6, minmax(200px, 1fr));
+    grid-template-areas:
+      "image"
+      "image"
+      "username"
+      "firstName"
+      "lastName"
+      "email"
+      "buttons";
+    // text-align: center;
+    & .avatar__container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      grid-area: image;
+      &__wrapper {
+        margin-top: 2rem;
+        & img {
+          display: block;
+          height: 22rem;
+          width: 22rem;
+          border: 4px solid;
+          border-radius: 50%;
+        }
+      }
+    }
+    & .email__container {
+      grid-area: email;
+    & .error{
+        text-align: center;
+        color: var.$clr-error;
+    }
+      & .edit__group {
+        font-family: "Roboto", sans-serif;
+        // margin-left: 2rem;
+        margin-top: 0.7rem;
+        display: block;
+        transition: 0.3s ease all;
+        transform: translateY(0rem);
+        & .edit__input {
+          font-family: "Roboto", sans-serif;
+          margin: 0 auto;
+          font-size: 1.2rem;
+          padding: .1rem .75rem;
+          border-radius: 0.2rem;
+          background-color: rgb(255, 255, 255);
+          border: none;
+          width: 90%;
+          display: block;
+          border-bottom: 0.3rem solid transparent;
+          transition: 0.3s ease all;
+          &:placeholder-shown + .edit__label {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-4rem);
+          }
+        }
+        & .edit__label {
+          padding-left: 1.25rem;
+        }
+      }
+    }
+    & .username__container {
+      grid-area: username;
+      background-color: tomato;
+    }
+    & .firstName__container {
+      grid-area: firstName;
+      background-color: cornflowerblue;
+    }
+    & .lastName__container {
+      grid-area: lastName;
+      background-color: brown;
+    }
+    & .buttons__container {
+        text-align: center;
+      grid-area: buttons;
+    }
+  }
+}

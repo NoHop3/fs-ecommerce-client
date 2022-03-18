@@ -9,7 +9,7 @@ export const Main = () => {
   const { isInSignIn } = useSelector((state: RootState) => state.authState);
   const { isLaptop, isTablet } = useTemplate();
   return (
-    <div>
+    <main>
       <div className='authentication'>
         <div className='authentication__rotated'></div>
         <div className='authentication__form'>
@@ -38,6 +38,6 @@ export const Main = () => {
           />
         </div>
       </div>
-    </div>
+    </main>
   );
 };

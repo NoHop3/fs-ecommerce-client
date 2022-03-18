@@ -13,9 +13,8 @@ export default function Navigation() {
   const { isLoggedIn } = useSelector((state: RootState) => state.authState);
   const { lamp } = useSelector((state: RootState) => state.themeState);
   const handleClick = () => {
-    if(isLoggedIn)
-    dispatch(toggleIsLoggedIn())
-  }
+    if (isLoggedIn) dispatch(toggleIsLoggedIn());
+  };
   return (
     <>
       <button
@@ -43,18 +42,26 @@ export default function Navigation() {
               Products 🛒
             </Link>
           </li>
-          <li className='nav__item'>
-            <Link to={"/orders"} className='nav__link'>
-              My orders 💳
-            </Link>
-          </li>
+          {isLoggedIn ? (
+            <li className='nav__item'>
+              <Link to={"/orders"} className='nav__link'>
+                My orders 💳
+              </Link>
+            </li>
+          ) : null}
           <li className='nav__item'>
             <Link to={"/contact"} className='nav__link'>
               Contact 📇
             </Link>
           </li>
-          <li className='nav__item' >
-
+          {isLoggedIn ? (
+            <li className='nav__item'>
+              <Link to={"/profile"} className='nav__link'>
+                Profile 🧙
+              </Link>
+            </li>
+          ) : null}
+          <li className='nav__item'>
             <Link
               onClick={handleClick}
               to={!isLoggedIn ? "/authentication" : "/"}

@@ -8,6 +8,7 @@ import Contact from "./components/pages/Contact";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import { Authentication } from "./components/pages/Authentication";
+import { Profile } from "./components/pages/Profile";
 
 function App() {
   const { BrowserRouter, Routes, Route } = importTemplate();
@@ -19,9 +20,10 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path='/' element={<Home theme={pageBody}/>} />
-          <Route path='/authentication' element={<Authentication />} />
+          <Route path='/' element={<Home theme={pageBody} />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/authentication' element={<Authentication />} />
+          <Route path='/profile' element={<Profile theme={pageBody} />} />
           <Route path='*' element={<ErrorPage />} />
         </Routes>
         <Footer />

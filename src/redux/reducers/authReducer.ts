@@ -11,11 +11,11 @@ import {
 const initialState: InitialAuthState = {
   loggedUser: {
     _id: "",
-    email: "",
-    username: "",
+    email: "example",
+    username: "example",
     password: "",
-    firstName: "",
-    lastName: "",
+    firstName: "example",
+    lastName: "example",
     image: "",
     __v: 0,
     orders: [],
@@ -24,7 +24,7 @@ const initialState: InitialAuthState = {
     hasWriteAccess: false,
   },
   authToken: "",
-  isLoggedIn: false,
+  isLoggedIn: true,
   isInSignIn: false,
   authError: "",
 };

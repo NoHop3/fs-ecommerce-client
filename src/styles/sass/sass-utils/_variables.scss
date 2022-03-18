@@ -4,6 +4,7 @@ $clr-dark: #303030;
 $clr-accent: #16e0bd;
 $clr-auth: #3d8170;
 $clr-border: #303030;
+$clr-error: #AF0606;
 
 @mixin theme-colors($light-theme: true) {
   @if $light-theme {

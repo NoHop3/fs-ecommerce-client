@@ -33,6 +33,9 @@
 @mixin laptop {
   @media only screen and (min-width: #{var.$laptop-width}) {
     @include var.fs_laptop;
+    .home__wrapper{
+      height: auto;
+}
     .authentication {
       &__rotated {
         min-width: 50vw;
@@ -81,7 +84,6 @@
     }
     .team {
       margin-top: 0;
-      // padding-bottom: 12rem;
       .team__wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
