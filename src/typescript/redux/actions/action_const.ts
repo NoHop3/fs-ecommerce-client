@@ -5,3 +5,4 @@ export const TOGGLE_SIGN_IN = "TOGGLE_SIGN_IN";
 export const GET_TOKEN = "GET_TOKEN";
 export const SIGN_IN_USER = "SIGN_IN_USER";
 export const AUTH_ERROR = "AUTH_ERROR";
+export const EDIT_USER = "EDIT_USER";

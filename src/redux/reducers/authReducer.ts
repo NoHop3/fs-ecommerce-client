@@ -2,6 +2,7 @@ import { InitialAuthState } from "../../typescript/redux/reducers/reducer_types"
 import { actionType } from "../../typescript/redux/actions/action_types";
 import {
   AUTH_ERROR,
+  EDIT_USER,
   GET_TOKEN,
   SIGN_IN_USER,
   TOGGLE_LOGGED_IN,
@@ -55,6 +56,11 @@ const navReducer = (state = initialState, action: actionType) => {
       return {
         ...state,
         authError: action.payload,
+      };
+    case EDIT_USER:
+      return {
+        ...state,
+        loggedUser: action.payload,
       };
     default:
       return state;

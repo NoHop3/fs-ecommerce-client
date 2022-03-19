@@ -3,6 +3,21 @@
 @mixin tablet {
   @media only screen and (min-width: #{var.$tablet-width}) and (max-width: #{(var.$laptop-width)-1px}) {
     @include var.fs_tablet;
+    .profile__wrapper {
+      margin-bottom: 0;
+      height: 100vh;
+      &--grid {
+        grid-template-columns: repeat(2, minmax(2rem, 1fr));
+        grid-template-areas:
+          "image image"
+          "username firstName"
+          "email lastName"
+          "buttons buttons";
+        & .avatar__container {
+          margin-bottom: 1rem;
+        }
+      }
+    }
     .signUp__form {
       width: 32rem;
       height: 36rem;
@@ -33,9 +48,22 @@
 @mixin laptop {
   @media only screen and (min-width: #{var.$laptop-width}) {
     @include var.fs_laptop;
-    .home__wrapper{
+    .profile__wrapper {
+
+      &--grid {
+        grid-template-columns: repeat(4, minmax(2rem, 1fr));
+        grid-template-areas:
+          "image image image image"
+          "username email firstName lastName"
+          "buttons buttons buttons buttons";
+        & .avatar__container {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+    .home__wrapper {
       height: auto;
-}
+    }
     .authentication {
       &__rotated {
         min-width: 50vw;

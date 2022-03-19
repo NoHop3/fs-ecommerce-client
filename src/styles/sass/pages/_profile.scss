@@ -5,7 +5,7 @@
 
   &--grid {
     display: grid;
-    grid-template-rows: repeat(6, minmax(200px, 1fr));
+    grid-template-rows: repeat(6, minmax(25px));
     grid-template-areas:
       "image"
       "image"
@@ -14,7 +14,6 @@
       "lastName"
       "email"
       "buttons";
-    // text-align: center;
     & .avatar__container {
       display: flex;
       align-items: center;
@@ -34,6 +33,21 @@
     }
     & .email__container {
       grid-area: email;
+    }
+    & .username__container {
+      grid-area: username;
+    }
+    & .firstName__container {
+      grid-area: firstName;
+    }
+    & .lastName__container {
+      grid-area: lastName;
+    }
+    & .buttons__container {
+      margin: 1rem;
+        text-align: center;
+      grid-area: buttons;
+    }
     & .error{
         text-align: center;
         color: var.$clr-error;
@@ -43,7 +57,6 @@
         // margin-left: 2rem;
         margin-top: 0.7rem;
         display: block;
-        transition: 0.3s ease all;
         transform: translateY(0rem);
         & .edit__input {
           font-family: "Roboto", sans-serif;
@@ -51,12 +64,12 @@
           font-size: 1.2rem;
           padding: .1rem .75rem;
           border-radius: 0.2rem;
-          background-color: rgb(255, 255, 255);
           border: none;
           width: 90%;
           display: block;
           border-bottom: 0.3rem solid transparent;
-          transition: 0.3s ease all;
+           transition: all 0.3s;
+           margin-bottom: .5rem;
           &:placeholder-shown + .edit__label {
             opacity: 0;
             visibility: hidden;
@@ -64,25 +77,9 @@
           }
         }
         & .edit__label {
+         transition: all 0.3s;
           padding-left: 1.25rem;
         }
       }
-    }
-    & .username__container {
-      grid-area: username;
-      background-color: tomato;
-    }
-    & .firstName__container {
-      grid-area: firstName;
-      background-color: cornflowerblue;
-    }
-    & .lastName__container {
-      grid-area: lastName;
-      background-color: brown;
-    }
-    & .buttons__container {
-        text-align: center;
-      grid-area: buttons;
-    }
   }
 }

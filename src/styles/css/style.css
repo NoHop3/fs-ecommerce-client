@@ -473,7 +473,7 @@ header {
 }
 .profile__wrapper--grid {
   display: grid;
-  grid-template-rows: repeat(6, minmax(200px, 1fr));
+  grid-template-rows: repeat(6, minmax(25px));
   grid-template-areas: "image" "image" "username" "firstName" "lastName" "email" "buttons";
 }
 .profile__wrapper--grid .avatar__container {
@@ -496,53 +496,51 @@ header {
 .profile__wrapper--grid .email__container {
   grid-area: email;
 }
-.profile__wrapper--grid .email__container .error {
+.profile__wrapper--grid .username__container {
+  grid-area: username;
+}
+.profile__wrapper--grid .firstName__container {
+  grid-area: firstName;
+}
+.profile__wrapper--grid .lastName__container {
+  grid-area: lastName;
+}
+.profile__wrapper--grid .buttons__container {
+  margin: 1rem;
+  text-align: center;
+  grid-area: buttons;
+}
+.profile__wrapper--grid .error {
   text-align: center;
   color: #AF0606;
 }
-.profile__wrapper--grid .email__container .edit__group {
+.profile__wrapper--grid .edit__group {
   font-family: "Roboto", sans-serif;
   margin-top: 0.7rem;
   display: block;
-  transition: 0.3s ease all;
   transform: translateY(0rem);
 }
-.profile__wrapper--grid .email__container .edit__group .edit__input {
+.profile__wrapper--grid .edit__group .edit__input {
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
   font-size: 1.2rem;
   padding: 0.1rem 0.75rem;
   border-radius: 0.2rem;
-  background-color: white;
   border: none;
   width: 90%;
   display: block;
   border-bottom: 0.3rem solid transparent;
-  transition: 0.3s ease all;
+  transition: all 0.3s;
+  margin-bottom: 0.5rem;
 }
-.profile__wrapper--grid .email__container .edit__group .edit__input:placeholder-shown + .edit__label {
+.profile__wrapper--grid .edit__group .edit__input:placeholder-shown + .edit__label {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4rem);
 }
-.profile__wrapper--grid .email__container .edit__group .edit__label {
+.profile__wrapper--grid .edit__group .edit__label {
+  transition: all 0.3s;
   padding-left: 1.25rem;
-}
-.profile__wrapper--grid .username__container {
-  grid-area: username;
-  background-color: tomato;
-}
-.profile__wrapper--grid .firstName__container {
-  grid-area: firstName;
-  background-color: cornflowerblue;
-}
-.profile__wrapper--grid .lastName__container {
-  grid-area: lastName;
-  background-color: brown;
-}
-.profile__wrapper--grid .buttons__container {
-  text-align: center;
-  grid-area: buttons;
 }
 
 .authentication {
@@ -856,6 +854,18 @@ header {
     font-size: 1.125rem;
   }
 
+  .profile__wrapper {
+    margin-bottom: 0;
+    height: 100vh;
+  }
+  .profile__wrapper--grid {
+    grid-template-columns: repeat(2, minmax(2rem, 1fr));
+    grid-template-areas: "image image" "username firstName" "email lastName" "buttons buttons";
+  }
+  .profile__wrapper--grid .avatar__container {
+    margin-bottom: 1rem;
+  }
+
   .signUp__form {
     width: 32rem;
     height: 36rem;
@@ -899,6 +909,14 @@ header {
 
   body {
     font-size: 1.65rem;
+  }
+
+  .profile__wrapper--grid {
+    grid-template-columns: repeat(4, minmax(2rem, 1fr));
+    grid-template-areas: "image image image image" "username email firstName lastName" "buttons buttons buttons buttons";
+  }
+  .profile__wrapper--grid .avatar__container {
+    margin-bottom: 1rem;
   }
 
   .home__wrapper {
