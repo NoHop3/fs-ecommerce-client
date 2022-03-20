@@ -6,7 +6,7 @@ export type valuesSignUp = {
   password: string;
   firstName: string;
   lastName: string;
-  image: string;
+  image?: string;
 };
 
 export type user = {
@@ -19,7 +19,7 @@ export type user = {
   password: string;
   firstName: string;
   lastName: string;
-    image: string;
+    image?: any;
   isAdmin: boolean;
   hasWriteAccess: boolean;
 };

@@ -23,7 +23,8 @@ function App() {
           <Route path='/' element={<Home theme={pageBody} />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/authentication' element={<Authentication />} />
-          <Route path='/profile' element={<Profile theme={pageBody} />} />
+          <Route path='/products' element={<Authentication />} />
+          <Route path='/profile' element={<Profile/>} />
           <Route path='*' element={<ErrorPage />} />
         </Routes>
         <Footer />

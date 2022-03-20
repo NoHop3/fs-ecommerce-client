@@ -1,18 +1,83 @@
 import { memo, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { edit } from "../../../redux/actions/actions";
+
+import { authError, edit } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
 import { evtChangeType } from "../../../typescript/types";
+import { Dropzone, MIME_TYPES, DropzoneStatus } from "@mantine/dropzone";
+import {
+  Modal,
+  MantineTheme,
+  Group,
+  Text,
+  useMantineTheme,
+} from "@mantine/core";
+import { Upload, Photo, X, Icon as TablerIcon } from "tabler-icons-react";
+import axios from "axios";
 
-export const Main = ({ theme }: { theme: string }) => {
+function getIconColor(status: DropzoneStatus, theme: MantineTheme) {
+  return status.accepted
+    ? theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6]
+    : status.rejected
+    ? theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]
+    : theme.colorScheme === "dark"
+    ? theme.colors.dark[0]
+    : theme.colors.gray[7];
+}
+
+function ImageUploadIcon({
+  status,
+  ...props
+}: React.ComponentProps<TablerIcon> & { status: DropzoneStatus }) {
+  if (status.accepted) {
+    return <Upload {...props} />;
+  }
+
+  if (status.rejected) {
+    return <X {...props} />;
+  }
+
+  return <Photo {...props} />;
+}
+
+export const dropzoneChildren = (
+  status: DropzoneStatus,
+  theme: MantineTheme
+) => (
+  <Group
+    position='center'
+    spacing='xl'
+    style={{ minHeight: 220, pointerEvents: "none" }}>
+    <ImageUploadIcon
+      status={status}
+      style={{ color: getIconColor(status, theme) }}
+      size={80}
+    />
+
+    <div>
+      <Text size='xl' inline>
+        Drag an image here or click to select files
+      </Text>
+      <Text size='sm' color='dimmed' inline mt={7}>
+        Allowed extensions are png/svg/jpeg/gif
+      </Text>
+    </div>
+  </Group>
+);
+
+export const Main = () => {
+  const theme = useMantineTheme();
   const dispatch = useDispatch();
+  const [image, setImage] = useState<any | null>("/images/grey_avatar_2.svg");
   const { loggedUser } = useSelector((state: RootState) => state.authState);
   const [toSave, setToSave] = useState({
+    image: "",
     email: "",
     firstName: "",
     lastName: "",
     username: "",
   });
+  const [opened, setOpened] = useState(false);
   const handleChange = useCallback(
     (e: evtChangeType) => {
       setToSave({ ...toSave, [e.target.name]: e.target.value });
@@ -25,23 +90,68 @@ export const Main = ({ theme }: { theme: string }) => {
       firstName: "",
       lastName: "",
       username: "",
+      image: "",
     });
   };
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", "zwhjf8pn");
+    await axios
+      .post("https://api.cloudinary.com/v1_1/dtggdx3hc/image/upload", image)
+      .then((response: any) => {
+        setToSave({
+          ...toSave,
+          image: response.data.secure_url,
+        });
+      })
+      .catch((err: any) => {
+        console.log(err.response);
+        dispatch(authError(err.response.data.message));
+      });
     dispatch(edit(toSave, loggedUser._id));
   };
-  const avatar =
-    loggedUser.image === ""
-      ? "/images/grey_avatar_2.svg"
-      : `${loggedUser.image}`;
+
   return (
     <main>
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title='Drop your avatar!'
+        overlayColor={
+          theme.colorScheme === "dark"
+            ? theme.colors.dark[9]
+            : theme.colors.gray[2]
+        }
+        overlayOpacity={0.95}>
+        <Dropzone
+          accept={[
+            MIME_TYPES.png,
+            MIME_TYPES.jpeg,
+            MIME_TYPES.svg,
+            MIME_TYPES.gif,
+          ]}
+          onDrop={(file) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              setImage(reader.result);
+            };
+            reader.readAsDataURL(new Blob(file));
+            setOpened(false);
+          }}>
+          {(status) => dropzoneChildren(status, theme)}
+        </Dropzone>
+      </Modal>
+
       <div className='profile__wrapper'>
         <div className='profile__wrapper--grid'>
           <div className='avatar__container'>
-            <div className='avatar__container__wrapper'>
-              <img src={avatar} alt='Profile avatar' />
-              {/* TODO Add images to cloudinary*/}
+            <div
+              className='avatar__container__wrapper'
+              onClick={() => {
+                setOpened(true);
+              }}>
+              <img src={image} alt='Profile avatar' />
             </div>
           </div>
           <div className='email__container'>

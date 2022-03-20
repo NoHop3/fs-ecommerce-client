@@ -1,9 +1,11 @@
 import { user } from "../../types";
 import {
   AUTH_ERROR,
+  CHANGE_AVATAR,
   EDIT_USER,
   GET_TOKEN,
   SIGN_IN_USER,
+  SIGN_OUT_USER,
   TOGGLE_LOGGED_IN,
   TOGGLE_NAV,
   TOGGLE_SIGN_IN,
@@ -36,9 +38,16 @@ export type signInAction = {
   type: typeof SIGN_IN_USER;
   payload: user;
 };
+export type signOutAction = {
+  type: typeof SIGN_OUT_USER;
+};
 export type editUserAction = {
   type: typeof EDIT_USER;
   payload: user;
+};
+export type changeAvatarAction = {
+  type: typeof CHANGE_AVATAR;
+  payload: string;
 };
 
 export type actionType =
@@ -48,5 +57,7 @@ export type actionType =
   | toggleSignInAction
   | getTokenAction
   | signInAction
+  | signOutAction
   | authErrorAction
-  | editUserAction;
+  | editUserAction
+  | changeAvatarAction;

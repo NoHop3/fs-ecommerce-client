@@ -15,6 +15,7 @@ export const Main = () => {
         <div className='authentication__form'>
           <SignIn
             style={{
+              transition: "all 1s",
               transform: isInSignIn
                 ? isLaptop
                   ? "translate(0%, 0%)"
@@ -27,6 +28,7 @@ export const Main = () => {
 
           <SignUp
             style={{
+              transition: "all 1s",
               transform: !isInSignIn
                 ? isLaptop
                   ? "translate(0%, 0%)"

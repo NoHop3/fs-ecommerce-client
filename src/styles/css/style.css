@@ -530,7 +530,6 @@ header {
   width: 90%;
   display: block;
   border-bottom: 0.3rem solid transparent;
-  transition: all 0.3s;
   margin-bottom: 0.5rem;
 }
 .profile__wrapper--grid .edit__group .edit__input:placeholder-shown + .edit__label {
@@ -539,7 +538,7 @@ header {
   transform: translateY(-4rem);
 }
 .profile__wrapper--grid .edit__group .edit__label {
-  transition: all 0.3s;
+  transition: all 0.5s;
   padding-left: 1.25rem;
 }
 
@@ -917,6 +916,10 @@ header {
   }
   .profile__wrapper--grid .avatar__container {
     margin-bottom: 1rem;
+  }
+  .profile__wrapper--grid .avatar__container__wrapper img {
+    height: 26rem;
+    width: 26rem;
   }
 
   .home__wrapper {

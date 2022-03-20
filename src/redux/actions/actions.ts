@@ -2,9 +2,11 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import {
   AUTH_ERROR,
+  CHANGE_AVATAR,
   EDIT_USER,
   GET_TOKEN,
   SIGN_IN_USER,
+  SIGN_OUT_USER,
   TOGGLE_LOGGED_IN,
   TOGGLE_NAV,
   TOGGLE_SIGN_IN,
@@ -12,9 +14,11 @@ import {
 } from "../../typescript/redux/actions/action_const";
 import {
   authErrorAction,
+  changeAvatarAction,
   editUserAction,
   getTokenAction,
   signInAction,
+  signOutAction,
   toggleIsLoggedInAction,
   toggleNavAction,
   toggleSignInAction,
@@ -58,6 +62,11 @@ export function signInUser(user: user): signInAction {
     payload: user,
   };
 }
+export function signOutUser(): signOutAction {
+  return {
+    type: SIGN_OUT_USER,
+  };
+}
 
 export function editUser(editedUser: user): editUserAction {
   return {
@@ -70,6 +79,12 @@ export function authError(error: string): authErrorAction {
   return {
     type: AUTH_ERROR,
     payload: error,
+  };
+}
+export function changeAvatar(image: string): changeAvatarAction {
+  return {
+    type: CHANGE_AVATAR,
+    payload: image,
   };
 }
 
@@ -92,27 +107,34 @@ export const signUpAction = async (values: valuesSignUp) => {
 };
 
 export function signIn(values: Partial<valuesSignUp>) {
-  return async (dispatch: Dispatch) => {
-    await axios
+  return (dispatch: Dispatch) => {
+    axios
       .post("http://localhost:5000/api/v1/users/login", {
         email: values.email,
         username: values.username,
         password: values.password,
       })
       .then((res: any) => {
+        console.log(res.data.loginUser);
         dispatch(signInUser(res.data.loginUser));
       })
       .catch((err: any) => {
+        console.log(err.response);
         dispatch(authError(err.response.data.message));
       });
   };
 }
 
 export function edit(values: Partial<user>, userId: string) {
+  console.log(values);
   return async (dispatch: Dispatch) => {
     await axios
       .put(`http://localhost:5000/api/v1/users/${userId}`, {
-        values,
+        email: values.email !== "" ? values.email : null,
+        username: values.username !== "" ? values.username : null,
+        firstName: values.firstName !== "" ? values.firstName : null,
+        lastName: values.lastName !== "" ? values.lastName : null,
+        image: values.image !== "" ? values.image : null,
       })
       .then((res) => {
         dispatch(editUser(res.data));

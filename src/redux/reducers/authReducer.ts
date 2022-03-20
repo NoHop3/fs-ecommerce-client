@@ -5,6 +5,7 @@ import {
   EDIT_USER,
   GET_TOKEN,
   SIGN_IN_USER,
+  SIGN_OUT_USER,
   TOGGLE_LOGGED_IN,
   TOGGLE_SIGN_IN,
 } from "../../typescript/redux/actions/action_const";
@@ -12,11 +13,11 @@ import {
 const initialState: InitialAuthState = {
   loggedUser: {
     _id: "",
-    email: "example",
-    username: "example",
+    email: "",
+    username: "",
     password: "",
-    firstName: "example",
-    lastName: "example",
+    firstName: "",
+    lastName: "",
     image: "",
     __v: 0,
     orders: [],
@@ -25,7 +26,7 @@ const initialState: InitialAuthState = {
     hasWriteAccess: false,
   },
   authToken: "",
-  isLoggedIn: true,
+  isLoggedIn: false,
   isInSignIn: false,
   authError: "",
 };
@@ -51,7 +52,28 @@ const navReducer = (state = initialState, action: actionType) => {
       return {
         ...state,
         loggedUser: action.payload,
+        isLoggedIn: true,
       };
+    case SIGN_OUT_USER:
+      return {
+        ...state,
+        loggedUser: Object.assign(state.loggedUser, {
+          _id: "",
+          email: "",
+          username: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+          image: "",
+          __v: 0,
+          orders: [],
+          favourites: [],
+          isAdmin: false,
+          hasWriteAccess: false,
+        }),
+        isLoggedIn: false,
+      };
+
     case AUTH_ERROR:
       return {
         ...state,

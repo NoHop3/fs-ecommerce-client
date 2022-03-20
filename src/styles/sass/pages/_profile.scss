@@ -45,41 +45,39 @@
     }
     & .buttons__container {
       margin: 1rem;
-        text-align: center;
+      text-align: center;
       grid-area: buttons;
     }
-    & .error{
-        text-align: center;
-        color: var.$clr-error;
+    & .error {
+      text-align: center;
+      color: var.$clr-error;
     }
-      & .edit__group {
+    & .edit__group {
+      font-family: "Roboto", sans-serif;
+      margin-top: 0.7rem;
+      display: block;
+      transform: translateY(0rem);
+      & .edit__input {
         font-family: "Roboto", sans-serif;
-        // margin-left: 2rem;
-        margin-top: 0.7rem;
+        margin: 0 auto;
+        font-size: 1.2rem;
+        padding: 0.1rem 0.75rem;
+        border-radius: 0.2rem;
+        border: none;
+        width: 90%;
         display: block;
-        transform: translateY(0rem);
-        & .edit__input {
-          font-family: "Roboto", sans-serif;
-          margin: 0 auto;
-          font-size: 1.2rem;
-          padding: .1rem .75rem;
-          border-radius: 0.2rem;
-          border: none;
-          width: 90%;
-          display: block;
-          border-bottom: 0.3rem solid transparent;
-           transition: all 0.3s;
-           margin-bottom: .5rem;
-          &:placeholder-shown + .edit__label {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-4rem);
-          }
-        }
-        & .edit__label {
-         transition: all 0.3s;
-          padding-left: 1.25rem;
+        border-bottom: 0.3rem solid transparent;
+        margin-bottom: 0.5rem;
+        &:placeholder-shown + .edit__label {
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-4rem);
         }
       }
+      & .edit__label {
+        transition: all  .5s;
+        padding-left: 1.25rem;
+      }
+    }
   }
 }

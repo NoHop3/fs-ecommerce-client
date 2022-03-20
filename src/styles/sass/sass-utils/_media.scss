@@ -58,6 +58,12 @@
           "buttons buttons buttons buttons";
         & .avatar__container {
           margin-bottom: 1rem;
+          &__wrapper {
+        & img {
+          height: 26rem;
+          width: 26rem;
+        }
+      }
         }
       }
     }

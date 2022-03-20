@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
+  signOutUser,
   toggleIsLoggedIn,
   toggleNav,
   toggleTheme,
@@ -13,7 +14,10 @@ export default function Navigation() {
   const { isLoggedIn } = useSelector((state: RootState) => state.authState);
   const { lamp } = useSelector((state: RootState) => state.themeState);
   const handleClick = () => {
-    if (isLoggedIn) dispatch(toggleIsLoggedIn());
+    if (isLoggedIn) {
+      dispatch(toggleIsLoggedIn());
+      dispatch(signOutUser());
+    }
   };
   return (
     <>
@@ -37,11 +41,13 @@ export default function Navigation() {
               Home 🏠
             </Link>
           </li>
-          <li className='nav__item'>
-            <Link to={"/products"} className='nav__link'>
-              Products 🛒
-            </Link>
-          </li>
+          {isLoggedIn ? (
+            <li className='nav__item'>
+              <Link to={"/products"} className='nav__link'>
+                Products 🛒
+              </Link>
+            </li>
+          ) : null}
           {isLoggedIn ? (
             <li className='nav__item'>
               <Link to={"/orders"} className='nav__link'>

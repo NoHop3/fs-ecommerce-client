@@ -2,19 +2,14 @@ import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  signIn,
-  toggleIsLoggedIn,
-  toggleSignIn,
-} from "../../../../redux/actions/actions";
+import { signIn, toggleSignIn } from "../../../../redux/actions/actions";
 import { RootState } from "../../../../typescript/redux/store";
 import { useNavigate } from "react-router-dom";
 
 export const SignIn = ({ style }: any) => {
   const dispatch = useDispatch();
-  const {loggedUser, authError} = useSelector((state: RootState) => state.authState);
+  const {authError} = useSelector((state: RootState) => state.authState);
   const navigate = useNavigate();
-  console.log("->"+loggedUser);
   return (
     <div className='authentication__form--signIn' style={style}>
       <Formik
@@ -29,10 +24,8 @@ export const SignIn = ({ style }: any) => {
         }}
         validationSchema={userSchema}
         onSubmit={(values) => {
-          console.log(values);
           dispatch(signIn(values));
-          loggedUser._id!=='' ? dispatch(toggleIsLoggedIn()) : console.log(loggedUser);
-          loggedUser._id !== "" ? navigate("/") : console.log("Error...");
+          authError === "" ? navigate("/") : console.log(authError);
         }}>
         {({ errors, touched }) => (
           <Form className='signUp__form'>
@@ -90,9 +83,7 @@ export const SignIn = ({ style }: any) => {
                 />
               </button>
             </div>
-            <div className="error">
-              {authError}
-            </div>
+            <div className='error'>{authError}</div>
           </Form>
         )}
       </Formik>
