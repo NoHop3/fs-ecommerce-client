@@ -5,11 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIn, toggleSignIn } from "../../../../redux/actions/actions";
 import { RootState } from "../../../../typescript/redux/store";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const SignIn = ({ style }: any) => {
   const dispatch = useDispatch();
-  const {authError} = useSelector((state: RootState) => state.authState);
+  const { isLoggedIn, authError } = useSelector(
+    (state: RootState) => state.authState
+  );
   const navigate = useNavigate();
+  useEffect(() => {
+    isLoggedIn ? navigate("/") : console.log(authError);
+  }, [isLoggedIn, navigate, authError]);
   return (
     <div className='authentication__form--signIn' style={style}>
       <Formik
@@ -25,14 +31,13 @@ export const SignIn = ({ style }: any) => {
         validationSchema={userSchema}
         onSubmit={(values) => {
           dispatch(signIn(values));
-          authError === "" ? navigate("/") : console.log(authError);
         }}>
         {({ errors, touched }) => (
           <Form className='signUp__form'>
             <h2>Sign in now!</h2>
 
             <div className='form-field'>
-              <Field id='email' name='email'></Field>
+              <Field name='email'></Field>
               {errors.email && touched.email ? (
                 <div className='Errors'>{errors.email}</div>
               ) : null}
@@ -40,7 +45,7 @@ export const SignIn = ({ style }: any) => {
             </div>
 
             <div className='form-field'>
-              <Field id='username' name='username'></Field>
+              <Field name='username'></Field>
               {errors.username && touched.username ? (
                 <div className='Errors'>{errors.username}</div>
               ) : null}
@@ -48,17 +53,14 @@ export const SignIn = ({ style }: any) => {
             </div>
 
             <div className='form-field'>
-              <Field id='password' type='password' name='password'></Field>
+              <Field type='password' name='password'></Field>
               {errors.password && touched.password ? (
                 <div className='Errors'>{errors.password}</div>
               ) : null}
               <label htmlFor='password'>Password</label>
             </div>
             <div className='form-field'>
-              <Field
-                type='password'
-                id='confirmPassword'
-                name='confirmPassword'></Field>
+              <Field type='password' name='confirmPassword'></Field>
               {errors.confirmPassword && touched.confirmPassword ? (
                 <div className='Errors'>{errors.confirmPassword}</div>
               ) : null}

@@ -464,6 +464,14 @@ header {
   transition: transform 200ms ease-in-out;
 }
 
+button:disabled,
+button[disabled] {
+  cursor: not-allowed;
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 .btn:hover {
   transform: scale(1.1);
 }

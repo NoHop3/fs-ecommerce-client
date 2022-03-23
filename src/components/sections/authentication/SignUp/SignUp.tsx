@@ -1,14 +1,15 @@
-import { useDispatch, useSelector} from "react-redux";
-import { signUpAction, toggleSignIn } from "../../../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp, toggleSignIn } from "../../../../redux/actions/actions";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { RootState } from "../../../../typescript/redux/store";
 
 export const SignUp = ({ style }: any) => {
   const dispatch = useDispatch();
-    const {authError } = useSelector(
-      (state: RootState) => state.authState
-    );
+  const { authError } = useSelector((state: RootState) => state.authState);
+  const handleBtnClick = () => {
+    dispatch(toggleSignIn());
+  };
   return (
     <div className='authentication__form--signUp' style={style}>
       <Formik
@@ -19,12 +20,11 @@ export const SignUp = ({ style }: any) => {
           confirmPassword: "",
           firstName: "",
           lastName: "",
-          image: "",
         }}
         validationSchema={userSchema}
         onSubmit={(values) => {
-          console.log(values);
-          dispatch(signUpAction(values));
+          dispatch(signUp(values));
+          handleBtnClick();
         }}>
         {({ errors, touched }) => (
           <Form className='signUp__form'>
@@ -82,12 +82,7 @@ export const SignUp = ({ style }: any) => {
               </div>
             </div>
             <div className='signUp__form__button'>
-              <button
-                type='button'
-                className='prvBtn'
-                onClick={() => {
-                  dispatch(toggleSignIn());
-                }}>
+              <button type='button' className='prvBtn' onClick={handleBtnClick}>
                 <img
                   src='https://img.icons8.com/ios-glyphs/38/000000/skip-to-start--v2.png'
                   alt=''

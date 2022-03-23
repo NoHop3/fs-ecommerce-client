@@ -68,10 +68,12 @@ export const dropzoneChildren = (
 export const Main = () => {
   const theme = useMantineTheme();
   const dispatch = useDispatch();
-  const [image, setImage] = useState<any | null>("/images/grey_avatar_2.svg");
   const { loggedUser } = useSelector((state: RootState) => state.authState);
+  const [image, setImage] = useState(
+    loggedUser.image === "" ? "/images/grey_avatar_2.svg" : loggedUser.image
+  );
   const [toSave, setToSave] = useState({
-    image: "",
+    image: image,
     email: "",
     firstName: "",
     lastName: "",
@@ -84,34 +86,34 @@ export const Main = () => {
     },
     [toSave]
   );
-  const handleCancelClick = () => {
+  const handleCancelClick = useCallback(() => {
     setToSave({
+      image: loggedUser.image,
       email: "",
       firstName: "",
       lastName: "",
       username: "",
-      image: "",
     });
-  };
-  const handleSaveClick = async () => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "zwhjf8pn");
-    await axios
-      .post("https://api.cloudinary.com/v1_1/dtggdx3hc/image/upload", image)
-      .then((response: any) => {
-        setToSave({
-          ...toSave,
-          image: response.data.secure_url,
-        });
-      })
-      .catch((err: any) => {
-        console.log(err.response);
-        dispatch(authError(err.response.data.message));
-      });
-    dispatch(edit(toSave, loggedUser._id));
-  };
-
+    setImage(loggedUser.image);
+  }, [loggedUser]);
+  const handleSaveClick = useCallback(() => {
+    console.log(toSave.image);
+    dispatch(
+      edit(
+        {
+          image: toSave.image,
+          email: toSave.email === "" ? loggedUser.email : toSave.email,
+          username:
+            toSave.username === "" ? loggedUser.username : toSave.username,
+          firstName:
+            toSave.firstName === "" ? loggedUser.firstName : toSave.firstName,
+          lastName:
+            toSave.lastName === "" ? loggedUser.lastName : toSave.lastName,
+        },
+        loggedUser._id
+      )
+    );
+  }, [dispatch, loggedUser, toSave]);
   return (
     <main>
       <Modal
@@ -134,7 +136,24 @@ export const Main = () => {
           onDrop={(file) => {
             const reader = new FileReader();
             reader.onload = () => {
-              setImage(reader.result);
+              const formData = new FormData();
+              formData.append("file", (reader.result as string));
+              formData.append("upload_preset", "zwhjf8pn");
+              axios
+                .post(
+                  "https://api.cloudinary.com/v1_1/dtggdx3hc/image/upload",
+                  formData
+                )
+                .then((response: any) => {
+                  setToSave({
+                    ...toSave,
+                    image: response.data.secure_url,
+                  });
+                  setImage(response.data.secure_url);
+                })
+                .catch((err: any) => {
+                  dispatch(authError(err.response.data.message));
+                });
             };
             reader.readAsDataURL(new Blob(file));
             setOpened(false);
@@ -236,6 +255,15 @@ export const Main = () => {
               style={{
                 marginRight: ".75rem",
               }}
+              disabled={
+                toSave.email !== "" ||
+                toSave.firstName !== "" ||
+                toSave.lastName !== "" ||
+                toSave.username !== "" ||
+                image !== loggedUser.image
+                  ? false
+                  : true
+              }
               onClick={handleSaveClick}>
               apply
             </button>

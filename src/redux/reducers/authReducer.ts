@@ -41,6 +41,7 @@ const navReducer = (state = initialState, action: actionType) => {
     case TOGGLE_SIGN_IN:
       return {
         ...state,
+        authError:"",
         isInSignIn: !state.isInSignIn,
       };
     case TOGGLE_LOGGED_IN:
@@ -82,7 +83,7 @@ const navReducer = (state = initialState, action: actionType) => {
     case EDIT_USER:
       return {
         ...state,
-        loggedUser: action.payload,
+        loggedUser: Object.assign(state.loggedUser, action.payload),
       };
     default:
       return state;

@@ -88,15 +88,15 @@ export function changeAvatar(image: string): changeAvatarAction {
   };
 }
 
-export const signUpAction = async (values: valuesSignUp) => {
-  await axios
+export function signUp(values: valuesSignUp){
+  console.log(values)
+  axios
     .post("http://localhost:5000/api/v1/users", {
       email: values.email,
       username: values.username,
       firstName: values.firstName,
       lastName: values.lastName,
       password: values.password,
-      image: values.image,
     })
     .then((res: any) => {
       console.log(res.data);
@@ -115,7 +115,6 @@ export function signIn(values: Partial<valuesSignUp>) {
         password: values.password,
       })
       .then((res: any) => {
-        console.log(res.data.loginUser);
         dispatch(signInUser(res.data.loginUser));
       })
       .catch((err: any) => {
@@ -127,16 +126,11 @@ export function signIn(values: Partial<valuesSignUp>) {
 
 export function edit(values: Partial<user>, userId: string) {
   console.log(values);
-  return async (dispatch: Dispatch) => {
-    await axios
-      .put(`http://localhost:5000/api/v1/users/${userId}`, {
-        email: values.email !== "" ? values.email : null,
-        username: values.username !== "" ? values.username : null,
-        firstName: values.firstName !== "" ? values.firstName : null,
-        lastName: values.lastName !== "" ? values.lastName : null,
-        image: values.image !== "" ? values.image : null,
-      })
+  return (dispatch: Dispatch) => {
+    axios
+      .put(`http://localhost:5000/api/v1/users/${userId}`, values)
       .then((res) => {
+        console.log(res.data)
         dispatch(editUser(res.data));
       })
       .catch((err: any) => {
