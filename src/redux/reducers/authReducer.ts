@@ -1,6 +1,7 @@
 import { InitialAuthState } from "../../typescript/redux/reducers/reducer_types";
 import { actionType } from "../../typescript/redux/actions/action_types";
 import {
+  ADD_TO_FAVS,
   AUTH_ERROR,
   EDIT_USER,
   GET_TOKEN,
@@ -13,15 +14,15 @@ import {
 const initialState: InitialAuthState = {
   loggedUser: {
     _id: "",
+    favourites: [],
+    __v: 0,
+    image: "",
     email: "",
     username: "",
     password: "",
     firstName: "",
     lastName: "",
-    image: "",
-    __v: 0,
     orders: [],
-    favourites: [],
     isAdmin: false,
     hasWriteAccess: false,
   },
@@ -41,7 +42,7 @@ const navReducer = (state = initialState, action: actionType) => {
     case TOGGLE_SIGN_IN:
       return {
         ...state,
-        authError:"",
+        authError: "",
         isInSignIn: !state.isInSignIn,
       };
     case TOGGLE_LOGGED_IN:
@@ -79,6 +80,24 @@ const navReducer = (state = initialState, action: actionType) => {
       return {
         ...state,
         authError: action.payload,
+      };
+    case ADD_TO_FAVS:
+      return {
+        ...state,
+        loggedUser: Object.assign(state.loggedUser, {
+          ...state.loggedUser,
+          favourites: [
+            ...(state.loggedUser.favourites.find(
+              (product) => product === action.payload
+            ) === undefined
+              ? [...state.loggedUser.favourites, action.payload]
+              : [
+                  ...state.loggedUser.favourites.filter(
+                    (product) => product !== action.payload
+                  ),
+                ]),
+          ],
+        }),
       };
     case EDIT_USER:
       return {

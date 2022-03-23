@@ -1,8 +1,11 @@
-import { user } from "../../types";
+import { product, user } from "../../types";
 import {
+  ADD_TO_CART,
+  ADD_TO_FAVS,
   AUTH_ERROR,
-  CHANGE_AVATAR,
   EDIT_USER,
+  EMPTY_CART,
+  FETCH_PRODUCTS,
   GET_TOKEN,
   SIGN_IN_USER,
   SIGN_OUT_USER,
@@ -45,9 +48,21 @@ export type editUserAction = {
   type: typeof EDIT_USER;
   payload: user;
 };
-export type changeAvatarAction = {
-  type: typeof CHANGE_AVATAR;
+export type fetchProductsAction = {
+  type: typeof FETCH_PRODUCTS;
+  payload: product[];
+};
+
+export type addToFavsAction = {
+  type: typeof ADD_TO_FAVS;
   payload: string;
+};
+export type addToCartAction = {
+  type: typeof ADD_TO_CART;
+  payload: product;
+};
+export type emptyCartAction = {
+  type: typeof EMPTY_CART;
 };
 
 export type actionType =
@@ -60,4 +75,7 @@ export type actionType =
   | signOutAction
   | authErrorAction
   | editUserAction
-  | changeAvatarAction;
+  | fetchProductsAction
+  | addToFavsAction
+  | addToCartAction
+  | emptyCartAction;

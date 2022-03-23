@@ -1,4 +1,4 @@
-import { user } from "../../types";
+import { product, user } from "../../types";
 
 export type InitialNavState = {
   navClass: string;
@@ -13,5 +13,11 @@ export type InitialAuthState = {
   authToken: string;
   isLoggedIn: boolean;
   isInSignIn: boolean;
-  authError: string
+  authError: string;
+};
+
+export type InitialProductState = {
+  products: product[];
+  cart: product[];
+  totalPrice: number;
 };

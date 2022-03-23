@@ -9,6 +9,9 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import { Authentication } from "./components/pages/Authentication";
 import { Profile } from "./components/pages/Profile";
+import { Products } from "./components/pages/Products";
+import { Orders } from "./components/pages/Orders";
+import { Cart } from "./components/pages/Cart";
 
 function App() {
   const { BrowserRouter, Routes, Route } = importTemplate();
@@ -23,8 +26,10 @@ function App() {
           <Route path='/' element={<Home theme={pageBody} />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/authentication' element={<Authentication />} />
-          <Route path='/products' element={<Authentication />} />
-          <Route path='/profile' element={<Profile/>} />
+          <Route path='/products' element={<Products />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<ErrorPage />} />
         </Routes>
         <Footer />

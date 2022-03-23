@@ -3,6 +3,23 @@
 @mixin tablet {
   @media only screen and (min-width: #{var.$tablet-width}) and (max-width: #{(var.$laptop-width)-1px}) {
     @include var.fs_tablet;
+    .products__wrapper{
+    height: 100%;
+    &--grid{
+        & .grid__item{
+            & .deleteBtn, .favBtn, .cartBtn{
+                width: 60px;
+            }
+            & .favBtn, .cartBtn{
+              top:0%;
+                left:90%;
+            }
+            & .cartBtn{
+              top:20%;
+            }
+        }
+    }
+}
     .profile__wrapper {
       margin-bottom: 0;
       height: 100vh;
@@ -48,6 +65,41 @@
 @mixin laptop {
   @media only screen and (min-width: #{var.$laptop-width}) {
     @include var.fs_laptop;
+    .products__wrapper{
+      margin-bottom: 4.9rem;
+    &--grid{
+      grid-template-columns: repeat(5, minmax(18rem,1fr));
+        text-align: center;
+        display: grid;
+        gap: .1rem;
+        & .grid__item{
+            position: relative;
+            &--img{
+                display: block;
+                width: 18rem;
+                aspect-ratio: 1;
+            }
+            & .deleteBtn, .favBtn, .cartBtn{
+                position: absolute;
+                top: 0;
+                display: block;
+                width: 30px;
+            }
+            & .favBtn, .cartBtn{
+                top:0%;
+                left:85%;
+            }
+            & .cartBtn{
+              top:15%;
+            }
+            
+        }
+        & .addBtn{
+              grid-column: 3 / 4;
+              margin-bottom: 1rem;
+            }
+    }
+}
     .profile__wrapper {
 
       &--grid {
@@ -122,6 +174,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
       }
+      margin-bottom: 5rem;
     }
   }
 }

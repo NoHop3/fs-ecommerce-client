@@ -1,9 +1,12 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import {
+  ADD_TO_CART,
+  ADD_TO_FAVS,
   AUTH_ERROR,
-  CHANGE_AVATAR,
   EDIT_USER,
+  EMPTY_CART,
+  FETCH_PRODUCTS,
   GET_TOKEN,
   SIGN_IN_USER,
   SIGN_OUT_USER,
@@ -13,9 +16,12 @@ import {
   TOGGLE_THEME,
 } from "../../typescript/redux/actions/action_const";
 import {
+  addToCartAction,
+  addToFavsAction,
   authErrorAction,
-  changeAvatarAction,
   editUserAction,
+  emptyCartAction,
+  fetchProductsAction,
   getTokenAction,
   signInAction,
   signOutAction,
@@ -24,7 +30,7 @@ import {
   toggleSignInAction,
   toggleThemeAction,
 } from "../../typescript/redux/actions/action_types";
-import { user, valuesSignUp } from "../../typescript/types";
+import { product, user, valuesSignUp } from "../../typescript/types";
 
 export function toggleTheme(): toggleThemeAction {
   return {
@@ -81,15 +87,32 @@ export function authError(error: string): authErrorAction {
     payload: error,
   };
 }
-export function changeAvatar(image: string): changeAvatarAction {
+export function fetchProducts(products: product[]): fetchProductsAction {
   return {
-    type: CHANGE_AVATAR,
-    payload: image,
+    type: FETCH_PRODUCTS,
+    payload: products,
+  };
+}
+export function addToFavs(favId: string): addToFavsAction {
+  return {
+    type: ADD_TO_FAVS,
+    payload: favId,
+  };
+}
+export function addToCart(prod: product): addToCartAction {
+  return {
+    type: ADD_TO_CART,
+    payload: prod,
+  };
+}
+export function emptyCart(): emptyCartAction {
+  return {
+    type: EMPTY_CART,
   };
 }
 
-export function signUp(values: valuesSignUp){
-  console.log(values)
+export function signUp(values: valuesSignUp) {
+  console.log(values);
   axios
     .post("http://localhost:5000/api/v1/users", {
       email: values.email,
@@ -104,7 +127,7 @@ export function signUp(values: valuesSignUp){
     .catch((err: any) => {
       console.log("Error -> " + err.response.data.message);
     });
-};
+}
 
 export function signIn(values: Partial<valuesSignUp>) {
   return (dispatch: Dispatch) => {
@@ -130,11 +153,25 @@ export function edit(values: Partial<user>, userId: string) {
     axios
       .put(`http://localhost:5000/api/v1/users/${userId}`, values)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         dispatch(editUser(res.data));
       })
       .catch((err: any) => {
         dispatch(authError(err.response.data.message));
+      });
+  };
+}
+
+export function getProducts() {
+  return (dispatch: Dispatch) => {
+    axios
+      .get("http://localhost:5000/api/v1/products")
+      .then((res) => {
+        console.log(res.data);
+        dispatch(fetchProducts(res.data));
+      })
+      .catch((err: any) => {
+        console.log(err.response.data.message);
       });
   };
 }

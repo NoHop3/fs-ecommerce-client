@@ -13,7 +13,7 @@ export type user = {
   _id: string;
   __v: number;
   orders: [];
-  favourites: [];
+  favourites: string[];
   email: string;
   username: string;
   password: string;
@@ -22,6 +22,16 @@ export type user = {
     image?: any;
   isAdmin: boolean;
   hasWriteAccess: boolean;
+};
+
+export type product = {
+  _id: string;
+  __v: number;
+  name: string;
+  image: string;
+  price: number;
+  category?: string;
+  color?: string;
 };
 
 export type evtKeyboardType = React.KeyboardEvent;

@@ -1,0 +1,30 @@
+.products__wrapper{
+    height: 100%;
+    &--grid{
+        list-style-type: none;
+        text-align: center;
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 4.9rem;
+        & .grid__item{
+            position: relative;
+            &--img{
+                display: block;
+                width: 100vw;
+            }
+            & .deleteBtn, .favBtn, .cartBtn{
+                position: absolute;
+                top: 0;
+                display: block;
+                width: 30px;
+            }
+            & .favBtn, .cartBtn{
+                top:40%;
+                left:90%;
+            }
+            & .cartBtn{
+                top:33%;
+            }
+        }
+    }
+}

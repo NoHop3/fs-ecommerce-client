@@ -41,17 +41,16 @@ export default function Navigation() {
               Home 🏠
             </Link>
           </li>
+          <li className='nav__item'>
+            <Link to={"/products"} className='nav__link'>
+              Products 🛒
+            </Link>
+          </li>
+
           {isLoggedIn ? (
             <li className='nav__item'>
-              <Link to={"/products"} className='nav__link'>
-                Products 🛒
-              </Link>
-            </li>
-          ) : null}
-          {isLoggedIn ? (
-            <li className='nav__item'>
-              <Link to={"/orders"} className='nav__link'>
-                My orders 💳
+              <Link to={"/cart"} className='nav__link'>
+                My Cart 💳
               </Link>
             </li>
           ) : null}
