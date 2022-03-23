@@ -24,11 +24,11 @@ export const Main = () => {
             <li className='grid__item' key={shopItem._id}>
               <img
                 className='grid__item__details--img'
-                src={shopItem.image}
+                // src={shopItem.productId?.image}
                 alt='Shop item from cart'
               />
               <div className='grid__item__details'>
-                <p className='grid__item__details--name'>{shopItem.name}</p>
+                <p className='grid__item__details--name'>{shopItem.productId?.toString}</p>
 
                 <p className='grid__item__details--price'>
                   {shopItem.price} dkk
@@ -57,7 +57,7 @@ export const Main = () => {
         </ul>
         <div className='totalOrder'>
           <div className='actions'>
-            <button className='btn orderBtn'>Order</button>
+            <button className='btn orderBtn'>Order: {}</button>
             <button className='btn orderBtn' onClick={handleDeleteAllClick}>
               Delete all
             </button>

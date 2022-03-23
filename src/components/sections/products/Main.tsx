@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addToCart,
+  addOrderLine,
   addToFavs,
   edit,
   getProducts,
+  removeOrderLine,
 } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
 import { product } from "../../../typescript/types";
@@ -17,7 +18,8 @@ export const Main = () => {
   );
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
+    console.log(cart);
+  }, [dispatch, cart]);
   const handleDeleteClick = () => {
     // dispatch(deleteProduct(productId))
   };
@@ -28,7 +30,14 @@ export const Main = () => {
   };
   const handleAddProduct = () => {};
   const handleCartClick = (prod: product) => {
-    dispatch(addToCart(prod));
+    const orderLine = {
+      quantity: 1,
+      price: prod.price,
+    };
+    dispatch(addOrderLine(orderLine, loggedUser._id, prod._id));
+  };
+  const handleCartRemoveClick = (prodId: string) => {
+    dispatch(removeOrderLine(loggedUser._id, prodId));
   };
   return (
     <main>
@@ -52,7 +61,7 @@ export const Main = () => {
                 alt=''
               />
             ) : null}
-            {cart.find((item) => item._id === product._id) === undefined ? (
+            {cart.find((item) => item.productId === product._id) === undefined ? (
               <img
                 onClick={() => handleCartClick(product)}
                 className='cartBtn'
@@ -61,7 +70,7 @@ export const Main = () => {
               />
             ) : (
               <img
-                onClick={() => handleCartClick(product)}
+                onClick={() => handleCartRemoveClick(product._id)}
                 className='cartBtn'
                 src='https://media.istockphoto.com/vectors/shopping-cart-line-icon-black-editable-stroke-trolley-basket-business-vector-id1201806395?k=20&m=1201806395&s=612x612&w=0&h=vEFOKMvftWLO7KD6CkGq5UNOmuGw-9DYZZF1jwiVHPI='
                 alt=''

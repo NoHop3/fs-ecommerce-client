@@ -8,6 +8,7 @@ import {
   EMPTY_CART,
   FETCH_PRODUCTS,
   GET_TOKEN,
+  REMOVE_FROM_CART,
   SIGN_IN_USER,
   SIGN_OUT_USER,
   TOGGLE_LOGGED_IN,
@@ -23,6 +24,7 @@ import {
   emptyCartAction,
   fetchProductsAction,
   getTokenAction,
+  removeFromCartAction,
   signInAction,
   signOutAction,
   toggleIsLoggedInAction,
@@ -30,7 +32,7 @@ import {
   toggleSignInAction,
   toggleThemeAction,
 } from "../../typescript/redux/actions/action_types";
-import { product, user, valuesSignUp } from "../../typescript/types";
+import { orderLine, product, user, valuesSignUp } from "../../typescript/types";
 
 export function toggleTheme(): toggleThemeAction {
   return {
@@ -99,10 +101,16 @@ export function addToFavs(favId: string): addToFavsAction {
     payload: favId,
   };
 }
-export function addToCart(prod: product): addToCartAction {
+export function addToCart(orderLine: orderLine): addToCartAction {
   return {
     type: ADD_TO_CART,
-    payload: prod,
+    payload: orderLine,
+  };
+}
+export function removeFromCart(productId: string): removeFromCartAction {
+  return {
+    type: REMOVE_FROM_CART,
+    payload: productId,
   };
 }
 export function emptyCart(): emptyCartAction {
@@ -172,6 +180,40 @@ export function getProducts() {
       })
       .catch((err: any) => {
         console.log(err.response.data.message);
+      });
+  };
+}
+export function addOrderLine(
+  orderLine: Partial<orderLine>,
+  userId: string,
+  productId: string
+) {
+  return (dispatch: Dispatch) => {
+    axios
+      .post(
+        `http://localhost:5000/api/v1/orderLines/${userId}/${productId}`,
+        orderLine
+      )
+      .then((res: any) => {
+        console.log(res.data);
+        dispatch(addToCart(res.data));
+      })
+      .catch((err: any) => {
+        dispatch(authError(err.data.message));
+      });
+  };
+}
+export function removeOrderLine(userId: string, productId: string) {
+  return (dispatch: Dispatch) => {
+    axios
+      .delete(`http://localhost:5000/api/v1/orderLines/${userId}/${productId}`)
+      .then((res: any) => {
+        console.log(res.status);
+        dispatch(removeFromCart(productId));
+      })
+      .catch((err: any) => {
+        console.log(err.response.data);
+        dispatch(authError(err.response.data));
       });
   };
 }

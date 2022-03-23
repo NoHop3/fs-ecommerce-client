@@ -19,7 +19,7 @@ export type user = {
   password: string;
   firstName: string;
   lastName: string;
-    image?: any;
+  image?: any;
   isAdmin: boolean;
   hasWriteAccess: boolean;
 };
@@ -32,6 +32,14 @@ export type product = {
   price: number;
   category?: string;
   color?: string;
+};
+
+export type orderLine = {
+  _id?: string;
+  __v?: number;
+  productId?: product | string;
+  quantity: number;
+  price: number;
 };
 
 export type evtKeyboardType = React.KeyboardEvent;

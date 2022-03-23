@@ -1,4 +1,4 @@
-import { product, user } from "../../types";
+import { orderLine, product, user } from "../../types";
 
 export type InitialNavState = {
   navClass: string;
@@ -18,6 +18,6 @@ export type InitialAuthState = {
 
 export type InitialProductState = {
   products: product[];
-  cart: product[];
+  cart: orderLine[];
   totalPrice: number;
 };

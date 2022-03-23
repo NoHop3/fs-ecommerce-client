@@ -10,4 +10,5 @@ export const EDIT_USER = "EDIT_USER";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS"; 
 export const ADD_TO_FAVS = "ADD_TO_FAVS";
 export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const EMPTY_CART = "EMPTY_CART";

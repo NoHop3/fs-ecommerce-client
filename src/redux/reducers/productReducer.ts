@@ -4,6 +4,7 @@ import {
   ADD_TO_CART,
   EMPTY_CART,
   FETCH_PRODUCTS,
+  REMOVE_FROM_CART,
 } from "../../typescript/redux/actions/action_const";
 
 const initialState: InitialProductState = {
@@ -23,12 +24,14 @@ const productReducer = (state = initialState, action: actionType) => {
     case ADD_TO_CART: {
       return {
         ...state,
+        cart: [...state.cart, action.payload],
+      };
+    }
+    case REMOVE_FROM_CART: {
+      return {
+        ...state,
         cart: [
-          ...(state.cart.find((prod) => prod === action.payload) === undefined
-            ? [...state.cart, action.payload]
-            : [
-                ...state.cart.filter((prod) => prod._id !== action.payload._id),
-              ]),
+          ...state.cart.filter((prod) => prod.productId !== action.payload),
         ],
       };
     }

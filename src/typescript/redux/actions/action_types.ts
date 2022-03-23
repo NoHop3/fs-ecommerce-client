@@ -1,4 +1,4 @@
-import { product, user } from "../../types";
+import { orderLine, product, user } from "../../types";
 import {
   ADD_TO_CART,
   ADD_TO_FAVS,
@@ -7,6 +7,7 @@ import {
   EMPTY_CART,
   FETCH_PRODUCTS,
   GET_TOKEN,
+  REMOVE_FROM_CART,
   SIGN_IN_USER,
   SIGN_OUT_USER,
   TOGGLE_LOGGED_IN,
@@ -59,7 +60,11 @@ export type addToFavsAction = {
 };
 export type addToCartAction = {
   type: typeof ADD_TO_CART;
-  payload: product;
+  payload: orderLine;
+};
+export type removeFromCartAction = {
+  type: typeof REMOVE_FROM_CART;
+  payload: string;
 };
 export type emptyCartAction = {
   type: typeof EMPTY_CART;
@@ -78,4 +83,5 @@ export type actionType =
   | fetchProductsAction
   | addToFavsAction
   | addToCartAction
+  | removeFromCartAction
   | emptyCartAction;
