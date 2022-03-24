@@ -99,7 +99,9 @@ export function fetchProducts(products: product[]): fetchProductsAction {
     payload: products,
   };
 }
-export function fetchOrderLines(orderLines: orderLine[]): fetchOrderLinesAction {
+export function fetchOrderLines(
+  orderLines: orderLine[]
+): fetchOrderLinesAction {
   return {
     type: FETCH_ORDER_LINES,
     payload: orderLines,
@@ -146,9 +148,11 @@ export function signUp(values: valuesSignUp) {
       lastName: values.lastName,
       password: values.password,
     })
-    .then((res: any) => {})
+    .then((res: any) => {
+      console.log(res.data);
+    })
     .catch((err: any) => {
-      console.log("Error -> " + err.response.data.message);
+      console.log(err.response.data.message);
     });
 }
 
@@ -162,6 +166,7 @@ export function signIn(values: Partial<valuesSignUp>) {
       })
       .then((res: any) => {
         dispatch(signInUser(res.data.loginUser));
+        localStorage.setItem("token", JSON.stringify(res.data.token));
       })
       .catch((err: any) => {
         console.log(err.response);
@@ -264,7 +269,7 @@ export function updateOrderLineWithId(
     axios
       .put(`http://localhost:5000/api/v1/orderLines/${Id}`, propsToUpdate)
       .then((res: any) => {
-        console.log(res.data)
+        console.log(res.data);
         dispatch(editOrderLine(res.data));
       })
       .catch((err: any) => {

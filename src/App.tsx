@@ -12,6 +12,10 @@ import { Profile } from "./components/pages/Profile";
 import { Products } from "./components/pages/Products";
 import { Orders } from "./components/pages/Orders";
 import { Cart } from "./components/pages/Cart";
+import {
+  IsUserAuthenticated,
+  IsUserUnAuthenticated,
+} from "./components/auth/userAuth";
 
 function App() {
   const { BrowserRouter, Routes, Route } = importTemplate();
@@ -25,11 +29,20 @@ function App() {
         <Routes>
           <Route path='/' element={<Home theme={pageBody} />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/authentication' element={<Authentication />} />
-          <Route path='/products' element={<Products />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/orders' element={<Orders />} />
-          <Route path='/profile' element={<Profile />} />
+
+          <Route element={<IsUserUnAuthenticated />}>
+            <Route path='/authentication' element={<Authentication />} />
+          </Route>
+
+          <Route element={<IsUserAuthenticated />}>
+            <Route path='/products' element={<Products />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/orders' element={<Orders />} />
+            <Route path='/profile' element={<Profile />} />
+          </Route>
+          {/* <Route element={<IsUserAdmin />}>
+            //TODO
+          </Route> */}
           <Route path='*' element={<ErrorPage />} />
         </Routes>
         <Footer />
