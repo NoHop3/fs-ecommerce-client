@@ -582,29 +582,33 @@ button[disabled] {
 }
 
 .cart__wrapper {
-  margin-top: 1rem;
-  height: 100%;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
 }
 .cart__wrapper--grid {
+  width: 100vw;
   list-style-type: none;
   display: grid;
   gap: 1rem;
 }
 .cart__wrapper--grid .grid__item {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "picture details details actions";
 }
 .cart__wrapper--grid .grid__item__details {
+  grid-area: details;
   padding: 0.1rem;
   text-align: center;
-  width: 35%;
 }
 .cart__wrapper--grid .grid__item__details--img {
+  grid-area: picture;
   display: block;
-  width: 150px;
+  width: 10rem;
 }
 .cart__wrapper--grid .grid__item__actions {
-  width: 35%;
+  grid-area: actions;
+  margin-left: 1rem;
 }
 .cart__wrapper--grid .grid__item__actions .quantityInput {
   width: 2rem;
@@ -612,16 +616,16 @@ button[disabled] {
 }
 .cart__wrapper--grid .grid__item__actions .delBtn {
   display: block;
-  height: 30px;
-  width: 30px;
+  height: 2rem;
+  width: 2rem;
 }
-.cart__wrapper .actions {
-  margin-left: 1rem;
+.cart__wrapper .totalOrder .actions {
   display: grid;
   grid-template-columns: 110px 110px 110px;
   gap: 0.75rem;
+  margin-left: 1rem;
 }
-.cart__wrapper .actions .orderBtn {
+.cart__wrapper .totalOrder .actions .orderBtn {
   min-width: 100px;
 }
 
@@ -940,13 +944,43 @@ button[disabled] {
     font-size: 1.125rem;
   }
 
+  .cart__wrapper--grid {
+    gap: 2rem;
+  }
+  .cart__wrapper--grid .grid__item {
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "picture picture details details actions";
+  }
+  .cart__wrapper--grid .grid__item__details--img {
+    width: 20rem;
+  }
+  .cart__wrapper--grid .grid__item__actions .quantityInput {
+    width: 3rem;
+  }
+  .cart__wrapper--grid .grid__item__actions .delBtn {
+    height: 3rem;
+    width: 3rem;
+  }
+  .cart__wrapper .totalOrder .actions {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin-left: 1rem;
+  }
+  .cart__wrapper .totalOrder .actions .orderBtn {
+    font-size: 1.2rem;
+  }
+
   .products__wrapper {
     height: 100%;
   }
-  .products__wrapper--grid .grid__item .deleteBtn, .products__wrapper--grid .grid__item .favBtn, .products__wrapper--grid .grid__item .cartBtn {
+  .products__wrapper--grid .grid__item .deleteBtn,
+.products__wrapper--grid .grid__item .favBtn,
+.products__wrapper--grid .grid__item .cartBtn {
     width: 60px;
   }
-  .products__wrapper--grid .grid__item .favBtn, .products__wrapper--grid .grid__item .cartBtn {
+  .products__wrapper--grid .grid__item .favBtn,
+.products__wrapper--grid .grid__item .cartBtn {
     top: 0%;
     left: 90%;
   }
@@ -1011,6 +1045,33 @@ button[disabled] {
     font-size: 1.65rem;
   }
 
+  .cart__wrapper--grid {
+    width: auto;
+    gap: 2rem;
+  }
+  .cart__wrapper--grid .grid__item {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "picture picture details details details details actions";
+  }
+  .cart__wrapper--grid .grid__item__details--img {
+    width: 15rem;
+  }
+  .cart__wrapper--grid .grid__item__actions .quantityInput {
+    width: 2rem;
+  }
+  .cart__wrapper--grid .grid__item__actions .delBtn {
+    height: 2rem;
+    width: 2rem;
+  }
+  .cart__wrapper .totalOrder .actions {
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-left: 3rem;
+  }
+  .cart__wrapper .totalOrder .actions .orderBtn {
+    max-width: 27rem;
+    font-size: 1.2rem;
+  }
+
   .products__wrapper {
     margin-bottom: 4.9rem;
   }
@@ -1028,13 +1089,16 @@ button[disabled] {
     width: 18rem;
     aspect-ratio: 1;
   }
-  .products__wrapper--grid .grid__item .deleteBtn, .products__wrapper--grid .grid__item .favBtn, .products__wrapper--grid .grid__item .cartBtn {
+  .products__wrapper--grid .grid__item .deleteBtn,
+.products__wrapper--grid .grid__item .favBtn,
+.products__wrapper--grid .grid__item .cartBtn {
     position: absolute;
     top: 0;
     display: block;
     width: 30px;
   }
-  .products__wrapper--grid .grid__item .favBtn, .products__wrapper--grid .grid__item .cartBtn {
+  .products__wrapper--grid .grid__item .favBtn,
+.products__wrapper--grid .grid__item .cartBtn {
     top: 0%;
     left: 85%;
   }

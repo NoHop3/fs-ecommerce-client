@@ -3,23 +3,60 @@
 @mixin tablet {
   @media only screen and (min-width: #{var.$tablet-width}) and (max-width: #{(var.$laptop-width)-1px}) {
     @include var.fs_tablet;
-    .products__wrapper{
-    height: 100%;
-    &--grid{
-        & .grid__item{
-            & .deleteBtn, .favBtn, .cartBtn{
-                width: 60px;
+    .cart__wrapper {
+      &--grid {
+        gap: 2rem;
+        & .grid__item {
+          gap: 2rem;
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+          grid-template-areas: "picture picture details details actions";
+          &__details {
+            &--img {
+              width: 20rem;
             }
-            & .favBtn, .cartBtn{
-              top:0%;
-                left:90%;
+          }
+          &__actions {
+            & .quantityInput {
+              width: 3rem;
             }
-            & .cartBtn{
-              top:20%;
+            & .delBtn {
+              height: 3rem;
+              width: 3rem;
             }
+          }
         }
+      }
+      & .totalOrder {
+        & .actions {
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 0.75rem;
+          margin-left: 1rem;
+          & .orderBtn {
+            font-size: 1.2rem;
+          }
+        }
+      }
     }
-}
+    .products__wrapper {
+      height: 100%;
+      &--grid {
+        & .grid__item {
+          & .deleteBtn,
+          .favBtn,
+          .cartBtn {
+            width: 60px;
+          }
+          & .favBtn,
+          .cartBtn {
+            top: 0%;
+            left: 90%;
+          }
+          & .cartBtn {
+            top: 20%;
+          }
+        }
+      }
+    }
     .profile__wrapper {
       margin-bottom: 0;
       height: 100vh;
@@ -65,43 +102,78 @@
 @mixin laptop {
   @media only screen and (min-width: #{var.$laptop-width}) {
     @include var.fs_laptop;
-    .products__wrapper{
+    .cart__wrapper {
+      &--grid {
+        width: auto;
+        gap: 2rem;
+        & .grid__item {
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+          grid-template-areas: "picture picture details details details details actions";
+          &__details {
+            &--img {
+              width: 15rem;
+            }
+          }
+          &__actions {
+            & .quantityInput {
+              width: 2rem;
+            }
+            & .delBtn {
+              height: 2rem;
+              width: 2rem;
+            }
+          }
+        }
+      }
+      & .totalOrder {
+        & .actions {
+          grid-template-columns: 1fr 1fr 1fr;
+          margin-left: 3rem;
+          & .orderBtn {
+            max-width: 27rem;
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+    .products__wrapper {
       margin-bottom: 4.9rem;
-    &--grid{
-      grid-template-columns: repeat(5, minmax(18rem,1fr));
+      &--grid {
+        grid-template-columns: repeat(5, minmax(18rem, 1fr));
         text-align: center;
         display: grid;
-        gap: .1rem;
-        & .grid__item{
-            position: relative;
-            &--img{
-                display: block;
-                width: 18rem;
-                aspect-ratio: 1;
-            }
-            & .deleteBtn, .favBtn, .cartBtn{
-                position: absolute;
-                top: 0;
-                display: block;
-                width: 30px;
-            }
-            & .favBtn, .cartBtn{
-                top:0%;
-                left:85%;
-            }
-            & .cartBtn{
-              top:15%;
-            }
-            
+        gap: 0.1rem;
+        & .grid__item {
+          position: relative;
+          &--img {
+            display: block;
+            width: 18rem;
+            aspect-ratio: 1;
+          }
+          & .deleteBtn,
+          .favBtn,
+          .cartBtn {
+            position: absolute;
+            top: 0;
+            display: block;
+            width: 30px;
+          }
+          & .favBtn,
+          .cartBtn {
+            top: 0%;
+            left: 85%;
+          }
+          & .cartBtn {
+            top: 15%;
+          }
         }
-        & .addBtn{
-              grid-column: 3 / 4;
-              margin-bottom: 1rem;
-            }
+        & .addBtn {
+          grid-column: 3 / 4;
+          margin-bottom: 1rem;
+        }
+      }
     }
-}
     .profile__wrapper {
-
       &--grid {
         grid-template-columns: repeat(4, minmax(2rem, 1fr));
         grid-template-areas:
@@ -111,11 +183,11 @@
         & .avatar__container {
           margin-bottom: 1rem;
           &__wrapper {
-        & img {
-          height: 26rem;
-          width: 26rem;
-        }
-      }
+            & img {
+              height: 26rem;
+              width: 26rem;
+            }
+          }
         }
       }
     }

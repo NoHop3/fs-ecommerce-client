@@ -37,7 +37,7 @@ export type product = {
 export type orderLine = {
   _id?: string;
   __v?: number;
-  productId?: product | string;
+  productId?: product;
   quantity: number;
   price: number;
 };

@@ -3,8 +3,10 @@ import {
   ADD_TO_CART,
   ADD_TO_FAVS,
   AUTH_ERROR,
+  EDIT_ORDER_LINE,
   EDIT_USER,
   EMPTY_CART,
+  FETCH_ORDER_LINES,
   FETCH_PRODUCTS,
   GET_TOKEN,
   REMOVE_FROM_CART,
@@ -53,6 +55,10 @@ export type fetchProductsAction = {
   type: typeof FETCH_PRODUCTS;
   payload: product[];
 };
+export type fetchOrderLinesAction = {
+  type: typeof FETCH_ORDER_LINES;
+  payload: orderLine[];
+};
 
 export type addToFavsAction = {
   type: typeof ADD_TO_FAVS;
@@ -69,6 +75,10 @@ export type removeFromCartAction = {
 export type emptyCartAction = {
   type: typeof EMPTY_CART;
 };
+export type editOrderLineAction = {
+  type: typeof EDIT_ORDER_LINE;
+  payload: orderLine;
+};
 
 export type actionType =
   | toggleNavAction
@@ -81,7 +91,9 @@ export type actionType =
   | authErrorAction
   | editUserAction
   | fetchProductsAction
+  | fetchOrderLinesAction
   | addToFavsAction
   | addToCartAction
   | removeFromCartAction
-  | emptyCartAction;
+  | emptyCartAction
+  | editOrderLineAction;

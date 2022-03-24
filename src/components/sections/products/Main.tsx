@@ -4,6 +4,7 @@ import {
   addOrderLine,
   addToFavs,
   edit,
+  getOrderLines,
   getProducts,
   removeOrderLine,
 } from "../../../redux/actions/actions";
@@ -16,10 +17,7 @@ export const Main = () => {
   const { products, cart } = useSelector(
     (state: RootState) => state.productState
   );
-  useEffect(() => {
-    dispatch(getProducts());
-    console.log(cart);
-  }, [dispatch, cart]);
+
   const handleDeleteClick = () => {
     // dispatch(deleteProduct(productId))
   };
@@ -39,6 +37,10 @@ export const Main = () => {
   const handleCartRemoveClick = (prodId: string) => {
     dispatch(removeOrderLine(loggedUser._id, prodId));
   };
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(getOrderLines(loggedUser._id));
+  }, [dispatch, loggedUser]);
   return (
     <main>
       <div className='products__wrapper'></div>
@@ -61,7 +63,8 @@ export const Main = () => {
                 alt=''
               />
             ) : null}
-            {cart.find((item) => item.productId === product._id) === undefined ? (
+            {cart.find((item) => item.productId?._id === product._id) ===
+            undefined ? (
               <img
                 onClick={() => handleCartClick(product)}
                 className='cartBtn'
