@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authError, edit } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
-import { evtChangeType } from "../../../typescript/types";
+import { EvtChangeType } from "../../../typescript/types";
 import { Dropzone, MIME_TYPES, DropzoneStatus } from "@mantine/dropzone";
 import {
   Modal,
@@ -81,7 +81,7 @@ export const Main = () => {
   });
   const [opened, setOpened] = useState(false);
   const handleChange = useCallback(
-    (e: evtChangeType) => {
+    (e: EvtChangeType) => {
       setToSave({ ...toSave, [e.target.name]: e.target.value });
     },
     [toSave]

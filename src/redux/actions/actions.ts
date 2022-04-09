@@ -1,12 +1,14 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import {
+  ADD_ORDER,
   ADD_TO_CART,
   ADD_TO_FAVS,
   AUTH_ERROR,
   EDIT_ORDER_LINE,
   EDIT_USER,
   EMPTY_CART,
+  FETCH_ORDERS,
   FETCH_ORDER_LINES,
   FETCH_PRODUCTS,
   GET_TOKEN,
@@ -19,6 +21,7 @@ import {
   TOGGLE_THEME,
 } from "../../typescript/redux/actions/action_const";
 import {
+  addOrderAction,
   addToCartAction,
   addToFavsAction,
   authErrorAction,
@@ -26,6 +29,7 @@ import {
   editUserAction,
   emptyCartAction,
   fetchOrderLinesAction,
+  fetchOrdersAction,
   fetchProductsAction,
   getTokenAction,
   removeFromCartAction,
@@ -36,7 +40,7 @@ import {
   toggleSignInAction,
   toggleThemeAction,
 } from "../../typescript/redux/actions/action_types";
-import { orderLine, product, user, valuesSignUp } from "../../typescript/types";
+import { OrderLine, Product, User, ValuesSignUp , Order} from "../../typescript/types";
 
 export function toggleTheme(): toggleThemeAction {
   return {
@@ -68,7 +72,7 @@ export function getToken(token: string): getTokenAction {
   };
 }
 
-export function signInUser(user: user): signInAction {
+export function signInUser(user: User): signInAction {
   return {
     type: SIGN_IN_USER,
     payload: user,
@@ -80,7 +84,7 @@ export function signOutUser(): signOutAction {
   };
 }
 
-export function editUser(editedUser: user): editUserAction {
+export function editUser(editedUser: User): editUserAction {
   return {
     type: EDIT_USER,
     payload: editedUser,
@@ -93,19 +97,33 @@ export function authError(error: string): authErrorAction {
     payload: error,
   };
 }
-export function fetchProducts(products: product[]): fetchProductsAction {
+export function fetchProducts(products: Product[]): fetchProductsAction {
   return {
     type: FETCH_PRODUCTS,
     payload: products,
   };
 }
 export function fetchOrderLines(
-  orderLines: orderLine[]
+  orderLines: OrderLine[]
 ): fetchOrderLinesAction {
   return {
     type: FETCH_ORDER_LINES,
     payload: orderLines,
   };
+}
+
+export function fetchOrders(orders: Order[]): fetchOrdersAction {
+  return {
+    type: FETCH_ORDERS,
+    payload: orders
+  }
+}
+
+export function addOrder(order: Order): addOrderAction {
+  return {
+    type: ADD_ORDER,
+    payload: order
+  }
 }
 
 export function addToFavs(favId: string): addToFavsAction {
@@ -114,13 +132,13 @@ export function addToFavs(favId: string): addToFavsAction {
     payload: favId,
   };
 }
-export function addToCart(orderLine: orderLine): addToCartAction {
+export function addToCart(orderLine: OrderLine): addToCartAction {
   return {
     type: ADD_TO_CART,
     payload: orderLine,
   };
 }
-export function editOrderLine(orderLine: orderLine): editOrderLineAction {
+export function editOrderLine(orderLine: OrderLine): editOrderLineAction {
   return {
     type: EDIT_ORDER_LINE,
     payload: orderLine,
@@ -138,7 +156,7 @@ export function emptyCart(): emptyCartAction {
   };
 }
 
-export function signUp(values: valuesSignUp) {
+export function signUp(values: ValuesSignUp) {
   console.log(values);
   axios
     .post("http://localhost:5000/api/v1/users", {
@@ -156,7 +174,7 @@ export function signUp(values: valuesSignUp) {
     });
 }
 
-export function signIn(values: Partial<valuesSignUp>) {
+export function signIn(values: Partial<ValuesSignUp>) {
   return (dispatch: Dispatch) => {
     axios
       .post("http://localhost:5000/api/v1/users/login", {
@@ -165,6 +183,7 @@ export function signIn(values: Partial<valuesSignUp>) {
         password: values.password,
       })
       .then((res: any) => {
+        console.log(res.data.loginUser)
         dispatch(signInUser(res.data.loginUser));
         localStorage.setItem("token", JSON.stringify(res.data.token));
       })
@@ -175,7 +194,7 @@ export function signIn(values: Partial<valuesSignUp>) {
   };
 }
 
-export function edit(values: Partial<user>, userId: string) {
+export function edit(values: Partial<User>, userId: string) {
   console.log(values);
   return (dispatch: Dispatch) => {
     axios
@@ -215,8 +234,42 @@ export function getOrderLines(userId: string) {
   };
 }
 
+export function getOrders(userId: string) {
+  return (dispatch: Dispatch) => {
+    axios
+      .get(`http://localhost:5000/api/v1/orders/${userId}`)
+      .then((res) => {
+        console.log(res.data)
+        dispatch(fetchOrders(res.data));
+      })
+      .catch((err: any) => {
+        console.log(err.response.data.message);
+      });
+  };
+}
+
+export function addOrderAxios(
+  orderLines: OrderLine[],
+  userId: string,
+  totalPrice: number
+) {
+  return (dispatch: Dispatch) => {
+    axios
+      .post(`http://localhost:5000/api/v1/orders/${userId}`, {
+        orderLines,
+        totalPrice,
+      })
+      .then((res: any) => {
+        console.log(res.data)
+      })
+      .catch((err: any) => {
+        dispatch(authError(err));
+      });
+  };
+}
+
 export function addOrderLine(
-  orderLine: Partial<orderLine>,
+  orderLine: Partial<OrderLine>,
   userId: string,
   productId: string
 ) {
@@ -234,6 +287,9 @@ export function addOrderLine(
       });
   };
 }
+
+
+
 export function removeOrderLine(userId: string, productId: string) {
   return (dispatch: Dispatch) => {
     axios
@@ -263,7 +319,7 @@ export function removeOrderLineWithId(Id: string) {
 
 export function updateOrderLineWithId(
   Id: string,
-  propsToUpdate: Partial<orderLine>
+  propsToUpdate: Partial<OrderLine>
 ) {
   return (dispatch: Dispatch) => {
     axios

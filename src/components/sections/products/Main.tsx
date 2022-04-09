@@ -9,7 +9,7 @@ import {
   removeOrderLine,
 } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
-import { product } from "../../../typescript/types";
+import { Product } from "../../../typescript/types";
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const Main = () => {
     dispatch(edit({ favourites }, loggedUser._id));
   };
   const handleAddProduct = () => {};
-  const handleCartClick = (prod: product) => {
+  const handleCartClick = (prod: Product) => {
     const orderLine = {
       quantity: 1,
       price: prod.price,

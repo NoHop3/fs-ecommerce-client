@@ -21,7 +21,6 @@ const productReducer = (state = initialState, action: actionType) => {
     sum += orderLine.price;
   });
   const totalAmount = sum;
-  console.log(totalAmount)
   switch (action.type) {
     case FETCH_PRODUCTS: {
       return {

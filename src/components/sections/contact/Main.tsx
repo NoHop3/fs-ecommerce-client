@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from "react";
 import * as emailjs from "emailjs-com";
 
-import { evtChangeType } from "../../../typescript/types";
+import { EvtChangeType } from "../../../typescript/types";
 
 function Contact() {
   const [toSend, setToSend] = useState({
@@ -30,7 +30,7 @@ function Contact() {
     [toSend]
   );
   const handleChange = useCallback(
-    (e: evtChangeType) => {
+    (e: EvtChangeType) => {
       setToSend({ ...toSend, [e.target.name]: e.target.value });
     },
     [toSend]

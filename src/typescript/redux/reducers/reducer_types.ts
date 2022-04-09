@@ -1,4 +1,4 @@
-import { orderLine, product, user } from "../../types";
+import { Order, OrderLine, Product, User } from "../../types";
 
 export type InitialNavState = {
   navClass: string;
@@ -9,7 +9,7 @@ export type InitialToggleState = {
 };
 
 export type InitialAuthState = {
-  loggedUser: user;
+  loggedUser: User;
   authToken: string;
   isLoggedIn: boolean;
   isInSignIn: boolean;
@@ -17,7 +17,11 @@ export type InitialAuthState = {
 };
 
 export type InitialProductState = {
-  products: product[];
-  cart: orderLine[];
+  products: Product[];
+  cart: OrderLine[];
   totalPrice: number;
 };
+
+export type InitialOrderState = {
+  orders: Order[];
+}

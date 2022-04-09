@@ -1,11 +1,13 @@
-import { orderLine, product, user } from "../../types";
+import { Order, OrderLine, Product, User } from "../../types";
 import {
+  ADD_ORDER,
   ADD_TO_CART,
   ADD_TO_FAVS,
   AUTH_ERROR,
   EDIT_ORDER_LINE,
   EDIT_USER,
   EMPTY_CART,
+  FETCH_ORDERS,
   FETCH_ORDER_LINES,
   FETCH_PRODUCTS,
   GET_TOKEN,
@@ -42,22 +44,22 @@ export type getTokenAction = {
 };
 export type signInAction = {
   type: typeof SIGN_IN_USER;
-  payload: user;
+  payload: User;
 };
 export type signOutAction = {
   type: typeof SIGN_OUT_USER;
 };
 export type editUserAction = {
   type: typeof EDIT_USER;
-  payload: user;
+  payload: User;
 };
 export type fetchProductsAction = {
   type: typeof FETCH_PRODUCTS;
-  payload: product[];
+  payload: Product[];
 };
 export type fetchOrderLinesAction = {
   type: typeof FETCH_ORDER_LINES;
-  payload: orderLine[];
+  payload: OrderLine[];
 };
 
 export type addToFavsAction = {
@@ -66,7 +68,7 @@ export type addToFavsAction = {
 };
 export type addToCartAction = {
   type: typeof ADD_TO_CART;
-  payload: orderLine;
+  payload: OrderLine;
 };
 export type removeFromCartAction = {
   type: typeof REMOVE_FROM_CART;
@@ -77,8 +79,18 @@ export type emptyCartAction = {
 };
 export type editOrderLineAction = {
   type: typeof EDIT_ORDER_LINE;
-  payload: orderLine;
+  payload: OrderLine;
 };
+
+export type fetchOrdersAction = {
+  type: typeof FETCH_ORDERS;
+  payload: Order[];
+}
+
+export type addOrderAction = {
+  type: typeof ADD_ORDER;
+  payload: Order;
+}
 
 export type actionType =
   | toggleNavAction
@@ -96,4 +108,6 @@ export type actionType =
   | addToCartAction
   | removeFromCartAction
   | emptyCartAction
-  | editOrderLineAction;
+  | editOrderLineAction
+  | fetchOrdersAction
+  | addOrderAction;

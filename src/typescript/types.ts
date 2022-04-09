@@ -1,6 +1,6 @@
 import React from "react";
 
-export type valuesSignUp = {
+export type ValuesSignUp = {
   email: string;
   username: string;
   password: string;
@@ -9,10 +9,9 @@ export type valuesSignUp = {
   image?: string;
 };
 
-export type user = {
+export type User = {
   _id: string;
   __v: number;
-  orders: [];
   favourites: string[];
   email: string;
   username: string;
@@ -24,7 +23,7 @@ export type user = {
   hasWriteAccess: boolean;
 };
 
-export type product = {
+export type Product = {
   _id: string;
   __v: number;
   name: string;
@@ -34,15 +33,23 @@ export type product = {
   color?: string;
 };
 
-export type orderLine = {
+export type OrderLine = {
   _id?: string;
   __v?: number;
-  productId?: product;
+  productId?: Product;
   quantity: number;
   price: number;
 };
 
-export type evtKeyboardType = React.KeyboardEvent;
-export type evtChangeType = React.ChangeEvent<HTMLInputElement>;
-export type evtClickType = React.MouseEvent<Element, MouseEvent>;
-export type evtButtonType = React.MouseEventHandler<HTMLButtonElement>;
+export type Order = {
+  _id?: string;
+  __v?: number;
+  userId: User;
+  orderLines: OrderLine[];
+  totalPrice: number;
+}
+
+export type EvtKeyboardType = React.KeyboardEvent;
+export type EvtChangeType = React.ChangeEvent<HTMLInputElement>;
+export type EvtClickType = React.MouseEvent<Element, MouseEvent>;
+export type EvtButtonType = React.MouseEventHandler<HTMLButtonElement>;

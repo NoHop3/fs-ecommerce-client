@@ -14,7 +14,7 @@ export const SignIn = ({ style }: any) => {
   );
   const navigate = useNavigate();
   useEffect(() => {
-    isLoggedIn ? navigate("/") : console.log(authError);
+    isLoggedIn ? navigate("/") : console.log()
   }, [isLoggedIn, navigate, authError]);
   return (
     <div className='authentication__form--signIn' style={style}>

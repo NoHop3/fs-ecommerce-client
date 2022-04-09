@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
+  addOrderAxios,
   getOrderLines,
   removeAllFromCart,
   removeOrderLineWithId,
   updateOrderLineWithId,
 } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
-import { evtChangeType } from "../../../typescript/types";
+import { EvtChangeType } from "../../../typescript/types";
 
 export const Main = () => {
   const { cart, totalPrice } = useSelector(
@@ -20,8 +21,13 @@ export const Main = () => {
   const handleDeleteClick = (id: string) => {
     dispatch(removeOrderLineWithId(id));
   };
+  const handleOrderClick = () => {
+    dispatch(addOrderAxios(cart, loggedUser._id, totalPrice));
+    navigate('/orders')
+    handleDeleteAllClick()
+  };
   const handleChange = (
-    evt: evtChangeType,
+    evt: EvtChangeType,
     orderLineId: string,
     productPrice: number
   ) => {
@@ -35,7 +41,6 @@ export const Main = () => {
           ? 1
           : parseInt(evt.target.value) * productPrice,
     };
-    console.log(propsToUpdate);
     dispatch(updateOrderLineWithId(orderLineId, propsToUpdate));
   };
   const handleDeleteAllClick = () => {
@@ -91,11 +96,17 @@ export const Main = () => {
         </ul>
         <div className='totalOrder'>
           <div className='actions'>
-            <button className='btn orderBtn'>
+            <button
+              disabled={cart.length > 0 ? false : true}
+              className='btn orderBtn'
+              onClick={handleOrderClick}>
               All <br />
               {totalPrice}
             </button>
-            <button className='btn orderBtn' onClick={handleDeleteAllClick}>
+            <button
+              className='btn orderBtn'
+              onClick={handleDeleteAllClick}
+              disabled={cart.length > 0 ? false : true}>
               Delete all
             </button>
             <button
