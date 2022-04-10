@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addOrderLine,
+  addToCart,
   addToFavs,
   edit,
-  getOrderLines,
   getProducts,
-  removeOrderLine,
+  removeFromCart,
 } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
 import { Product } from "../../../typescript/types";
@@ -17,37 +16,48 @@ export const Main = () => {
   const { products, cart } = useSelector(
     (state: RootState) => state.productState
   );
+  useEffect(()=>{
+    localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart])
 
-  const handleDeleteClick = () => {
-    // dispatch(deleteProduct(productId))
-  };
+  // TODO Admin rights
+  // const handleDeleteClick = () => {
+  //    dispatch(deleteProduct(productId))
+  // };
   const handleFavClick = (id: string) => {
     dispatch(addToFavs(id));
     const favourites = loggedUser.favourites;
     dispatch(edit({ favourites }, loggedUser._id));
   };
-  const handleAddProduct = () => {};
+  // TODO Admin rights
+  // const handleAddProduct = () => {};
+  //
   const handleCartClick = (prod: Product) => {
     const orderLine = {
+      productId: prod,
       quantity: 1,
       price: prod.price,
     };
-    dispatch(addOrderLine(orderLine, loggedUser._id, prod._id));
+    dispatch(addToCart(orderLine));
   };
   const handleCartRemoveClick = (prodId: string) => {
-    dispatch(removeOrderLine(loggedUser._id, prodId));
+    dispatch(removeFromCart(prodId));
   };
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(getOrderLines(loggedUser._id));
   }, [dispatch, loggedUser]);
   return (
     <main>
       <div className='products__wrapper'></div>
       <ul className='products__wrapper--grid'>
-        {/* <div>
+        
+        {
+        // TODO Sorting
+        /* <div>
         <p className="sortBy">Sort by: </p>
-        </div> */}
+        </div> */
+        }
         {products.map((product) => (
           <li className='grid__item' key={product._id}>
             <img
@@ -55,14 +65,15 @@ export const Main = () => {
               src={product.image}
               alt='A product that is being sold on this page'
             />
-            {loggedUser.isAdmin ? (
+            {// TODO Admin rights
+            /* {loggedUser.isAdmin ? (
               <img
                 onClick={handleDeleteClick}
                 className='deleteBtn'
                 src='https://previews.123rf.com/images/igoun/igoun1805/igoun180500088/101280971-cross-icon-in-circle-can-be-used-as-delete-block-close-button-etc-delete-x-cross-rounded-icon-is-fla.jpg'
                 alt=''
               />
-            ) : null}
+            ) : null} */}
             {cart.find((item) => item.productId?._id === product._id) ===
             undefined ? (
               <img
@@ -99,11 +110,12 @@ export const Main = () => {
             <p className='product--price'>{product.price} dkk</p>
           </li>
         ))}
-        {loggedUser.hasWriteAccess ? (
+        {// TODO Write Access (adding products)
+        /* {loggedUser.hasWriteAccess ? (
           <button className='btn addBtn' onClick={handleAddProduct}>
             Add a product
           </button>
-        ) : null}
+        ) : null} */}
       </ul>
     </main>
   );

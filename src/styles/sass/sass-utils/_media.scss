@@ -1,8 +1,39 @@
 @use "../sass-utils/variables" as var;
 
+/*grid-template-columns: repeat(2, minmax(50px, 1fr));
+    grid-template-areas:
+      "orderId orderItems orderOrigin"
+      "itemsArray itemsArray itemsArray"
+      "totalPrice totalPrice totalPrice";*/
+
 @mixin tablet {
   @media only screen and (min-width: #{var.$tablet-width}) and (max-width: #{(var.$laptop-width)-1px}) {
     @include var.fs_tablet;
+
+    .orders__wrapper {
+      & .orderContainer {
+        &__information {
+          grid-template-columns: repeat(auto, minmax(15rem, 1fr));
+          grid-template-areas:
+            "orderId orderId orderId orderOrigin"
+            ".. orderItems .. .."
+            "itemsArray itemsArray itemsArray itemsArray"
+            "totalPrice totalPrice totalPrice totalPrice";
+            gap:1rem;
+        }
+        & .orderedline__wrapper {
+          &__information {
+            grid-template-columns: repeat(auto, minmax(1rem, 2rem));
+            &__image {
+              grid-area: productImage;
+              width: 10rem;
+              aspect-ratio: 1;
+            }
+          }
+        }
+      }
+    }
+
     .cart__wrapper {
       &--grid {
         gap: 2rem;
@@ -102,6 +133,29 @@
 @mixin laptop {
   @media only screen and (min-width: #{var.$laptop-width}) {
     @include var.fs_laptop;
+
+    .orders__wrapper {
+      margin-bottom: 5rem;
+      & .orderContainer {
+        &__information {
+          grid-template-columns: repeat(auto, minmax(25rem, 1fr));
+          grid-template-areas:
+            "orderId orderId orderId orderItems orderOrigin"
+            "itemsArray itemsArray itemsArray itemsArray itemsArray"
+            "totalPrice totalPrice totalPrice totalPrice totalPrice";
+            gap:1rem;
+        }
+        & .orderedline__wrapper {
+          &__information {
+            grid-template-columns: repeat(auto, minmax(1rem, 1fr));
+            &__image {
+              width: 20rem;
+            }
+          }
+        }
+      }
+    }
+
     .cart__wrapper {
       &--grid {
         width: auto;

@@ -2,7 +2,7 @@ import { InitialProductState } from "../../typescript/redux/reducers/reducer_typ
 import { actionType } from "../../typescript/redux/actions/action_types";
 import {
   ADD_TO_CART,
-  EDIT_ORDER_LINE,
+  EDIT_FROM_CART,
   EMPTY_CART,
   FETCH_ORDER_LINES,
   FETCH_PRODUCTS,
@@ -11,16 +11,11 @@ import {
 
 const initialState: InitialProductState = {
   products: [],
-  cart: [],
-  totalPrice: 0.0,
+  cart: JSON.parse(localStorage.getItem("cart") as string),
+  totalPrice: JSON.parse(localStorage.getItem("totalPrice") as string),
 };
 
 const productReducer = (state = initialState, action: actionType) => {
-  let sum = 0;
-  state.cart.forEach((orderLine) => {
-    sum += orderLine.price;
-  });
-  const totalAmount = sum;
   switch (action.type) {
     case FETCH_PRODUCTS: {
       return {
@@ -32,45 +27,62 @@ const productReducer = (state = initialState, action: actionType) => {
       return {
         ...state,
         cart: action.payload,
-        totalPrice: totalAmount,
+        totalPrice: 0,
       };
     }
     case ADD_TO_CART: {
+      // localStorage.removeItem("cart");
+      // localStorage.setItem("cart", JSON.stringify(state.cart));
       return {
         ...state,
         cart: [...state.cart, action.payload],
-        totalPrice: totalAmount,
+        totalPrice: state.totalPrice + action.payload.price,
       };
     }
     case REMOVE_FROM_CART: {
+      // localStorage.removeItem("cart");
+      // localStorage.setItem("cart", JSON.stringify(state.cart));
       return {
         ...state,
+        totalPrice:
+          state.totalPrice -
+          (state.cart.find(
+            (product) => product.productId?._id === action.payload
+          )?.price as number),
         cart: [
-          ...state.cart
-            .filter((orderLine) => orderLine._id !== action.payload)
-            .filter((orderLine) => orderLine.productId?._id !== action.payload),
+          ...state.cart.filter(
+            (orderLine) => orderLine.productId?._id !== action.payload
+          ),
         ],
-        totalPrice: totalAmount,
       };
     }
-    case EDIT_ORDER_LINE: {
+    case EDIT_FROM_CART: {
+      // localStorage.removeItem("cart");
+      // localStorage.setItem("cart", JSON.stringify(state.cart));
       const index = state.cart.findIndex(
-        (orderLine) => orderLine._id === action.payload._id
+        (orderLine) => orderLine.productId?._id === action.payload.prodId
       );
       const newArray = [...state.cart];
-      newArray[index] = Object.assign(newArray[index], action.payload);
-      console.log(newArray[index]);
+      newArray[index] = Object.assign(
+        newArray[index],
+        action.payload.propsToUpdate
+      );
+      let sum: number = 0;
+      newArray.forEach((orderLine)=>{
+        sum+=orderLine.price
+      })
       return {
         ...state,
         cart: newArray,
-        totalPrice: totalAmount,
+        totalPrice: sum,
       };
     }
     case EMPTY_CART: {
+      // localStorage.removeItem("cart");
       return {
         ...state,
         cart: [],
-        totalPrice: totalAmount,
+        totalPrice: 0,
       };
     }
     default:

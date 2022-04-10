@@ -1,4 +1,57 @@
-.orders__wrapper{
-    text-align: center;
-    
+@use "../sass-utils/variables" as var;
+
+.orders__wrapper {
+  margin-bottom: 4.90rem;
+  text-align: center;
+  display: grid;
+  gap: 1rem;
+  & .orderContainer {
+    margin: 0 auto;
+    width: 90%;
+    padding: 3rem;
+    border: 2px solid;
+    border-radius: 2rem;
+    background-color: var.$clr-auth;
+    &__information {
+      text-align: center;
+      display: grid;
+      grid-template-columns: repeat(auto, minmax(50px, 1fr));
+      grid-template-areas:
+        "orderId orderId orderId"
+        "orderOrigin orderOrigin orderOrigin"
+        "orderItems orderItems orderItems"
+        "itemsArray itemsArray itemsArray"
+        "totalPrice totalPrice totalPrice";
+      &__id {
+        grid-area: orderId;
+      }
+      &__orderedlines {
+        grid-area: orderItems;
+      }
+      & .orderedline__wrapper {
+        grid-area: itemsArray;
+        &__information {
+          display: grid;
+        grid-template-columns: repeat(3, minmax(3rem, 1fr));
+        grid-template-areas:
+          "productImage"
+          "productPrice";
+          &__image {
+            grid-area: productImage;
+            width: 4rem;
+            aspect-ratio: 1;
+          }
+          &__price {
+            grid-area: productPrice;
+          }
+        }
+      }
+      &__total {
+        grid-area: totalPrice;
+      }
+      &__orderOrigin {
+        grid-area: orderOrigin;
+      }
+    }
+  }
 }

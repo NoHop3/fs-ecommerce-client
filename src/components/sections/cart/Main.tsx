@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import {
-  addOrderAxios,
-  getOrderLines,
-  removeAllFromCart,
-  removeOrderLineWithId,
-  updateOrderLineWithId,
+  addOrderLines,
+  editFromCart,
+  emptyCart,
+  removeFromCart,
 } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
-import { EvtChangeType } from "../../../typescript/types";
+import { EvtChangeType, Product } from "../../../typescript/types";
 
 export const Main = () => {
   const { cart, totalPrice } = useSelector(
@@ -18,19 +18,20 @@ export const Main = () => {
   const { loggedUser } = useSelector((state: RootState) => state.authState);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleDeleteClick = (id: string) => {
-    dispatch(removeOrderLineWithId(id));
+  const handleDeleteClick = (prodId: string) => {
+    dispatch(removeFromCart(prodId));
   };
   const handleOrderClick = () => {
-    dispatch(addOrderAxios(cart, loggedUser._id, totalPrice));
-    navigate('/orders')
-    handleDeleteAllClick()
+    dispatch(addOrderLines(cart, loggedUser._id, totalPrice));
+    handleDeleteAllClick();
+    navigate("/orders");
   };
   const handleChange = (
     evt: EvtChangeType,
-    orderLineId: string,
+    prodId: string,
     productPrice: number
   ) => {
+    console.log(evt.target.value);
     const propsToUpdate = {
       quantity:
         parseInt(evt.target.value) < 1 || parseInt(evt.target.value) > 20
@@ -38,23 +39,26 @@ export const Main = () => {
           : parseInt(evt.target.value),
       price:
         parseInt(evt.target.value) < 1 || parseInt(evt.target.value) > 20
-          ? 1
+          ? productPrice
           : parseInt(evt.target.value) * productPrice,
     };
-    dispatch(updateOrderLineWithId(orderLineId, propsToUpdate));
+    dispatch(editFromCart(prodId, propsToUpdate));
   };
   const handleDeleteAllClick = () => {
-    dispatch(removeAllFromCart(loggedUser._id));
+    dispatch(emptyCart());
   };
   useEffect(() => {
-    dispatch(getOrderLines(loggedUser._id));
-  }, [dispatch, loggedUser, totalPrice]);
+    localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.removeItem("totalPrice");
+    localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
+  }, [cart, totalPrice]);
   return (
     <main>
       <div className='cart__wrapper'>
         <ul className='cart__wrapper--grid'>
-          {cart.map((shopItem) => (
-            <li className='grid__item' key={shopItem._id}>
+          {cart.map((shopItem, index) => (
+            <li className='grid__item' key={index}>
               <img
                 className='grid__item__details--img'
                 src={shopItem.productId?.image}
@@ -79,12 +83,16 @@ export const Main = () => {
                   min={1}
                   max={20}
                   onChange={(e) =>
-                    handleChange(e, shopItem._id!, shopItem.productId?.price!)
+                    handleChange(
+                      e,
+                      (shopItem.productId as Product)._id as string,
+                      (shopItem.productId as Product).price as number
+                    )
                   }
                 />
                 <img
                   onClick={() => {
-                    handleDeleteClick(shopItem._id!);
+                    handleDeleteClick(shopItem.productId?._id as string);
                   }}
                   className='delBtn'
                   src='https://previews.123rf.com/images/igoun/igoun1805/igoun180500088/101280971-cross-icon-in-circle-can-be-used-as-delete-block-close-button-etc-delete-x-cross-rounded-icon-is-fla.jpg'

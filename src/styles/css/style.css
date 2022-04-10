@@ -630,7 +630,52 @@ button[disabled] {
 }
 
 .orders__wrapper {
+  margin-bottom: 4.9rem;
   text-align: center;
+  display: grid;
+  gap: 1rem;
+}
+.orders__wrapper .orderContainer {
+  margin: 0 auto;
+  width: 90%;
+  padding: 3rem;
+  border: 2px solid;
+  border-radius: 2rem;
+  background-color: #3d8170;
+}
+.orders__wrapper .orderContainer__information {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto, minmax(50px, 1fr));
+  grid-template-areas: "orderId orderId orderId" "orderOrigin orderOrigin orderOrigin" "orderItems orderItems orderItems" "itemsArray itemsArray itemsArray" "totalPrice totalPrice totalPrice";
+}
+.orders__wrapper .orderContainer__information__id {
+  grid-area: orderId;
+}
+.orders__wrapper .orderContainer__information__orderedlines {
+  grid-area: orderItems;
+}
+.orders__wrapper .orderContainer__information .orderedline__wrapper {
+  grid-area: itemsArray;
+}
+.orders__wrapper .orderContainer__information .orderedline__wrapper__information {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(3rem, 1fr));
+  grid-template-areas: "productImage" "productPrice";
+}
+.orders__wrapper .orderContainer__information .orderedline__wrapper__information__image {
+  grid-area: productImage;
+  width: 4rem;
+  aspect-ratio: 1;
+}
+.orders__wrapper .orderContainer__information .orderedline__wrapper__information__price {
+  grid-area: productPrice;
+}
+.orders__wrapper .orderContainer__information__total {
+  grid-area: totalPrice;
+}
+.orders__wrapper .orderContainer__information__orderOrigin {
+  grid-area: orderOrigin;
 }
 
 .authentication {
@@ -927,6 +972,11 @@ button[disabled] {
     transform: translateY(-2px);
   }
 }
+/*grid-template-columns: repeat(2, minmax(50px, 1fr));
+    grid-template-areas:
+      "orderId orderItems orderOrigin"
+      "itemsArray itemsArray itemsArray"
+      "totalPrice totalPrice totalPrice";*/
 @media only screen and (min-width: 800px) and (max-width: 1199px) {
   h1 {
     font-size: 2.8rem;
@@ -942,6 +992,20 @@ button[disabled] {
 
   body {
     font-size: 1.125rem;
+  }
+
+  .orders__wrapper .orderContainer__information {
+    grid-template-columns: repeat(auto, minmax(15rem, 1fr));
+    grid-template-areas: "orderId orderId orderId orderOrigin" ".. orderItems .. .." "itemsArray itemsArray itemsArray itemsArray" "totalPrice totalPrice totalPrice totalPrice";
+    gap: 1rem;
+  }
+  .orders__wrapper .orderContainer .orderedline__wrapper__information {
+    grid-template-columns: repeat(auto, minmax(1rem, 2rem));
+  }
+  .orders__wrapper .orderContainer .orderedline__wrapper__information__image {
+    grid-area: productImage;
+    width: 10rem;
+    aspect-ratio: 1;
   }
 
   .cart__wrapper--grid {
@@ -1043,6 +1107,21 @@ button[disabled] {
 
   body {
     font-size: 1.65rem;
+  }
+
+  .orders__wrapper {
+    margin-bottom: 5rem;
+  }
+  .orders__wrapper .orderContainer__information {
+    grid-template-columns: repeat(auto, minmax(25rem, 1fr));
+    grid-template-areas: "orderId orderId orderId orderItems orderOrigin" "itemsArray itemsArray itemsArray itemsArray itemsArray" "totalPrice totalPrice totalPrice totalPrice totalPrice";
+    gap: 1rem;
+  }
+  .orders__wrapper .orderContainer .orderedline__wrapper__information {
+    grid-template-columns: repeat(auto, minmax(1rem, 1fr));
+  }
+  .orders__wrapper .orderContainer .orderedline__wrapper__information__image {
+    width: 20rem;
   }
 
   .cart__wrapper--grid {

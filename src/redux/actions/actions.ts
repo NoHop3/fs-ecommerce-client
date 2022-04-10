@@ -5,7 +5,7 @@ import {
   ADD_TO_CART,
   ADD_TO_FAVS,
   AUTH_ERROR,
-  EDIT_ORDER_LINE,
+  EDIT_FROM_CART,
   EDIT_USER,
   EMPTY_CART,
   FETCH_ORDERS,
@@ -25,7 +25,7 @@ import {
   addToCartAction,
   addToFavsAction,
   authErrorAction,
-  editOrderLineAction,
+  editFromCartAction,
   editUserAction,
   emptyCartAction,
   fetchOrderLinesAction,
@@ -40,7 +40,13 @@ import {
   toggleSignInAction,
   toggleThemeAction,
 } from "../../typescript/redux/actions/action_types";
-import { OrderLine, Product, User, ValuesSignUp , Order} from "../../typescript/types";
+import {
+  OrderLine,
+  Product,
+  User,
+  ValuesSignUp,
+  Order,
+} from "../../typescript/types";
 
 export function toggleTheme(): toggleThemeAction {
   return {
@@ -115,15 +121,15 @@ export function fetchOrderLines(
 export function fetchOrders(orders: Order[]): fetchOrdersAction {
   return {
     type: FETCH_ORDERS,
-    payload: orders
-  }
+    payload: orders,
+  };
 }
 
 export function addOrder(order: Order): addOrderAction {
   return {
     type: ADD_ORDER,
-    payload: order
-  }
+    payload: order,
+  };
 }
 
 export function addToFavs(favId: string): addToFavsAction {
@@ -132,24 +138,33 @@ export function addToFavs(favId: string): addToFavsAction {
     payload: favId,
   };
 }
+export function editFromCart(
+  prodId: string,
+  propsToUpdate: Partial<OrderLine>
+): editFromCartAction {
+  return {
+    type: EDIT_FROM_CART,
+    payload: {
+      prodId: prodId,
+      propsToUpdate: propsToUpdate,
+    },
+  };
+}
+
 export function addToCart(orderLine: OrderLine): addToCartAction {
   return {
     type: ADD_TO_CART,
     payload: orderLine,
   };
 }
-export function editOrderLine(orderLine: OrderLine): editOrderLineAction {
-  return {
-    type: EDIT_ORDER_LINE,
-    payload: orderLine,
-  };
-}
+
 export function removeFromCart(productId: string): removeFromCartAction {
   return {
     type: REMOVE_FROM_CART,
     payload: productId,
   };
 }
+
 export function emptyCart(): emptyCartAction {
   return {
     type: EMPTY_CART,
@@ -183,7 +198,6 @@ export function signIn(values: Partial<ValuesSignUp>) {
         password: values.password,
       })
       .then((res: any) => {
-        console.log(res.data.loginUser)
         dispatch(signInUser(res.data.loginUser));
         localStorage.setItem("token", JSON.stringify(res.data.token));
       })
@@ -239,7 +253,6 @@ export function getOrders(userId: string) {
     axios
       .get(`http://localhost:5000/api/v1/orders/${userId}`)
       .then((res) => {
-        console.log(res.data)
         dispatch(fetchOrders(res.data));
       })
       .catch((err: any) => {
@@ -249,101 +262,124 @@ export function getOrders(userId: string) {
 }
 
 export function addOrderAxios(
-  orderLines: OrderLine[],
+  orderedlines: OrderLine[],
   userId: string,
   totalPrice: number
 ) {
   return (dispatch: Dispatch) => {
     axios
       .post(`http://localhost:5000/api/v1/orders/${userId}`, {
-        orderLines,
+        orderedlines,
         totalPrice,
       })
       .then((res: any) => {
-        console.log(res.data)
-      })
-      .catch((err: any) => {
-        dispatch(authError(err));
-      });
-  };
-}
-
-export function addOrderLine(
-  orderLine: Partial<OrderLine>,
-  userId: string,
-  productId: string
-) {
-  return (dispatch: Dispatch) => {
-    axios
-      .post(
-        `http://localhost:5000/api/v1/orderLines/${userId}/${productId}`,
-        orderLine
-      )
-      .then((res: any) => {
-        dispatch(addToCart(res.data));
-      })
-      .catch((err: any) => {
-        dispatch(authError(err));
-      });
-  };
-}
-
-
-
-export function removeOrderLine(userId: string, productId: string) {
-  return (dispatch: Dispatch) => {
-    axios
-      .delete(`http://localhost:5000/api/v1/orderLines/${userId}/${productId}`)
-      .then((res: any) => {
-        dispatch(removeFromCart(productId));
-      })
-      .catch((err: any) => {
-        console.log(err.response.data);
-        dispatch(authError(err.response.data));
-      });
-  };
-}
-export function removeOrderLineWithId(Id: string) {
-  return (dispatch: Dispatch) => {
-    axios
-      .delete(`http://localhost:5000/api/v1/orderLines/${Id}`)
-      .then((res: any) => {
-        dispatch(removeFromCart(Id));
-      })
-      .catch((err: any) => {
-        console.log(err.response.data);
-        dispatch(authError(err.response.data));
-      });
-  };
-}
-
-export function updateOrderLineWithId(
-  Id: string,
-  propsToUpdate: Partial<OrderLine>
-) {
-  return (dispatch: Dispatch) => {
-    axios
-      .put(`http://localhost:5000/api/v1/orderLines/${Id}`, propsToUpdate)
-      .then((res: any) => {
         console.log(res.data);
-        dispatch(editOrderLine(res.data));
       })
       .catch((err: any) => {
-        console.log(err.response.data);
-        dispatch(authError(err.response.data));
+        dispatch(authError(err));
       });
   };
 }
-export function removeAllFromCart(userId: string) {
+
+export function addOrderLines(
+  orderLines: Partial<OrderLine>[],
+  userId: string,
+  totalPrice: number
+) {
   return (dispatch: Dispatch) => {
-    axios
-      .delete(`http://localhost:5000/api/v1/orderLines/all/${userId}`)
-      .then((res: any) => {
-        dispatch(emptyCart());
+    const promises: any = [];
+    orderLines.forEach((orderLine) => {
+      promises.push(
+        axios.post(
+          `http://localhost:5000/api/v1/orderLines/${userId}/${orderLine.productId?._id}`,
+          {
+            price: orderLine.price,
+            quantity: orderLine.quantity,
+          }
+        )
+      );
+    });
+    Promise.all(promises)
+      .then((resArray: any) => {
+        const orderedlines: Partial<OrderLine>[] = [];
+        resArray.forEach((response: any) => {
+          orderedlines.push({
+            _id:response.data._id
+          });
+        });
+        console.log(orderedlines);
+        axios
+          .post(`http://localhost:5000/api/v1/orders/${userId}`, {
+            orderedlines,
+            totalPrice,
+          })
+          .then((res: any) => {
+            console.log(res.data);
+          })
+          .catch((err: any) => {
+            dispatch(authError(err));
+          });
       })
       .catch((err: any) => {
-        console.log(err.response.data);
-        dispatch(authError(err.response.data));
+        dispatch(authError(err));
       });
   };
 }
+
+// export function removeOrderLine(userId: string, productId: string) {
+//   return (dispatch: Dispatch) => {
+//     axios
+//       .delete(`http://localhost:5000/api/v1/orderLines/${userId}/${productId}`)
+//       .then((res: any) => {
+//         dispatch(removeFromCart(productId));
+//       })
+//       .catch((err: any) => {
+//         console.log(err.response.data);
+//         dispatch(authError(err.response.data));
+//       });
+//   };
+// }
+// export function removeOrderLineWithId(Id: string) {
+//   return (dispatch: Dispatch) => {
+//     axios
+//       .delete(`http://localhost:5000/api/v1/orderLines/${Id}`)
+//       .then((res: any) => {
+//         dispatch(removeFromCart(Id));
+//       })
+//       .catch((err: any) => {
+//         console.log(err.response.data);
+//         dispatch(authError(err.response.data));
+//       });
+//   };
+// }
+
+// export function updateOrderLineWithId(
+//   Id: string,
+//   propsToUpdate: Partial<OrderLine>
+// ) {
+//   return (dispatch: Dispatch) => {
+//     axios
+//       .put(`http://localhost:5000/api/v1/orderLines/${Id}`, propsToUpdate)
+//       .then((res: any) => {
+//         console.log(res.data);
+//         dispatch(editFromCart(res.data));
+//       })
+//       .catch((err: any) => {
+//         console.log(err.response.data);
+//         dispatch(authError(err.response.data));
+//       });
+//   };
+// }
+// export function removeAllFromCart(userId: string) {
+//   return (dispatch: Dispatch) => {
+//     axios
+//       .delete(`http://localhost:5000/api/v1/orderLines/all/${userId}`)
+//       .then((res: any) => {
+//         dispatch(emptyCart());
+//       })
+//       .catch((err: any) => {
+//         console.log(err.response.data);
+//         dispatch(authError(err.response.data));
+//       });
+//   };
+// }

@@ -4,7 +4,7 @@ import {
   ADD_TO_CART,
   ADD_TO_FAVS,
   AUTH_ERROR,
-  EDIT_ORDER_LINE,
+  EDIT_FROM_CART,
   EDIT_USER,
   EMPTY_CART,
   FETCH_ORDERS,
@@ -77,20 +77,23 @@ export type removeFromCartAction = {
 export type emptyCartAction = {
   type: typeof EMPTY_CART;
 };
-export type editOrderLineAction = {
-  type: typeof EDIT_ORDER_LINE;
-  payload: OrderLine;
+export type editFromCartAction = {
+  type: typeof EDIT_FROM_CART;
+  payload: {
+    prodId: string;
+    propsToUpdate: Partial<OrderLine>;
+  };
 };
 
 export type fetchOrdersAction = {
   type: typeof FETCH_ORDERS;
   payload: Order[];
-}
+};
 
 export type addOrderAction = {
   type: typeof ADD_ORDER;
   payload: Order;
-}
+};
 
 export type actionType =
   | toggleNavAction
@@ -108,6 +111,6 @@ export type actionType =
   | addToCartAction
   | removeFromCartAction
   | emptyCartAction
-  | editOrderLineAction
+  | editFromCartAction
   | fetchOrdersAction
   | addOrderAction;

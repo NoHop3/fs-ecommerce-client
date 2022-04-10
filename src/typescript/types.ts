@@ -45,7 +45,7 @@ export type Order = {
   _id?: string;
   __v?: number;
   userId: User;
-  orderLines: OrderLine[];
+  orderedlines: OrderLine[];
   totalPrice: number;
 }
 
