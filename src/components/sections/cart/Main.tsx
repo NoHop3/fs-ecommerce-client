@@ -24,14 +24,15 @@ export const Main = () => {
   const handleOrderClick = () => {
     dispatch(addOrderLines(cart, loggedUser._id, totalPrice));
     handleDeleteAllClick();
-    navigate("/orders");
+    setTimeout(() => {
+      navigate("/orders");
+    }, 500);
   };
   const handleChange = (
     evt: EvtChangeType,
     prodId: string,
     productPrice: number
   ) => {
-    console.log(evt.target.value);
     const propsToUpdate = {
       quantity:
         parseInt(evt.target.value) < 1 || parseInt(evt.target.value) > 20
@@ -57,50 +58,51 @@ export const Main = () => {
     <main>
       <div className='cart__wrapper'>
         <ul className='cart__wrapper--grid'>
-          {cart.map((shopItem, index) => (
-            <li className='grid__item' key={index}>
-              <img
-                className='grid__item__details--img'
-                src={shopItem.productId?.image}
-                alt='Shop item from cart'
-              />
-              <div className='grid__item__details'>
-                <p className='grid__item__details--name'>
-                  {shopItem.productId?.name}
-                </p>
-
-                <p className='grid__item__details--price'>
-                  {shopItem.price} dkk
-                </p>
-              </div>
-              <div className='grid__item__actions'>
-                <input
-                  className='quantityInput'
-                  type='number'
-                  name=''
-                  id=''
-                  value={shopItem.quantity}
-                  min={1}
-                  max={20}
-                  onChange={(e) =>
-                    handleChange(
-                      e,
-                      (shopItem.productId as Product)._id as string,
-                      (shopItem.productId as Product).price as number
-                    )
-                  }
-                />
+          {cart &&
+            cart.map((shopItem, index) => (
+              <li className='grid__item' key={index}>
                 <img
-                  onClick={() => {
-                    handleDeleteClick(shopItem.productId?._id as string);
-                  }}
-                  className='delBtn'
-                  src='https://previews.123rf.com/images/igoun/igoun1805/igoun180500088/101280971-cross-icon-in-circle-can-be-used-as-delete-block-close-button-etc-delete-x-cross-rounded-icon-is-fla.jpg'
-                  alt=''
+                  className='grid__item__details--img'
+                  src={shopItem.productId?.image}
+                  alt='Shop item from cart'
                 />
-              </div>
-            </li>
-          ))}
+                <div className='grid__item__details'>
+                  <p className='grid__item__details--name'>
+                    {shopItem.productId?.name}
+                  </p>
+
+                  <p className='grid__item__details--price'>
+                    {shopItem.price} dkk
+                  </p>
+                </div>
+                <div className='grid__item__actions'>
+                  <input
+                    className='quantityInput'
+                    type='number'
+                    name=''
+                    id=''
+                    value={shopItem.quantity}
+                    min={1}
+                    max={20}
+                    onChange={(e) =>
+                      handleChange(
+                        e,
+                        (shopItem.productId as Product)._id as string,
+                        (shopItem.productId as Product).price as number
+                      )
+                    }
+                  />
+                  <img
+                    onClick={() => {
+                      handleDeleteClick(shopItem.productId?._id as string);
+                    }}
+                    className='delBtn'
+                    src='https://previews.123rf.com/images/igoun/igoun1805/igoun180500088/101280971-cross-icon-in-circle-can-be-used-as-delete-block-close-button-etc-delete-x-cross-rounded-icon-is-fla.jpg'
+                    alt=''
+                  />
+                </div>
+              </li>
+            ))}
         </ul>
         <div className='totalOrder'>
           <div className='actions'>
@@ -109,7 +111,7 @@ export const Main = () => {
               className='btn orderBtn'
               onClick={handleOrderClick}>
               All <br />
-              {totalPrice}
+              {totalPrice as number}
             </button>
             <button
               className='btn orderBtn'

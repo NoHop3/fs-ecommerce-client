@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CSSTransition } from "react-transition-group";
 
 import { getOrders } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
@@ -47,7 +46,7 @@ export const Main = () => {
                           alt='Orderline product'
                         />
                         <p className='orderedline__wrapper__information__price'>
-                          {orderline.productId?.price} dkk
+                          Amount:{orderline.quantity}, Price:{orderline.price}
                         </p>
                       </div>
                     ))}

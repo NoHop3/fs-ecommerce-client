@@ -4,14 +4,16 @@ import {
   ADD_TO_CART,
   EDIT_FROM_CART,
   EMPTY_CART,
-  FETCH_ORDER_LINES,
   FETCH_PRODUCTS,
   REMOVE_FROM_CART,
 } from "../../typescript/redux/actions/action_const";
 
 const initialState: InitialProductState = {
   products: [],
-  cart: JSON.parse(localStorage.getItem("cart") as string),
+  cart:
+    JSON.parse(localStorage.getItem("cart") as string) === null
+      ? []
+      : JSON.parse(localStorage.getItem("cart") as string),
   totalPrice: JSON.parse(localStorage.getItem("totalPrice") as string),
 };
 
@@ -23,16 +25,7 @@ const productReducer = (state = initialState, action: actionType) => {
         products: action.payload,
       };
     }
-    case FETCH_ORDER_LINES: {
-      return {
-        ...state,
-        cart: action.payload,
-        totalPrice: 0,
-      };
-    }
     case ADD_TO_CART: {
-      // localStorage.removeItem("cart");
-      // localStorage.setItem("cart", JSON.stringify(state.cart));
       return {
         ...state,
         cart: [...state.cart, action.payload],
@@ -40,8 +33,6 @@ const productReducer = (state = initialState, action: actionType) => {
       };
     }
     case REMOVE_FROM_CART: {
-      // localStorage.removeItem("cart");
-      // localStorage.setItem("cart", JSON.stringify(state.cart));
       return {
         ...state,
         totalPrice:
@@ -57,8 +48,6 @@ const productReducer = (state = initialState, action: actionType) => {
       };
     }
     case EDIT_FROM_CART: {
-      // localStorage.removeItem("cart");
-      // localStorage.setItem("cart", JSON.stringify(state.cart));
       const index = state.cart.findIndex(
         (orderLine) => orderLine.productId?._id === action.payload.prodId
       );
@@ -78,7 +67,6 @@ const productReducer = (state = initialState, action: actionType) => {
       };
     }
     case EMPTY_CART: {
-      // localStorage.removeItem("cart");
       return {
         ...state,
         cart: [],

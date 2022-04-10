@@ -9,7 +9,6 @@ import {
   EDIT_USER,
   EMPTY_CART,
   FETCH_ORDERS,
-  FETCH_ORDER_LINES,
   FETCH_PRODUCTS,
   GET_TOKEN,
   REMOVE_FROM_CART,
@@ -28,7 +27,6 @@ import {
   editFromCartAction,
   editUserAction,
   emptyCartAction,
-  fetchOrderLinesAction,
   fetchOrdersAction,
   fetchProductsAction,
   getTokenAction,
@@ -107,14 +105,6 @@ export function fetchProducts(products: Product[]): fetchProductsAction {
   return {
     type: FETCH_PRODUCTS,
     payload: products,
-  };
-}
-export function fetchOrderLines(
-  orderLines: OrderLine[]
-): fetchOrderLinesAction {
-  return {
-    type: FETCH_ORDER_LINES,
-    payload: orderLines,
   };
 }
 
@@ -230,20 +220,7 @@ export function getProducts() {
         dispatch(fetchProducts(res.data));
       })
       .catch((err: any) => {
-        console.log(err.response.data.message);
-      });
-  };
-}
-
-export function getOrderLines(userId: string) {
-  return (dispatch: Dispatch) => {
-    axios
-      .get(`http://localhost:5000/api/v1/orderLines/${userId}`)
-      .then((res) => {
-        dispatch(fetchOrderLines(res.data));
-      })
-      .catch((err: any) => {
-        console.log(err.response.data.message);
+        console.log(err)
       });
   };
 }
@@ -256,7 +233,7 @@ export function getOrders(userId: string) {
         dispatch(fetchOrders(res.data));
       })
       .catch((err: any) => {
-        console.log(err.response.data.message);
+        console.log(err)
       });
   };
 }
@@ -276,7 +253,7 @@ export function addOrderAxios(
         console.log(res.data);
       })
       .catch((err: any) => {
-        dispatch(authError(err));
+        console.log(err)
       });
   };
 }
@@ -307,7 +284,6 @@ export function addOrderLines(
             _id:response.data._id
           });
         });
-        console.log(orderedlines);
         axios
           .post(`http://localhost:5000/api/v1/orders/${userId}`, {
             orderedlines,
@@ -325,61 +301,3 @@ export function addOrderLines(
       });
   };
 }
-
-// export function removeOrderLine(userId: string, productId: string) {
-//   return (dispatch: Dispatch) => {
-//     axios
-//       .delete(`http://localhost:5000/api/v1/orderLines/${userId}/${productId}`)
-//       .then((res: any) => {
-//         dispatch(removeFromCart(productId));
-//       })
-//       .catch((err: any) => {
-//         console.log(err.response.data);
-//         dispatch(authError(err.response.data));
-//       });
-//   };
-// }
-// export function removeOrderLineWithId(Id: string) {
-//   return (dispatch: Dispatch) => {
-//     axios
-//       .delete(`http://localhost:5000/api/v1/orderLines/${Id}`)
-//       .then((res: any) => {
-//         dispatch(removeFromCart(Id));
-//       })
-//       .catch((err: any) => {
-//         console.log(err.response.data);
-//         dispatch(authError(err.response.data));
-//       });
-//   };
-// }
-
-// export function updateOrderLineWithId(
-//   Id: string,
-//   propsToUpdate: Partial<OrderLine>
-// ) {
-//   return (dispatch: Dispatch) => {
-//     axios
-//       .put(`http://localhost:5000/api/v1/orderLines/${Id}`, propsToUpdate)
-//       .then((res: any) => {
-//         console.log(res.data);
-//         dispatch(editFromCart(res.data));
-//       })
-//       .catch((err: any) => {
-//         console.log(err.response.data);
-//         dispatch(authError(err.response.data));
-//       });
-//   };
-// }
-// export function removeAllFromCart(userId: string) {
-//   return (dispatch: Dispatch) => {
-//     axios
-//       .delete(`http://localhost:5000/api/v1/orderLines/all/${userId}`)
-//       .then((res: any) => {
-//         dispatch(emptyCart());
-//       })
-//       .catch((err: any) => {
-//         console.log(err.response.data);
-//         dispatch(authError(err.response.data));
-//       });
-//   };
-// }
