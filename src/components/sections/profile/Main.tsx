@@ -94,6 +94,7 @@ export const Main = () => {
       lastName: "",
       username: "",
     });
+    console.log(loggedUser)
     setImage(loggedUser.image);
   }, [loggedUser]);
   const handleSaveClick = useCallback(() => {

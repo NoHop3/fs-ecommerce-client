@@ -43,13 +43,14 @@ function Contact() {
       [toSend]
     );
   return (
-      <div className='form'>
-    <main>
+    <div className='form'>
+      <main>
         <div className='contact-box' id='contact'>
           <h2>Contact us!</h2>
           <form onSubmit={onSubmit}>
             <div className='form-box'>
               <input
+                value={toSend.from_name as string}
                 onChange={handleChange}
                 type='text'
                 name='from_name'
@@ -60,6 +61,7 @@ function Contact() {
             </div>
             <div className='form-box'>
               <input
+                value={toSend.from_email as string}
                 onChange={handleChange}
                 type='email'
                 name='from_email'
@@ -70,6 +72,7 @@ function Contact() {
             </div>
             <div className='form-box'>
               <textarea
+                value={toSend.message as string}
                 onChange={handleMessChange}
                 name='message'
                 id='message'
@@ -89,8 +92,8 @@ function Contact() {
             </div>
           </form>
         </div>
-    </main>
-      </div>
+      </main>
+    </div>
   );
 }
 export default memo(Contact);

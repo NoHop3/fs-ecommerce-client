@@ -98,6 +98,8 @@ const navReducer = (state = initialState, action: actionType) => {
         }),
       };
     case EDIT_USER:
+      console.log("Edit user reducer")
+      console.log(action.payload)
       return {
         ...state,
         loggedUser: Object.assign(state.loggedUser, action.payload),

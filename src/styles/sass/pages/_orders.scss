@@ -1,7 +1,7 @@
 @use "../sass-utils/variables" as var;
 
 .orders__wrapper {
-  margin-bottom: 4.90rem;
+  margin-bottom: 4.9rem;
   text-align: center;
   display: grid;
   gap: 1rem;
@@ -30,12 +30,30 @@
       }
       & .orderedline__wrapper {
         grid-area: itemsArray;
+        &.orderedline__transition-enter {
+          opacity: 0;
+          transform: translate(0rem);
+          transition: all 300ms;
+        }
+        &.orderedline__transition-enter-active {
+          opacity: 1;
+          transition: all 300ms;
+        }
+        &.orderedline__transition-exit {
+          opacity: 1;
+          transition: all 300ms;
+        }
+        &.orderedline__transition-exit-active {
+          opacity: 0;
+          transform: translateY(-4rem);
+          transition: all 300ms;
+        }
         &__information {
           display: grid;
-        grid-template-columns: repeat(3, minmax(3rem, 1fr));
-        grid-template-areas:
-          "productImage"
-          "productPrice";
+          grid-template-columns: repeat(3, minmax(3rem, 1fr));
+          grid-template-areas:
+            "productImage"
+            "productPrice";
           &__image {
             grid-area: productImage;
             width: 4rem;

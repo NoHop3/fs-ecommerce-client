@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+
 import {
   ADD_ORDER,
   ADD_TO_CART,
@@ -82,6 +83,7 @@ export function signInUser(user: User): signInAction {
     payload: user,
   };
 }
+
 export function signOutUser(): signOutAction {
   return {
     type: SIGN_OUT_USER,
@@ -197,6 +199,19 @@ export function signIn(values: Partial<ValuesSignUp>) {
       });
   };
 }
+export function signInUserWithId(userId: string) {
+  return (dispatch: Dispatch) => {
+    axios
+      .get(`http://localhost:5000/api/v1/users/${userId}`)
+      .then((res: any) => {
+        dispatch(signInUser(res.data));
+      })
+      .catch((err: any) => {
+        console.log(err.response);
+        dispatch(authError(err.response.data.message));
+      });
+  };
+}
 
 export function edit(values: Partial<User>, userId: string) {
   console.log(values);
@@ -204,6 +219,7 @@ export function edit(values: Partial<User>, userId: string) {
     axios
       .put(`http://localhost:5000/api/v1/users/${userId}`, values)
       .then((res) => {
+        console.log(res.data);
         dispatch(editUser(res.data));
       })
       .catch((err: any) => {
@@ -220,7 +236,7 @@ export function getProducts() {
         dispatch(fetchProducts(res.data));
       })
       .catch((err: any) => {
-        console.log(err)
+        console.log(err);
       });
   };
 }
@@ -233,7 +249,7 @@ export function getOrders(userId: string) {
         dispatch(fetchOrders(res.data));
       })
       .catch((err: any) => {
-        console.log(err)
+        console.log(err);
       });
   };
 }
@@ -253,7 +269,7 @@ export function addOrderAxios(
         console.log(res.data);
       })
       .catch((err: any) => {
-        console.log(err)
+        console.log(err);
       });
   };
 }
@@ -281,7 +297,7 @@ export function addOrderLines(
         const orderedlines: Partial<OrderLine>[] = [];
         resArray.forEach((response: any) => {
           orderedlines.push({
-            _id:response.data._id
+            _id: response.data._id,
           });
         });
         axios

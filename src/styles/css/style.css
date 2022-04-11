@@ -658,6 +658,24 @@ button[disabled] {
 .orders__wrapper .orderContainer__information .orderedline__wrapper {
   grid-area: itemsArray;
 }
+.orders__wrapper .orderContainer__information .orderedline__wrapper.orderedline__transition-enter {
+  opacity: 0;
+  transform: translate(0rem);
+  transition: all 300ms;
+}
+.orders__wrapper .orderContainer__information .orderedline__wrapper.orderedline__transition-enter-active {
+  opacity: 1;
+  transition: all 300ms;
+}
+.orders__wrapper .orderContainer__information .orderedline__wrapper.orderedline__transition-exit {
+  opacity: 1;
+  transition: all 300ms;
+}
+.orders__wrapper .orderContainer__information .orderedline__wrapper.orderedline__transition-exit-active {
+  opacity: 0;
+  transform: translateY(-4rem);
+  transition: all 300ms;
+}
 .orders__wrapper .orderContainer__information .orderedline__wrapper__information {
   display: grid;
   grid-template-columns: repeat(3, minmax(3rem, 1fr));
