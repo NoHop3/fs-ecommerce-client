@@ -2,7 +2,7 @@ import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
 import { useDispatch, useSelector } from "react-redux";
-import { signIn, toggleSignIn } from "../../../../redux/actions/actions";
+import { signInAxios, toggleSignIn } from "../../../../redux/actions/actions";
 import { RootState } from "../../../../typescript/redux/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -30,7 +30,7 @@ export const SignIn = ({ style }: any) => {
         }}
         validationSchema={userSchema}
         onSubmit={(values) => {
-          dispatch(signIn(values));
+          dispatch(signInAxios(values));
         }}>
         {({ errors, touched }) => (
           <Form className='signUp__form'>
@@ -114,6 +114,7 @@ const userSchema = Yup.object().shape(
       .min(3, "Password should be min 3 characters")
       .required("Required"),
     confirmPassword: Yup.string().oneOf(
+      //! Fix needed
       [Yup.ref("password"), null],
       "Passwords must match"
     ),

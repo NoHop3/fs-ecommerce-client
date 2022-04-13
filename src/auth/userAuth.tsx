@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { signInUserWithId, signOutUser } from "../redux/actions/actions";
+import { signInUserWithIdAxios, signOutUser } from "../redux/actions/actions";
 
 export const IsUserAuthenticated = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export const IsUserUnAuthenticated = () => {
     let loggedInUser = localStorage.getItem("token");
     const user: any = loggedInUser && jwt_decode(loggedInUser);
     if (user?.email || user?.username) {
-      dispatch(signInUserWithId(user._id as string));
+      dispatch(signInUserWithIdAxios(user._id as string));
       return <Navigate to='/' />;
     }
   }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
-  addOrderLines,
+  addOrderAxios,
   editFromCart,
   emptyCart,
   removeFromCart,
@@ -22,7 +22,7 @@ export const Main = () => {
     dispatch(removeFromCart(prodId));
   };
   const handleOrderClick = () => {
-    dispatch(addOrderLines(cart, loggedUser._id, totalPrice));
+    dispatch(addOrderAxios(cart, loggedUser._id, totalPrice));
     handleDeleteAllClick();
     setTimeout(() => {
       navigate("/orders");

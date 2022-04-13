@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { authError, edit } from "../../../redux/actions/actions";
+import { authError, editUserAxios } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
 import { EvtChangeType } from "../../../typescript/types";
 import { Dropzone, MIME_TYPES, DropzoneStatus } from "@mantine/dropzone";
@@ -108,7 +108,7 @@ export const Main = () => {
         throw new Error("Incorrect edit properties.");
       }
       dispatch(
-        edit(
+        editUserAxios(
           {
             image: toSave.image,
             email: toSave.email === "" ? loggedUser.email : toSave.email,

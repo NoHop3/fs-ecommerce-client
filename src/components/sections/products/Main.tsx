@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   addToFavs,
-  deleteProduct,
-  edit,
-  getProducts,
+  deleteProductAxios,
+  editUserAxios,
+  getProductsAxios,
   removeFromCart,
   sortProducts,
 } from "../../../redux/actions/actions";
@@ -28,7 +28,7 @@ export const Main = () => {
   const handleFavClick = (id: string) => {
     dispatch(addToFavs(id));
     const favourites = loggedUser.favourites;
-    dispatch(edit({ favourites }, loggedUser._id));
+    dispatch(editUserAxios({ favourites }, loggedUser._id));
   };
   const handleCartClick = (prod: Product) => {
     const orderLine = {
@@ -42,7 +42,7 @@ export const Main = () => {
     dispatch(removeFromCart(prodId));
   };
   const handleDeleteClick = (prodId: string) => {
-    dispatch(deleteProduct(prodId));
+    dispatch(deleteProductAxios(prodId));
   };
   const handleSearchChange = (evt: EvtChangeType) => {
     setSort({
@@ -74,7 +74,7 @@ export const Main = () => {
     dispatch(sortProducts(sort));
   };
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProductsAxios());
     dispatch(sortProducts(sort));
     localStorage.removeItem("cart");
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -127,7 +127,7 @@ export const Main = () => {
         <ul className='products__wrapper--grid'>
           {filteredProducts &&
             filteredProducts.map((product) => (
-              <li className='grid__item' key={product._id}>
+              <li className='grid__item' key={product._id} onClick={()=>{}}>
                 <img
                   className='grid__item--img'
                   src={product.image}

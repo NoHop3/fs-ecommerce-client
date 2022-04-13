@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { signUp, toggleSignIn } from "../../../../redux/actions/actions";
+import { signUpAxios, toggleSignIn } from "../../../../redux/actions/actions";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { RootState } from "../../../../typescript/redux/store";
@@ -23,7 +23,7 @@ export const SignUp = ({ style }: any) => {
         }}
         validationSchema={userSchema}
         onSubmit={(values) => {
-          dispatch(signUp(values));
+          dispatch(signUpAxios(values));
           handleBtnClick();
         }}>
         {({ errors, touched }) => (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition} from "react-transition-group";
 
-import { getOrders } from "../../../redux/actions/actions";
+import { getOrdersAxios } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
 
 export const Main = () => {
@@ -10,7 +10,7 @@ export const Main = () => {
   const { loggedUser } = useSelector((state: RootState) => state.authState);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getOrders(loggedUser._id));
+    dispatch(getOrdersAxios(loggedUser._id));
   }, [dispatch, loggedUser]);
   const [clicked, setClicked] = useState({
     isClicked: false,
