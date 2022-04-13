@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   addToCart,
   addToFavs,
@@ -18,6 +19,7 @@ export const Main = () => {
     (state: RootState) => state.productState
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [sort, setSort] = useState({
     keyword: "",
     alphabeticalA__Z: true,
@@ -25,11 +27,15 @@ export const Main = () => {
     favouritesDisplay: false,
     favourites: [...loggedUser.favourites]
   });
+
+  // Helper function for user favourite products
   const handleFavClick = (id: string) => {
     dispatch(addToFavs(id));
     const favourites = loggedUser.favourites;
     dispatch(editUserAxios({ favourites }, loggedUser._id));
   };
+
+  // Helper functions for cart adding/removing
   const handleCartClick = (prod: Product) => {
     const orderLine = {
       productId: prod,
@@ -41,9 +47,18 @@ export const Main = () => {
   const handleCartRemoveClick = (prodId: string) => {
     dispatch(removeFromCart(prodId));
   };
+
+  // Admin helper function for permamently deleting products
   const handleDeleteClick = (prodId: string) => {
     dispatch(deleteProductAxios(prodId));
   };
+  
+  // Details helper function that takes the user to the details page for a chosen id
+  const handleProductClick=(productId: string)=>{
+    navigate(`/products/details/${productId}`);
+  }
+
+  // Helper functions for sorting
   const handleSearchChange = (evt: EvtChangeType) => {
     setSort({
       ...sort,
@@ -73,6 +88,8 @@ export const Main = () => {
     });
     dispatch(sortProducts(sort));
   };
+
+  // Fetching products from API here
   useEffect(() => {
     dispatch(getProductsAxios());
     dispatch(sortProducts(sort));
@@ -127,7 +144,7 @@ export const Main = () => {
         <ul className='products__wrapper--grid'>
           {filteredProducts &&
             filteredProducts.map((product) => (
-              <li className='grid__item' key={product._id} onClick={()=>{}}>
+              <li className='grid__item' key={product._id} onClick={()=>{handleProductClick(product._id)}}>
                 <img
                   className='grid__item--img'
                   src={product.image}

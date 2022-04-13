@@ -16,6 +16,7 @@ import {
   IsUserAuthenticated,
   IsUserUnAuthenticated,
 } from "./auth/userAuth";
+import { ProductDetails } from "./pages/ProductDetails";
 
 function App() {
   const { BrowserRouter, Routes, Route } = importTemplate();
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home theme={pageBody} />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/products/details/:productId' element={<ProductDetails />} />
 
           <Route element={<IsUserUnAuthenticated />}>
             <Route path='/authentication' element={<Authentication />} />
