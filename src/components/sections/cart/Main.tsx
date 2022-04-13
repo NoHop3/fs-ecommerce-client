@@ -97,7 +97,7 @@ export const Main = () => {
                       handleDeleteClick(shopItem.productId?._id as string);
                     }}
                     className='delBtn'
-                    src='https://previews.123rf.com/images/igoun/igoun1805/igoun180500088/101280971-cross-icon-in-circle-can-be-used-as-delete-block-close-button-etc-delete-x-cross-rounded-icon-is-fla.jpg'
+                    src='/images/delete__btn.png'
                     alt=''
                   />
                 </div>

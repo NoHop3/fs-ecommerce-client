@@ -72,6 +72,7 @@ export const Main = () => {
   const [image, setImage] = useState(
     loggedUser.image === "" ? "/images/grey_avatar_2.svg" : loggedUser.image
   );
+  const [error, setError] = useState("");
   const [toSave, setToSave] = useState({
     image: image,
     email: "",
@@ -94,26 +95,37 @@ export const Main = () => {
       lastName: "",
       username: "",
     });
-    console.log(loggedUser)
     setImage(loggedUser.image);
   }, [loggedUser]);
   const handleSaveClick = useCallback(() => {
-    console.log(toSave.image);
-    dispatch(
-      edit(
-        {
-          image: toSave.image,
-          email: toSave.email === "" ? loggedUser.email : toSave.email,
-          username:
-            toSave.username === "" ? loggedUser.username : toSave.username,
-          firstName:
-            toSave.firstName === "" ? loggedUser.firstName : toSave.firstName,
-          lastName:
-            toSave.lastName === "" ? loggedUser.lastName : toSave.lastName,
-        },
-        loggedUser._id
-      )
-    );
+    try {
+      if (
+        toSave.firstName.length < 2 ||
+        toSave.lastName.length < 2 ||
+        toSave.username.length < 3 ||
+        toSave.email.length < 10
+      ) {
+        throw new Error("Incorrect edit properties.");
+      }
+      dispatch(
+        edit(
+          {
+            image: toSave.image,
+            email: toSave.email === "" ? loggedUser.email : toSave.email,
+            username:
+              toSave.username === "" ? loggedUser.username : toSave.username,
+            firstName:
+              toSave.firstName === "" ? loggedUser.firstName : toSave.firstName,
+            lastName:
+              toSave.lastName === "" ? loggedUser.lastName : toSave.lastName,
+          },
+          loggedUser._id
+        )
+      );
+      setError("");
+    } catch (error) {
+      if (error instanceof Error) setError(error.message as string);
+    }
   }, [dispatch, loggedUser, toSave]);
   return (
     <main>
@@ -138,7 +150,7 @@ export const Main = () => {
             const reader = new FileReader();
             reader.onload = () => {
               const formData = new FormData();
-              formData.append("file", (reader.result as string));
+              formData.append("file", reader.result as string);
               formData.append("upload_preset", "zwhjf8pn");
               axios
                 .post(
@@ -190,7 +202,7 @@ export const Main = () => {
                 </label>
               </div>
             ) : (
-              <h2 className='error'>Error, no user logged</h2>
+              <>{setError("No user logged")} </>
             )}
           </div>
           <div className='username__container'>
@@ -209,7 +221,7 @@ export const Main = () => {
                 </label>
               </div>
             ) : (
-              <h2 className='error'>Error, no user logged</h2>
+              <>{setError("No user logged")} </>
             )}
           </div>
           <div className='firstName__container'>
@@ -228,7 +240,7 @@ export const Main = () => {
                 </label>
               </div>
             ) : (
-              <h2 className='error'>Error, no user logged</h2>
+              <>{setError("No user logged")} </>
             )}
           </div>
           <div className='lastName__container'>
@@ -247,9 +259,10 @@ export const Main = () => {
                 </label>
               </div>
             ) : (
-              <h2 className='error'>Error, no user logged</h2>
+              <>{setError("No user logged")} </>
             )}
           </div>
+          <h2 className='error'>{error}</h2>
           <div className='buttons__container'>
             <button
               className='btn'

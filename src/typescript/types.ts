@@ -49,6 +49,14 @@ export type Order = {
   totalPrice: number;
 }
 
+export type Sort = {
+  keyword: string;
+  alphabeticalA__Z: boolean;
+  numerical1__9: boolean;
+  favouritesDisplay: boolean;
+  favourites: string[];
+};
+
 export type EvtKeyboardType = React.KeyboardEvent;
 export type EvtChangeType = React.ChangeEvent<HTMLInputElement>;
 export type EvtClickType = React.MouseEvent<Element, MouseEvent>;

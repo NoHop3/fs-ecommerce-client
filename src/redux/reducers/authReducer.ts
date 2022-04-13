@@ -1,5 +1,5 @@
 import { InitialAuthState } from "../../typescript/redux/reducers/reducer_types";
-import { actionType } from "../../typescript/redux/actions/action_types";
+import { ActionType } from "../../typescript/redux/actions/action_types";
 import {
   ADD_TO_FAVS,
   AUTH_ERROR,
@@ -31,7 +31,7 @@ const initialState: InitialAuthState = {
   authError: "",
 };
 
-const navReducer = (state = initialState, action: actionType) => {
+const navReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case GET_TOKEN:
       return {

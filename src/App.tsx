@@ -2,20 +2,20 @@ import { useSelector } from "react-redux";
 
 import { RootState } from "./typescript/redux/store/";
 import importTemplate from "./hooks/useImports";
-import ErrorPage from "./components/pages/ErrorPage";
-import Home from "./components/pages/Home";
-import Contact from "./components/pages/Contact";
+import ErrorPage from "./pages/ErrorPage";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import { Authentication } from "./components/pages/Authentication";
-import { Profile } from "./components/pages/Profile";
-import { Products } from "./components/pages/Products";
-import { Orders } from "./components/pages/Orders";
-import { Cart } from "./components/pages/Cart";
+import { Authentication } from "./pages/Authentication";
+import { Profile } from "./pages/Profile";
+import { Products } from "./pages/Products";
+import { Orders } from "./pages/Orders";
+import { Cart } from "./pages/Cart";
 import {
   IsUserAuthenticated,
   IsUserUnAuthenticated,
-} from "./components/auth/userAuth";
+} from "./auth/userAuth";
 
 function App() {
   const { BrowserRouter, Routes, Route } = importTemplate();

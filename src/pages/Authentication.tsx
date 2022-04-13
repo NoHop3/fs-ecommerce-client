@@ -1,4 +1,4 @@
-import { Main } from '../sections/authentication/Main'
+import { Main } from '../components/sections/authentication/Main'
 
 export const Authentication = () => {
   return (

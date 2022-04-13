@@ -13,6 +13,7 @@
       "firstName"
       "lastName"
       "email"
+      "error"
       "buttons";
     & .avatar__container {
       display: flex;
@@ -49,7 +50,7 @@
       grid-area: buttons;
     }
     & .error {
-      text-align: center;
+      grid-area: error;
       color: var.$clr-error;
     }
     & .edit__group {

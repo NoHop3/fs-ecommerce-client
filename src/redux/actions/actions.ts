@@ -15,29 +15,31 @@ import {
   REMOVE_FROM_CART,
   SIGN_IN_USER,
   SIGN_OUT_USER,
+  SORT_PRODUCTS,
   TOGGLE_LOGGED_IN,
   TOGGLE_NAV,
   TOGGLE_SIGN_IN,
   TOGGLE_THEME,
 } from "../../typescript/redux/actions/action_const";
 import {
-  addOrderAction,
-  addToCartAction,
-  addToFavsAction,
-  authErrorAction,
-  editFromCartAction,
-  editUserAction,
-  emptyCartAction,
-  fetchOrdersAction,
-  fetchProductsAction,
-  getTokenAction,
-  removeFromCartAction,
-  signInAction,
-  signOutAction,
-  toggleIsLoggedInAction,
-  toggleNavAction,
-  toggleSignInAction,
-  toggleThemeAction,
+  AddOrderAction,
+  AddToCartAction,
+  AddToFavsAction,
+  AuthErrorAction,
+  EditFromCartAction,
+  EditUserAction,
+  EmptyCartAction,
+  FetchOrdersAction,
+  FetchProductsAction,
+  GetTokenAction,
+  RemoveFromCartAction,
+  SignInAction,
+  SignOutAction,
+  SortProductsAction,
+  ToggleIsLoggedInAction,
+  ToggleNavAction,
+  ToggleSignInAction,
+  ToggleThemeAction,
 } from "../../typescript/redux/actions/action_types";
 import {
   OrderLine,
@@ -45,86 +47,87 @@ import {
   User,
   ValuesSignUp,
   Order,
+  Sort,
 } from "../../typescript/types";
 
-export function toggleTheme(): toggleThemeAction {
+export function toggleTheme(): ToggleThemeAction {
   return {
     type: TOGGLE_THEME,
   };
 }
 
-export function toggleNav(): toggleNavAction {
+export function toggleNav(): ToggleNavAction {
   return {
     type: TOGGLE_NAV,
   };
 }
 
-export function toggleIsLoggedIn(): toggleIsLoggedInAction {
+export function toggleIsLoggedIn(): ToggleIsLoggedInAction {
   return {
     type: TOGGLE_LOGGED_IN,
   };
 }
 
-export function toggleSignIn(): toggleSignInAction {
+export function toggleSignIn(): ToggleSignInAction {
   return {
     type: TOGGLE_SIGN_IN,
   };
 }
-export function getToken(token: string): getTokenAction {
+export function getToken(token: string): GetTokenAction {
   return {
     type: GET_TOKEN,
     payload: token,
   };
 }
 
-export function signInUser(user: User): signInAction {
+export function signInUser(user: User): SignInAction {
   return {
     type: SIGN_IN_USER,
     payload: user,
   };
 }
 
-export function signOutUser(): signOutAction {
+export function signOutUser(): SignOutAction {
   return {
     type: SIGN_OUT_USER,
   };
 }
 
-export function editUser(editedUser: User): editUserAction {
+export function editUser(editedUser: User): EditUserAction {
   return {
     type: EDIT_USER,
     payload: editedUser,
   };
 }
 
-export function authError(error: string): authErrorAction {
+export function authError(error: string): AuthErrorAction {
   return {
     type: AUTH_ERROR,
     payload: error,
   };
 }
-export function fetchProducts(products: Product[]): fetchProductsAction {
+export function fetchProducts(products: Product[]): FetchProductsAction {
   return {
     type: FETCH_PRODUCTS,
     payload: products,
   };
 }
 
-export function fetchOrders(orders: Order[]): fetchOrdersAction {
+export function fetchOrders(orders: Order[]): FetchOrdersAction {
   return {
     type: FETCH_ORDERS,
     payload: orders,
   };
 }
 
-export function addOrder(order: Order): addOrderAction {
+export function addOrder(order: Order): AddOrderAction {
   return {
     type: ADD_ORDER,
     payload: order,
   };
 }
 
-export function addToFavs(favId: string): addToFavsAction {
+export function addToFavs(favId: string): AddToFavsAction {
   return {
     type: ADD_TO_FAVS,
     payload: favId,
@@ -133,7 +136,7 @@ export function addToFavs(favId: string): addToFavsAction {
 export function editFromCart(
   prodId: string,
   propsToUpdate: Partial<OrderLine>
-): editFromCartAction {
+): EditFromCartAction {
   return {
     type: EDIT_FROM_CART,
     payload: {
@@ -143,23 +146,30 @@ export function editFromCart(
   };
 }
 
-export function addToCart(orderLine: OrderLine): addToCartAction {
+export function addToCart(orderLine: OrderLine): AddToCartAction {
   return {
     type: ADD_TO_CART,
     payload: orderLine,
   };
 }
 
-export function removeFromCart(productId: string): removeFromCartAction {
+export function removeFromCart(productId: string): RemoveFromCartAction {
   return {
     type: REMOVE_FROM_CART,
     payload: productId,
   };
 }
 
-export function emptyCart(): emptyCartAction {
+export function emptyCart(): EmptyCartAction {
   return {
     type: EMPTY_CART,
+  };
+}
+
+export function sortProducts(sortArgs: Sort): SortProductsAction {
+  return {
+    type: SORT_PRODUCTS,
+    payload: sortArgs,
   };
 }
 
@@ -314,6 +324,24 @@ export function addOrderLines(
       })
       .catch((err: any) => {
         dispatch(authError(err));
+      });
+  };
+}
+
+export function deleteProduct(productId: string) {
+  const token = JSON.parse(localStorage.getItem("token") as string);
+  return (dispatch: Dispatch) => {
+    axios
+      .delete(`http://localhost:5000/api/v1/products/${productId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res: any) => {
+        if (res.status === 204) {
+          console.log(`SUCCESS! Deleted product with id ${productId}`);
+        }
+      })
+      .catch((err: any) => {
+        console.log(err);
       });
   };
 }

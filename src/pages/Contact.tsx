@@ -1,4 +1,4 @@
-import Main from "../sections/contact/Main";
+import Main from "../components/sections/contact/Main";
 
 function Contact() {
   return (

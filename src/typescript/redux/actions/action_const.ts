@@ -16,3 +16,4 @@ export const EDIT_FROM_CART = "EDIT_FROM_CART";
 export const EMPTY_CART = "EMPTY_CART";
 export const FETCH_ORDERS = "FETCH_ORDERS";
 export const ADD_ORDER = "ADD_ORDER";
+export const SORT_PRODUCTS = "SORT_PRODUCTS";

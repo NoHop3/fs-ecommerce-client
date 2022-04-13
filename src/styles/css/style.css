@@ -482,7 +482,7 @@ button[disabled] {
 .profile__wrapper--grid {
   display: grid;
   grid-template-rows: repeat(6, minmax(25px));
-  grid-template-areas: "image" "image" "username" "firstName" "lastName" "email" "buttons";
+  grid-template-areas: "image" "image" "username" "firstName" "lastName" "email" "error" "buttons";
 }
 .profile__wrapper--grid .avatar__container {
   display: flex;
@@ -519,7 +519,7 @@ button[disabled] {
   grid-area: buttons;
 }
 .profile__wrapper--grid .error {
-  text-align: center;
+  grid-area: error;
   color: #AF0606;
 }
 .profile__wrapper--grid .edit__group {
@@ -550,8 +550,31 @@ button[disabled] {
   padding-left: 1.25rem;
 }
 
-.products__wrapper {
-  height: 100%;
+.products__wrapper__filter {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.products__wrapper__filter__input {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  padding: 0.1rem 0.75rem;
+  border-radius: 0.2rem;
+  border: none;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  margin-bottom: 0.5rem;
+}
+.products__wrapper__filter__sort {
+  display: flex;
+  flex-direction: row;
+}
+.products__wrapper__filter__sort--alphabeticalSortBtn, .products__wrapper__filter__sort--numericalSortBtn, .products__wrapper__filter__sort--favBtn {
+  display: block;
+  height: 2.5rem;
+  width: 3rem;
 }
 .products__wrapper--grid {
   list-style-type: none;
@@ -567,18 +590,21 @@ button[disabled] {
   display: block;
   width: 100vw;
 }
-.products__wrapper--grid .grid__item .deleteBtn, .products__wrapper--grid .grid__item .favBtn, .products__wrapper--grid .grid__item .cartBtn {
+.products__wrapper--grid .grid__item .deleteBtn,
+.products__wrapper--grid .grid__item .favBtn,
+.products__wrapper--grid .grid__item .cartBtn {
   position: absolute;
-  top: 0;
+  top: 0%;
+  left: 0%;
   display: block;
-  width: 30px;
+  width: 2rem;
 }
-.products__wrapper--grid .grid__item .favBtn, .products__wrapper--grid .grid__item .cartBtn {
-  top: 40%;
-  left: 90%;
+.products__wrapper--grid .grid__item .favBtn,
+.products__wrapper--grid .grid__item .cartBtn {
+  top: 10%;
 }
 .products__wrapper--grid .grid__item .cartBtn {
-  top: 33%;
+  top: 20%;
 }
 
 .cart__wrapper {
@@ -1060,11 +1086,11 @@ button[disabled] {
 .products__wrapper--grid .grid__item .favBtn,
 .products__wrapper--grid .grid__item .cartBtn {
     width: 60px;
+    left: 0%;
   }
   .products__wrapper--grid .grid__item .favBtn,
 .products__wrapper--grid .grid__item .cartBtn {
-    top: 0%;
-    left: 90%;
+    top: 10%;
   }
   .products__wrapper--grid .grid__item .cartBtn {
     top: 20%;
@@ -1076,10 +1102,13 @@ button[disabled] {
   }
   .profile__wrapper--grid {
     grid-template-columns: repeat(2, minmax(2rem, 1fr));
-    grid-template-areas: "image image" "username firstName" "email lastName" "buttons buttons";
+    grid-template-areas: "image image" "username firstName" "email lastName" "buttons buttons" "error error";
   }
   .profile__wrapper--grid .avatar__container {
     margin-bottom: 1rem;
+  }
+  .profile__wrapper--grid .error {
+    padding-left: 1rem;
   }
 
   .signUp__form {
@@ -1142,8 +1171,13 @@ button[disabled] {
     width: 20rem;
   }
 
+  .cart__wrapper {
+    min-height: 79vh;
+    margin-bottom: 5rem;
+  }
   .cart__wrapper--grid {
     width: auto;
+    margin-bottom: 1rem;
     gap: 2rem;
   }
   .cart__wrapper--grid .grid__item {
@@ -1160,6 +1194,9 @@ button[disabled] {
     height: 2rem;
     width: 2rem;
   }
+  .cart__wrapper .totalOrder {
+    margin-bottom: 2rem;
+  }
   .cart__wrapper .totalOrder .actions {
     grid-template-columns: 1fr 1fr 1fr;
     margin-left: 3rem;
@@ -1170,7 +1207,7 @@ button[disabled] {
   }
 
   .products__wrapper {
-    margin-bottom: 4.9rem;
+    min-height: 85vh;
   }
   .products__wrapper--grid {
     grid-template-columns: repeat(5, minmax(18rem, 1fr));
@@ -1190,17 +1227,17 @@ button[disabled] {
 .products__wrapper--grid .grid__item .favBtn,
 .products__wrapper--grid .grid__item .cartBtn {
     position: absolute;
-    top: 0;
+    top: 0%;
+    left: 0%;
     display: block;
     width: 30px;
   }
   .products__wrapper--grid .grid__item .favBtn,
 .products__wrapper--grid .grid__item .cartBtn {
-    top: 0%;
-    left: 85%;
+    top: 10%;
   }
   .products__wrapper--grid .grid__item .cartBtn {
-    top: 15%;
+    top: 20%;
   }
   .products__wrapper--grid .addBtn {
     grid-column: 3/4;
@@ -1209,7 +1246,7 @@ button[disabled] {
 
   .profile__wrapper--grid {
     grid-template-columns: repeat(4, minmax(2rem, 1fr));
-    grid-template-areas: "image image image image" "username email firstName lastName" "buttons buttons buttons buttons";
+    grid-template-areas: "image image image image" "username email firstName lastName" "buttons buttons buttons buttons" ".. error error ..";
   }
   .profile__wrapper--grid .avatar__container {
     margin-bottom: 1rem;
