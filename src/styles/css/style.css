@@ -597,7 +597,8 @@ button[disabled] {
 }
 .products__wrapper--grid .grid__item .deleteBtn,
 .products__wrapper--grid .grid__item .favBtn,
-.products__wrapper--grid .grid__item .cartBtn {
+.products__wrapper--grid .grid__item .cartBtn,
+.products__wrapper--grid .grid__item .detailsBtn {
   position: absolute;
   top: 0%;
   left: 0%;
@@ -610,6 +611,9 @@ button[disabled] {
 }
 .products__wrapper--grid .grid__item .cartBtn {
   top: 20%;
+}
+.products__wrapper--grid .grid__item .detailsBtn {
+  top: 30%;
 }
 
 .cart__wrapper {
@@ -725,6 +729,64 @@ button[disabled] {
 }
 .orders__wrapper .orderContainer__information__orderOrigin {
   grid-area: orderOrigin;
+}
+
+.details__wrapper {
+  height: 84vh;
+  margin-bottom: 4rem;
+}
+.details__wrapper__information {
+  display: grid;
+  grid-template-columns: repeat(auto, minmax(2rem, 1fr));
+  grid-template-areas: "image" "title" "category" "price" "color" "error" "actions" "suggestions";
+  grid-auto-flow: column;
+  gap: 1rem;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+.details__wrapper__information--img {
+  grid-area: image;
+  display: block;
+  height: 20rem;
+  width: 20rem;
+  border: 2px solid;
+  border-radius: 50%;
+}
+.details__wrapper__information--title {
+  grid-area: title;
+}
+.details__wrapper__information--price {
+  grid-area: price;
+}
+.details__wrapper__information--category {
+  grid-area: category;
+}
+.details__wrapper__information--color {
+  grid-area: color;
+}
+.details__wrapper__information--error {
+  grid-area: error;
+  font-size: 1.4rem;
+  color: #AF0606;
+}
+.details__wrapper__information--actions {
+  grid-area: actions;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.details__wrapper__information--actions .cartBtn, .details__wrapper__information--actions .favBtn, .details__wrapper__information--actions .editBtn, .details__wrapper__information--actions .delBtn {
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+}
+.details__wrapper__information--actions .favBtn {
+  color: white;
+  background-color: darkred;
+}
+.details__wrapper__information--actions .delBtn {
+  color: white;
+  background-color: darkred;
 }
 
 .authentication {
@@ -1043,6 +1105,10 @@ button[disabled] {
     font-size: 1.125rem;
   }
 
+  .details__wrapper {
+    min-height: 89vh;
+  }
+
   .orders__wrapper .orderContainer__information {
     grid-template-columns: repeat(auto, minmax(15rem, 1fr));
     grid-template-areas: "orderId orderId orderId orderOrigin" ".. orderItems .. .." "itemsArray itemsArray itemsArray itemsArray" "totalPrice totalPrice totalPrice totalPrice";
@@ -1089,16 +1155,9 @@ button[disabled] {
   }
   .products__wrapper--grid .grid__item .deleteBtn,
 .products__wrapper--grid .grid__item .favBtn,
-.products__wrapper--grid .grid__item .cartBtn {
-    width: 60px;
-    left: 0%;
-  }
-  .products__wrapper--grid .grid__item .favBtn,
-.products__wrapper--grid .grid__item .cartBtn {
-    top: 10%;
-  }
-  .products__wrapper--grid .grid__item .cartBtn {
-    top: 20%;
+.products__wrapper--grid .grid__item .cartBtn,
+.products__wrapper--grid .grid__item .detailsBtn {
+    width: 4rem;
   }
 
   .profile__wrapper {
@@ -1159,6 +1218,13 @@ button[disabled] {
 
   body {
     font-size: 1.65rem;
+  }
+
+  .details__wrapper {
+    margin-bottom: 0;
+  }
+  .details__wrapper__information--img {
+    margin-left: 1.2rem;
   }
 
   .orders__wrapper {
@@ -1227,26 +1293,6 @@ button[disabled] {
     display: block;
     width: 18rem;
     aspect-ratio: 1;
-  }
-  .products__wrapper--grid .grid__item .deleteBtn,
-.products__wrapper--grid .grid__item .favBtn,
-.products__wrapper--grid .grid__item .cartBtn {
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    display: block;
-    width: 30px;
-  }
-  .products__wrapper--grid .grid__item .favBtn,
-.products__wrapper--grid .grid__item .cartBtn {
-    top: 10%;
-  }
-  .products__wrapper--grid .grid__item .cartBtn {
-    top: 20%;
-  }
-  .products__wrapper--grid .addBtn {
-    grid-column: 3/4;
-    margin-bottom: 1rem;
   }
 
   .profile__wrapper--grid {

@@ -41,7 +41,8 @@
       }
       & .deleteBtn,
       .favBtn,
-      .cartBtn {
+      .cartBtn,
+      .detailsBtn {
         position: absolute;
         top: 0%;
         left: 0%;
@@ -54,6 +55,9 @@
       }
       & .cartBtn {
         top: 20%;
+      }
+      & .detailsBtn {
+        top: 30%;
       }
     }
   }

@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  addToCart,
-  addToFavs,
-  deleteProductAxios,
-  editUserAxios,
-  getProductsAxios,
-  removeFromCart,
-  sortProducts,
-} from "../../../redux/actions/actions";
+import useHelper from "../../../hooks/useHelper";
+import { getProductsAxios, sortProducts } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
-import { EvtChangeType, Product } from "../../../typescript/types";
+import { EvtChangeType } from "../../../typescript/types";
 
 export const Main = () => {
   const { loggedUser } = useSelector((state: RootState) => state.authState);
@@ -25,38 +18,20 @@ export const Main = () => {
     alphabeticalA__Z: true,
     numerical1__9: true,
     favouritesDisplay: false,
-    favourites: [...loggedUser.favourites]
+    favourites: [...loggedUser.favourites],
   });
 
-  // Helper function for user favourite products
-  const handleFavClick = (id: string) => {
-    dispatch(addToFavs(id));
-    const favourites = loggedUser.favourites;
-    dispatch(editUserAxios({ favourites }, loggedUser._id));
-  };
+  const {
+    handleCartClick,
+    handleCartRemoveClick,
+    handleFavClick,
+    handleDeleteClick,
+  } = useHelper();
 
-  // Helper functions for cart adding/removing
-  const handleCartClick = (prod: Product) => {
-    const orderLine = {
-      productId: prod,
-      quantity: 1,
-      price: prod.price,
-    };
-    dispatch(addToCart(orderLine));
-  };
-  const handleCartRemoveClick = (prodId: string) => {
-    dispatch(removeFromCart(prodId));
-  };
-
-  // Admin helper function for permamently deleting products
-  const handleDeleteClick = (prodId: string) => {
-    dispatch(deleteProductAxios(prodId));
-  };
-  
   // Details helper function that takes the user to the details page for a chosen id
-  const handleProductClick=(productId: string)=>{
+  const handleProductClick = (productId: string) => {
     navigate(`/products/details/${productId}`);
-  }
+  };
 
   // Helper functions for sorting
   const handleSearchChange = (evt: EvtChangeType) => {
@@ -70,10 +45,10 @@ export const Main = () => {
     setSort({
       ...sort,
       favouritesDisplay: !sort.favouritesDisplay,
-      favourites: [...loggedUser.favourites]
-    })
+      favourites: [...loggedUser.favourites],
+    });
     dispatch(sortProducts(sort));
-  }
+  };
   const handleAlphabeticalSort = () => {
     setSort({
       ...sort,
@@ -95,7 +70,7 @@ export const Main = () => {
     dispatch(sortProducts(sort));
     localStorage.removeItem("cart");
     localStorage.setItem("cart", JSON.stringify(cart));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, loggedUser, cart, products]);
   return (
     <main>
@@ -144,7 +119,7 @@ export const Main = () => {
         <ul className='products__wrapper--grid'>
           {filteredProducts &&
             filteredProducts.map((product) => (
-              <li className='grid__item' key={product._id} onClick={()=>{handleProductClick(product._id)}}>
+              <li className='grid__item' key={product._id}>
                 <img
                   className='grid__item--img'
                   src={product.image}
@@ -184,6 +159,14 @@ export const Main = () => {
                     alt='Remove from favourites'
                   />
                 )}
+                <img
+                  src='/images/product__details.png'
+                  alt='Product details for this specific product'
+                  className='detailsBtn'
+                  onClick={() => {
+                    handleProductClick(product._id);
+                  }}
+                />
                 {loggedUser.isAdmin ? (
                   <img
                     onClick={() => {
@@ -191,7 +174,7 @@ export const Main = () => {
                     }}
                     className='deleteBtn'
                     src='/images/delete__btn.png'
-                    alt=''
+                    alt='Delete a product if admin'
                   />
                 ) : (
                   <></>

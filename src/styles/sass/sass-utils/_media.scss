@@ -10,6 +10,10 @@
   @media only screen and (min-width: #{var.$tablet-width}) and (max-width: #{(var.$laptop-width)-1px}) {
     @include var.fs_tablet;
 
+    .details__wrapper {
+      min-height: 89vh;
+    }
+
     .orders__wrapper {
       & .orderContainer {
         &__information {
@@ -19,7 +23,7 @@
             ".. orderItems .. .."
             "itemsArray itemsArray itemsArray itemsArray"
             "totalPrice totalPrice totalPrice totalPrice";
-            gap:1rem;
+          gap: 1rem;
         }
         & .orderedline__wrapper {
           &__information {
@@ -35,7 +39,6 @@
     }
 
     .cart__wrapper {
-      
       &--grid {
         gap: 2rem;
         & .grid__item {
@@ -75,16 +78,9 @@
         & .grid__item {
           & .deleteBtn,
           .favBtn,
-          .cartBtn {
-            width: 60px;
-            left:0%;
-          }
-          & .favBtn,
-          .cartBtn {
-            top: 10%;
-          }
-          & .cartBtn {
-            top: 20%;
+          .cartBtn,
+          .detailsBtn {
+            width: 4rem;
           }
         }
       }
@@ -103,7 +99,7 @@
         & .avatar__container {
           margin-bottom: 1rem;
         }
-        & .error{
+        & .error {
           padding-left: 1rem;
         }
       }
@@ -139,6 +135,15 @@
   @media only screen and (min-width: #{var.$laptop-width}) {
     @include var.fs_laptop;
 
+    .details__wrapper {
+      margin-bottom: 0;
+      &__information {
+        &--img {
+          margin-left: 1.2rem;
+        }
+      }
+    }
+
     .orders__wrapper {
       margin-bottom: 5rem;
       & .orderContainer {
@@ -148,7 +153,7 @@
             "orderId orderId orderId orderItems orderOrigin"
             "itemsArray itemsArray itemsArray itemsArray itemsArray"
             "totalPrice totalPrice totalPrice totalPrice totalPrice";
-            gap:1rem;
+          gap: 1rem;
         }
         & .orderedline__wrapper {
           &__information {
@@ -162,7 +167,7 @@
     }
 
     .cart__wrapper {
-    min-height: 79vh;
+      min-height: 79vh;
       margin-bottom: 5rem;
       &--grid {
         width: auto;
@@ -213,26 +218,6 @@
             width: 18rem;
             aspect-ratio: 1;
           }
-          & .deleteBtn,
-          .favBtn,
-          .cartBtn {
-            position: absolute;
-            top: 0%;
-            left: 0%;
-            display: block;
-            width: 30px;
-          }
-          & .favBtn,
-          .cartBtn {
-            top: 10%;
-          }
-          & .cartBtn {
-            top: 20%;
-          }
-        }
-        & .addBtn {
-          grid-column: 3 / 4;
-          margin-bottom: 1rem;
         }
       }
     }
