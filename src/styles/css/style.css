@@ -1221,10 +1221,12 @@ button[disabled] {
   }
 
   .details__wrapper {
-    margin-bottom: 0;
+    margin-top: -3.2rem;
   }
   .details__wrapper__information--img {
-    margin-left: 1.2rem;
+    margin: 0 auto;
+    height: 15rem;
+    width: 15rem;
   }
 
   .orders__wrapper {

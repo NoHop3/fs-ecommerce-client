@@ -99,14 +99,7 @@ export const Main = () => {
   }, [loggedUser]);
   const handleSaveClick = useCallback(() => {
     try {
-      if (
-        toSave.firstName.length < 2 ||
-        toSave.lastName.length < 2 ||
-        toSave.username.length < 3 ||
-        toSave.email.length < 10
-      ) {
-        throw new Error("Incorrect edit properties.");
-      }
+      
       dispatch(
         editUserAxios(
           {

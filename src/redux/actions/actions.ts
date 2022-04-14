@@ -163,20 +163,27 @@ export function fetchOrders(orders: Order[]): FetchOrdersAction {
 /* Helper/Axios actions */
 export function signUpAxios(values: ValuesSignUp) {
   console.log(values);
-  axios
-    .post("http://localhost:5000/api/v1/users", {
-      email: values.email,
-      username: values.username,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      password: values.password,
-    })
-    .then((res: any) => {
-      console.log(res.data);
-    })
-    .catch((err: any) => {
-      console.log(err.response.data.message);
-    });
+  return (dispatch: Dispatch) => {
+    axios
+      .post("http://localhost:5000/api/v1/users", {
+        email: values.email,
+        username: values.username,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        password: values.password,
+      })
+      .then((res: any) => {
+        console.log(res)
+        if (res.status === 200) {
+          dispatch(authError("Success! You can now login"));
+        }
+        console.log(res.data);
+      })
+      .catch((err: any) => {
+        dispatch(authError("Error! Existing email/username!"));
+        throw err;
+      });
+  };
 }
 
 export function signInAxios(values: Partial<ValuesSignUp>) {
