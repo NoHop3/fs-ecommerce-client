@@ -1,20 +1,16 @@
 @use "../sass-utils/variables" as var;
 
 .details__wrapper {
-  height: 84vh;
-  margin-bottom: 4rem;
   &__information {
     display: grid;
     grid-template-columns: repeat(auto, minmax(2rem, 1fr));
     grid-template-areas:
-      "image"
       "title"
       "category"
       "price"
       "color"
       "error"
-      "actions"
-      "suggestions";
+      "actions";
     grid-auto-flow: column;
     gap: 1rem;
     justify-content: center;
@@ -23,10 +19,10 @@
     &--img {
       grid-area: image;
       display: block;
-      height: 20rem;
-      width: 20rem;
       border: 2px solid;
       border-radius: 50%;
+      height: 20rem;
+      width: 20rem;
     }
     &--title {
       grid-area: title;
@@ -45,23 +41,53 @@
       font-size: var.$fs-h1;
       color: var.$clr-error;
     }
-    &--actions{
-        grid-area: actions;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        & .cartBtn, .favBtn, .editBtn, .delBtn{
-            margin-bottom: .5rem;
-            font-size: .75rem;
+    &--actions {
+      grid-area: actions;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      & .cartBtn,
+      .favBtn,
+      .editBtn,
+      .delBtn {
+        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+      }
+      & .favBtn {
+        color: white;
+        background-color: darkred;
+      }
+      & .delBtn {
+        color: white;
+        background-color: darkred;
+      }
+    }
+  }
+}
+
+.alice-carousel {
+  grid-area: suggestions !important;
+  &__wrapper {
+    & .alice-carousel__stage {
+      &-item {
+        z-index: 0 !important;
+        & img {
+          opacity: 0.5;
+          margin: 0 auto;
+          grid-area: image;
+          display: block;
+          border: 2px solid;
+          border-radius: 50%;
+          height: 20rem !important;
+          width: 20rem !important;
         }
-        & .favBtn{
-            color:white;
-            background-color: darkred;
+        &.__target {
+          z-index: 1 !important;
+          .centerImage {
+            opacity: 1 !important;
+          }
         }
-        & .delBtn{
-            color:white;
-            background-color: darkred;
-        }
+      }
     }
   }
 }

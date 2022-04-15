@@ -12,10 +12,7 @@ import { Profile } from "./pages/Profile";
 import { Products } from "./pages/Products";
 import { Orders } from "./pages/Orders";
 import { Cart } from "./pages/Cart";
-import {
-  IsUserAuthenticated,
-  IsUserUnAuthenticated,
-} from "./auth/userAuth";
+import { IsUserAuthenticated, IsUserUnAuthenticated } from "./auth/userAuth";
 import { ProductDetails } from "./pages/ProductDetails";
 
 function App() {
@@ -30,7 +27,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Home theme={pageBody} />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/products/details/:productId' element={<ProductDetails />} />
+          <Route
+            path='/products/details/:productId'
+            element={<ProductDetails />}
+          />
 
           <Route element={<IsUserUnAuthenticated />}>
             <Route path='/authentication' element={<Authentication />} />

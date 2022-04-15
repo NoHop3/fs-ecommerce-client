@@ -12,6 +12,17 @@
 
     .details__wrapper {
       min-height: 89vh;
+      .alice-carousel {
+        &__wrapper {
+          & .alice-carousel__stage {
+            &-item {
+              img {
+                margin-left: -1rem;
+              }
+            }
+          }
+        }
+      }
     }
 
     .orders__wrapper {
@@ -76,11 +87,9 @@
       height: 100%;
       &--grid {
         & .grid__item {
-          & .deleteBtn,
-          .favBtn,
-          .cartBtn,
-          .detailsBtn {
-            width: 4rem;
+          width: 50vw;
+          &--img {
+            width: 50vw;
           }
         }
       }
@@ -136,13 +145,11 @@
     @include var.fs_laptop;
 
     .details__wrapper {
-      margin-top:-3.2rem;
       &__information {
         &--img {
           margin: 0 auto;
           height: 15rem;
           width: 15rem;
-          
         }
       }
     }
@@ -209,16 +216,19 @@
     }
     .products__wrapper {
       min-height: 85vh;
+      margin-top: -3rem;
       &--grid {
         grid-template-columns: repeat(5, minmax(18rem, 1fr));
         text-align: center;
         display: grid;
         gap: 0.1rem;
+        font-size: var.$fs-h3;
         & .grid__item {
+          width: 15rem;
           position: relative;
           &--img {
             display: block;
-            width: 18rem;
+            width: 15rem;
             aspect-ratio: 1;
           }
         }

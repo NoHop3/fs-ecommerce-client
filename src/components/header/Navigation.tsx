@@ -46,7 +46,6 @@ export default function Navigation() {
               Products 💎
             </Link>
           </li>
-
           {isLoggedIn ? (
             <li className='nav__item'>
               <Link to={"/cart"} className='nav__link'>

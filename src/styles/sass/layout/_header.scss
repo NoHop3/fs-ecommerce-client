@@ -7,6 +7,7 @@ header {
   justify-content: space-between;
   padding: 1em;
   z-index: 1;
+  pointer-events: none;
 }
 
 .logo--png {
@@ -14,6 +15,7 @@ header {
 }
 
 .themeIcon {
+  pointer-events: auto;
   position: fixed;
   background-color: transparent;
   right: 1em;
@@ -28,6 +30,7 @@ header {
 }
 
 .nav {
+  pointer-events: auto;
   position: fixed;
   background: var.$clr-dark;
   color: var.$clr-light;
@@ -65,6 +68,7 @@ header {
 }
 
 .nav-toggle {
+  pointer-events: auto;
   outline: none;
   padding: 0.5em;
   background: transparent;
@@ -75,7 +79,6 @@ header {
   top: 1em;
   z-index: 1000;
 }
-
 
 .nav-open .nav {
   transform: translateX(0);

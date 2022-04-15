@@ -42,6 +42,7 @@ export const Main = () => {
     dispatch(sortProducts(sort));
   };
   const handleFavSort = () => {
+    console.log("check")
     setSort({
       ...sort,
       favouritesDisplay: !sort.favouritesDisplay,
@@ -125,7 +126,8 @@ export const Main = () => {
                   src={product.image}
                   alt='A product that is being sold on this page'
                 />
-
+                <p className='product--name'>{product.name}</p>
+                <p className='product--price'>{product.price} dkk</p>
                 {cart &&
                 cart.find((item) => item.productId?._id === product._id) ===
                   undefined ? (
@@ -179,8 +181,6 @@ export const Main = () => {
                 ) : (
                   <></>
                 )}
-                <p className='product--name'>{product.name}</p>
-                <p className='product--price'>{product.price} dkk</p>
               </li>
             ))}
         </ul>

@@ -1,3 +1,5 @@
+@use "../sass-utils/variables" as var;
+
 .products__wrapper {
   &__filter {
     margin: 1rem 0;
@@ -35,9 +37,11 @@
     margin-bottom: 4.9rem;
     & .grid__item {
       position: relative;
+      width: 80vw;
+      margin: 0 auto;
       &--img {
         display: block;
-        width: 100vw;
+        width: 80vw;
       }
       & .deleteBtn,
       .favBtn,
