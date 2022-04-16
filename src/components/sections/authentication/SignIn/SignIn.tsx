@@ -1,11 +1,11 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
-import { useDispatch, useSelector } from "react-redux";
 import { signInAxios, toggleSignIn } from "../../../../redux/actions/actions";
 import { RootState } from "../../../../typescript/redux/store";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 export const SignIn = ({ style }: any) => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const SignIn = ({ style }: any) => {
   );
   const navigate = useNavigate();
   useEffect(() => {
-    isLoggedIn ? navigate("/") : console.log()
+    isLoggedIn ? navigate("/") : console.log();
   }, [isLoggedIn, navigate, authError]);
   return (
     <div className='authentication__form--signIn' style={style}>
@@ -114,8 +114,7 @@ const userSchema = Yup.object().shape(
       .min(3, "Password should be min 3 characters")
       .required("Required"),
     confirmPassword: Yup.string().oneOf(
-      //! Fix needed
-      [Yup.ref("password"), null],
+      [Yup.ref("password")],
       "Passwords must match"
     ),
   },

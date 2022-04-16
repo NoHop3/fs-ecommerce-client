@@ -830,6 +830,71 @@ button[disabled] {
   margin-bottom: 2rem;
 }
 
+.modify-product__wrapper {
+  max-width: 1400px;
+  margin-bottom: 5rem;
+}
+.modify-product__wrapper__form {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto, minmax(5rem, 1fr));
+  grid-template-areas: "image" "name" "price" "category" "color" "actions";
+  gap: 1rem;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.modify-product__wrapper__form--image {
+  grid-area: image;
+}
+.modify-product__wrapper__form--image img {
+  display: block;
+  border: 2px solid;
+  border-radius: 50%;
+  width: 100vw;
+  aspect-ratio: 1;
+}
+.modify-product__wrapper__form__input--name input, .modify-product__wrapper__form__input--price input, .modify-product__wrapper__form__input--category input, .modify-product__wrapper__form__input--color input {
+  min-width: 13rem;
+  padding: 0.5rem 0.2rem;
+  font-size: 1rem;
+  color: #3d8170;
+  margin-bottom: 1rem;
+  border: 1px solid;
+  outline: none;
+  background: transparent;
+}
+.modify-product__wrapper__form__input--name {
+  grid-area: name;
+}
+.modify-product__wrapper__form__input--price {
+  grid-area: price;
+}
+.modify-product__wrapper__form__input--category {
+  grid-area: category;
+}
+.modify-product__wrapper__form__input--color {
+  grid-area: color;
+}
+.modify-product__wrapper__form--actions {
+  margin: 0 auto;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  grid-area: actions;
+}
+.modify-product__wrapper__form--actions .editProductBtn,
+.modify-product__wrapper__form--actions .cancelBtn {
+  margin-bottom: 0.25rem;
+}
+.modify-product__wrapper__form .Errors, .modify-product__wrapper__form .internalErrors {
+  text-align: center;
+  color: red;
+  font-style: italic;
+  font-size: 12px;
+  margin-bottom: 1rem;
+}
+
 .authentication {
   height: 100vh;
 }

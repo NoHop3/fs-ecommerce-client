@@ -31,3 +31,30 @@ export const IsUserUnAuthenticated = () => {
   return <Outlet />;
 };
 
+export const IsUserAdmin = () => {
+  const dispatch = useDispatch();
+  if (localStorage.getItem("token")) {
+    let loggedInUser = localStorage.getItem("token");
+    const user: any = loggedInUser && jwt_decode(loggedInUser);
+    if ((user?.email || user?.username) && user?.isAdmin) {
+      return <Outlet />;
+    }
+  }
+  localStorage.removeItem("token");
+  dispatch(signOutUser());
+  return <Navigate to='/authentication' />;
+};
+
+export const UserHasWriteAccess = () => {
+  const dispatch = useDispatch();
+  if (localStorage.getItem("token")) {
+    let loggedInUser = localStorage.getItem("token");
+    const user: any = loggedInUser && jwt_decode(loggedInUser);
+    if ((user?.email || user?.username) && user?.hasWriteAccess) {
+      return <Outlet />;
+    }
+  }
+  localStorage.removeItem("token");
+  dispatch(signOutUser());
+  return <Navigate to='/authentication' />;
+};

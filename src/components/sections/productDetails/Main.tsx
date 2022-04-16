@@ -86,9 +86,6 @@ export const Main = () => {
           loopFillGroupWithBlank={true}
           keyboard={true}
           pagination={{ clickable: true }}
-          onSwiper={(swiper) => {
-            console.log(swiper);
-          }}
           onSlideChange={(swiper) => {
             setSelectedIndex(swiper.realIndex);
             setSelectedProduct(products[swiper.realIndex]);

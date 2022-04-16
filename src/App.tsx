@@ -12,8 +12,15 @@ import { Profile } from "./pages/Profile";
 import { Products } from "./pages/Products";
 import { Orders } from "./pages/Orders";
 import { Cart } from "./pages/Cart";
-import { IsUserAuthenticated, IsUserUnAuthenticated } from "./auth/userAuth";
+import {
+  IsUserAuthenticated,
+  IsUserUnAuthenticated,
+  IsUserAdmin,
+  UserHasWriteAccess,
+} from "./auth/userAuth";
 import { ProductDetails } from "./pages/ProductDetails";
+import { ModifyProduct } from "./pages/ModifyProduct";
+import { AddProduct } from "./pages/AddProduct";
 
 function App() {
   const { BrowserRouter, Routes, Route } = importTemplate();
@@ -42,9 +49,18 @@ function App() {
             <Route path='/orders' element={<Orders />} />
             <Route path='/profile' element={<Profile />} />
           </Route>
-          {/* <Route element={<IsUserAdmin />}>
-            //TODO
-          </Route> */}
+
+          <Route element={<UserHasWriteAccess />}>
+            <Route path='/products/add' element={<AddProduct />} />
+          </Route>
+
+          <Route element={<IsUserAdmin />}>
+            <Route
+              path='/products/edit/:productId'
+              element={<ModifyProduct />}
+            />
+          </Route>
+          {/* Error page */}
           <Route path='*' element={<ErrorPage />} />
         </Routes>
         <Footer />

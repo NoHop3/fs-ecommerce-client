@@ -4,66 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { authError, editUserAxios } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
 import { EvtChangeType } from "../../../typescript/types";
-import { Dropzone, MIME_TYPES, DropzoneStatus } from "@mantine/dropzone";
-import {
-  Modal,
-  MantineTheme,
-  Group,
-  Text,
-  useMantineTheme,
-} from "@mantine/core";
-import { Upload, Photo, X, Icon as TablerIcon } from "tabler-icons-react";
+import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
+import { Modal, useMantineTheme } from "@mantine/core";
 import axios from "axios";
-
-function getIconColor(status: DropzoneStatus, theme: MantineTheme) {
-  return status.accepted
-    ? theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6]
-    : status.rejected
-    ? theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]
-    : theme.colorScheme === "dark"
-    ? theme.colors.dark[0]
-    : theme.colors.gray[7];
-}
-
-function ImageUploadIcon({
-  status,
-  ...props
-}: React.ComponentProps<TablerIcon> & { status: DropzoneStatus }) {
-  if (status.accepted) {
-    return <Upload {...props} />;
-  }
-
-  if (status.rejected) {
-    return <X {...props} />;
-  }
-
-  return <Photo {...props} />;
-}
-
-export const dropzoneChildren = (
-  status: DropzoneStatus,
-  theme: MantineTheme
-) => (
-  <Group
-    position='center'
-    spacing='xl'
-    style={{ minHeight: 220, pointerEvents: "none" }}>
-    <ImageUploadIcon
-      status={status}
-      style={{ color: getIconColor(status, theme) }}
-      size={80}
-    />
-
-    <div>
-      <Text size='xl' inline>
-        Drag an image here or click to select files
-      </Text>
-      <Text size='sm' color='dimmed' inline mt={7}>
-        Allowed extensions are png/svg/jpeg/gif
-      </Text>
-    </div>
-  </Group>
-);
+import { dropzoneChildren } from "../../../hooks/useDropzone";
 
 export const Main = () => {
   const theme = useMantineTheme();
@@ -99,7 +43,6 @@ export const Main = () => {
   }, [loggedUser]);
   const handleSaveClick = useCallback(() => {
     try {
-      
       dispatch(
         editUserAxios(
           {
@@ -133,12 +76,7 @@ export const Main = () => {
         }
         overlayOpacity={0.95}>
         <Dropzone
-          accept={[
-            MIME_TYPES.png,
-            MIME_TYPES.jpeg,
-            MIME_TYPES.svg,
-            MIME_TYPES.gif,
-          ]}
+          accept={[MIME_TYPES.png, MIME_TYPES.jpeg]}
           onDrop={(file) => {
             const reader = new FileReader();
             reader.onload = () => {

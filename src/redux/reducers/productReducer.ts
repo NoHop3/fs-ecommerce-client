@@ -3,6 +3,7 @@ import { ActionType } from "../../typescript/redux/actions/action_types";
 import {
   ADD_TO_CART,
   EDIT_FROM_CART,
+  EDIT_PRODUCT,
   EMPTY_CART,
   FETCH_PRODUCTS,
   REMOVE_FROM_CART,
@@ -69,6 +70,17 @@ const productReducer = (state = initialState, action: ActionType) => {
         totalPrice: sum,
       };
     }
+    case EDIT_PRODUCT: {
+      const index = state.products.findIndex(
+        (product) => product._id === action.payload._id
+      );
+      const newArray = [...state.products];
+      newArray[index] = Object.assign(newArray[index], action.payload);
+      return {
+        ...state,
+        products: newArray,
+      };
+    }
     case EMPTY_CART: {
       return {
         ...state,
@@ -87,8 +99,9 @@ const productReducer = (state = initialState, action: ActionType) => {
             productsToSort.push(product);
           }
         });
+      } else if (productsToSort.length === 0) {
+        productsToSort = [...state.products];
       }
-      else if(productsToSort.length===0){productsToSort=[...state.products]}
       return {
         ...state,
         filteredProducts: [

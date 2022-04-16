@@ -4,6 +4,7 @@ import {
   ADD_TO_FAVS,
   AUTH_ERROR,
   EDIT_FROM_CART,
+  EDIT_PRODUCT,
   EDIT_USER,
   EMPTY_CART,
   FETCH_ORDERS,
@@ -87,14 +88,16 @@ export type SortProductsAction = {
   type: typeof SORT_PRODUCTS;
   payload: Sort;
 };
+export type EditProductAction = {
+  type: typeof EDIT_PRODUCT;
+  payload: Product;
+};
 
 /* orderReducer */
 export type FetchOrdersAction = {
   type: typeof FETCH_ORDERS;
   payload: Order[];
 };
-
-
 
 export type ActionType =
   | ToggleNavAction
@@ -113,4 +116,5 @@ export type ActionType =
   | EmptyCartAction
   | EditFromCartAction
   | FetchOrdersAction
-  | SortProductsAction;
+  | SortProductsAction
+  | EditProductAction;

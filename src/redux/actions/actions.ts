@@ -6,6 +6,7 @@ import {
   ADD_TO_FAVS,
   AUTH_ERROR,
   EDIT_FROM_CART,
+  EDIT_PRODUCT,
   EDIT_USER,
   EMPTY_CART,
   FETCH_ORDERS,
@@ -25,6 +26,7 @@ import {
   AddToFavsAction,
   AuthErrorAction,
   EditFromCartAction,
+  EditProductAction,
   EditUserAction,
   EmptyCartAction,
   FetchOrdersAction,
@@ -151,6 +153,12 @@ export function sortProducts(sortArgs: Sort): SortProductsAction {
     payload: sortArgs,
   };
 }
+export function editProduct(updatedProduct: Product): EditProductAction {
+  return {
+    type: EDIT_PRODUCT,
+    payload: updatedProduct,
+  };
+}
 
 /* orderReducer */
 export function fetchOrders(orders: Order[]): FetchOrdersAction {
@@ -173,7 +181,7 @@ export function signUpAxios(values: ValuesSignUp) {
         password: values.password,
       })
       .then((res: any) => {
-        console.log(res)
+        console.log(res);
         if (res.status === 200) {
           dispatch(authError("Success! You can now login"));
         }
@@ -313,6 +321,25 @@ export function deleteProductAxios(productId: string) {
         if (res.status === 204) {
           console.log(`SUCCESS! Deleted product with id ${productId}`);
         }
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+}
+
+export function editProductAxios(values: Partial<Product>, prodId: string) {
+  const token = JSON.parse(localStorage.getItem("token") as string);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return (dispatch: Dispatch) => {
+    axios
+      .put(`http://localhost:5000/api/v1/products/${prodId}`, values, config)
+      .then((res: any) => {
+        dispatch(editProduct(res.data));
       })
       .catch((err: any) => {
         console.log(err);

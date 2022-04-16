@@ -1,0 +1,81 @@
+@use "../sass-utils/variables" as var;
+
+.modify-product__wrapper {
+  max-width: 1400px;
+  margin-bottom: 5rem;
+  &__form {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto, minmax(5rem, 1fr));
+    grid-template-areas:
+      "image"
+      "name"
+      "price"
+      "category"
+      "color"
+      "actions";
+    gap: 1rem;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+    &--image {
+      grid-area: image;
+      & img {
+        display: block;
+        border: 2px solid;
+        border-radius: 50%;
+        width: 100vw;
+        aspect-ratio: 1;
+      }
+    }
+    &__input {
+      &--name,
+      &--price,
+      &--category,
+      &--color {
+        & input {
+          min-width: 13rem;
+          padding: 0.5rem 0.2rem;
+          font-size: 1rem;
+          color: var.$clr-auth;
+          margin-bottom: 1rem;
+          border: 1px solid;
+          outline: none;
+          background: transparent;
+        }
+      }
+
+      &--name {
+        grid-area: name;
+      }
+      &--price {
+        grid-area: price;
+      }
+      &--category {
+        grid-area: category;
+      }
+      &--color {
+        grid-area: color;
+      }
+    }
+    &--actions {
+      margin: 0 auto;
+      max-width: fit-content;
+      display: flex;
+      flex-direction: column;
+      grid-area: actions;
+      & .editProductBtn,
+      .cancelBtn {
+        margin-bottom: 0.25rem;
+      }
+    }
+    & .Errors, & .internalErrors {
+      text-align: center;
+      color: red;
+      font-style: italic;
+      font-size: 12px;
+      margin-bottom: 1rem;
+    }
+
+  }
+}
