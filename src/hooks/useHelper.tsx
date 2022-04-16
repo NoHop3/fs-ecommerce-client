@@ -34,7 +34,9 @@ export default function useHelper() {
     dispatch(removeFromCart(prodId));
   };
 
-  // Admin helper function for permamently deleting products
+  // Admin helper functions
+
+  //for permamently deleting products
   const handleDeleteClick = (prodId: string) => {
     dispatch(deleteProductAxios(prodId));
   };

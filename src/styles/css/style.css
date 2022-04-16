@@ -585,6 +585,10 @@ button[disabled] {
   height: 2.5rem;
   width: 3rem;
 }
+.products__wrapper__add-product {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
 .products__wrapper--grid {
   list-style-type: none;
   text-align: center;
@@ -604,7 +608,8 @@ button[disabled] {
 .products__wrapper--grid .grid__item .deleteBtn,
 .products__wrapper--grid .grid__item .favBtn,
 .products__wrapper--grid .grid__item .cartBtn,
-.products__wrapper--grid .grid__item .detailsBtn {
+.products__wrapper--grid .grid__item .detailsBtn, .products__wrapper--grid .grid__item .editBtn {
+  cursor: pointer;
   position: absolute;
   top: 0%;
   left: 0%;
@@ -620,6 +625,9 @@ button[disabled] {
 }
 .products__wrapper--grid .grid__item .detailsBtn {
   top: 30%;
+}
+.products__wrapper--grid .grid__item .editBtn {
+  top: 40%;
 }
 
 .cart__wrapper {
@@ -796,7 +804,7 @@ button[disabled] {
 }
 
 .swiper {
-  z-index: 0;
+  z-index: 0 !important;
 }
 .swiper-wrapper .swiper-slide {
   z-index: -3;

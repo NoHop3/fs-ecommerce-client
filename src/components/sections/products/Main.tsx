@@ -42,7 +42,7 @@ export const Main = () => {
     dispatch(sortProducts(sort));
   };
   const handleFavSort = () => {
-    console.log("check")
+    console.log("check");
     setSort({
       ...sort,
       favouritesDisplay: !sort.favouritesDisplay,
@@ -63,6 +63,16 @@ export const Main = () => {
       numerical1__9: !sort.numerical1__9,
     });
     dispatch(sortProducts(sort));
+  };
+
+  // Add a product handler
+  const handleAddClick = () => {
+    navigate("/products/add");
+  };
+
+  // Admin edit handler
+  const handleEditClick = (prodId: string) => {
+    navigate(`/products/edit/${prodId}`);
   };
 
   // Fetching products from API here
@@ -117,6 +127,15 @@ export const Main = () => {
             />
           </div>
         </div>
+        {loggedUser.hasWriteAccess ? (
+          <div className='products__wrapper__add-product'>
+            <button className='btn addProductBtn' onClick={handleAddClick}>
+              Add a product
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
         <ul className='products__wrapper--grid'>
           {filteredProducts &&
             filteredProducts.map((product) => (
@@ -170,14 +189,24 @@ export const Main = () => {
                   }}
                 />
                 {loggedUser.isAdmin ? (
-                  <img
-                    onClick={() => {
-                      handleDeleteClick(product._id as string);
-                    }}
-                    className='deleteBtn'
-                    src='/images/delete__btn.png'
-                    alt='Delete a product if admin'
-                  />
+                  <>
+                    <img
+                      onClick={() => {
+                        handleDeleteClick(product._id as string);
+                      }}
+                      className='deleteBtn'
+                      src='/images/delete__btn__admin.png'
+                      alt='Delete a product if admin'
+                    />
+                    <img
+                      onClick={() => {
+                        handleEditClick(product._id as string);
+                      }}
+                      className='editBtn'
+                      src='/images/edit__btn__admin.png'
+                      alt='Edit a product if admin'
+                    />
+                  </>
                 ) : (
                   <></>
                 )}

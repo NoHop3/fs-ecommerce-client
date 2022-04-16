@@ -29,6 +29,10 @@
       }
     }
   }
+  &__add-product{
+    text-align: center;
+    margin-bottom: .5rem;
+  }
   &--grid {
     list-style-type: none;
     text-align: center;
@@ -46,7 +50,8 @@
       & .deleteBtn,
       .favBtn,
       .cartBtn,
-      .detailsBtn {
+      .detailsBtn, .editBtn {
+        cursor: pointer;
         position: absolute;
         top: 0%;
         left: 0%;
@@ -62,6 +67,9 @@
       }
       & .detailsBtn {
         top: 30%;
+      }
+      & .editBtn{
+        top: 40%;
       }
     }
   }
