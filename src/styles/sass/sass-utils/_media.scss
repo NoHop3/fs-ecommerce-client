@@ -12,14 +12,44 @@
 
     .details__wrapper {
       min-height: 89vh;
-      .alice-carousel {
-        &__wrapper {
-          & .alice-carousel__stage {
-            &-item {
-              img {
-                margin-left: -1rem;
+      .swiper {
+        &-wrapper {
+          & .swiper-slide {
+            & img {
+              height: 15rem !important;
+              width: 15rem !important;
+            }
+            &-prev {
+              & img {
+                margin-left: auto;
               }
             }
+            &-next {
+              & img {
+                margin-right: auto;
+              }
+            }
+            &-active {
+              height: 20rem !important;
+              width: 20rem !important;
+              & img {
+                height: 20rem !important;
+                width: 20rem !important;
+              }
+              margin-bottom: 3rem;
+            }
+          }
+        }
+      }
+      &__information {
+        &--actions {
+          & .cartBtn,
+          .favBtn,
+          .editBtn,
+          .delBtn,
+          .backBtn {
+            font-size: var.$fs-h3;
+            min-width: 35rem;
           }
         }
       }
@@ -145,11 +175,52 @@
     @include var.fs_laptop;
 
     .details__wrapper {
+      margin-bottom: 6rem;
+      .swiper {
+        &-wrapper {
+          & .swiper-slide {
+            & img {
+              margin: 0 auto;
+              height: 15rem !important;
+              width: 15rem !important;
+            }
+            &-prev {
+              & img {
+                margin: 0 auto;
+              }
+            }
+            &-next {
+              & img {
+                margin: 0 auto;
+              }
+            }
+            &-active {
+              height: 20rem !important;
+              width: 20rem !important;
+              & img {
+                height: 20rem !important;
+                width: 20rem !important;
+              }
+              margin-bottom: 3rem;
+            }
+          }
+        }
+      }
       &__information {
         &--img {
           margin: 0 auto;
           height: 15rem;
           width: 15rem;
+        }
+        &--actions {
+          & .cartBtn,
+          .favBtn,
+          .editBtn,
+          .delBtn,
+          .backBtn {
+            font-size: var.$fs-h3;
+            min-width: 35rem;
+          }
         }
       }
     }

@@ -5,8 +5,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import useHelper from "../../../hooks/useHelper";
 import { RootState } from "../../../typescript/redux/store";
 import { Product } from "../../../typescript/types";
-import AliceCarousel, { EventObject } from "react-alice-carousel";
-import "react-alice-carousel/lib/scss/alice-carousel.scss";
+// import AliceCarousel, { EventObject } from "react-alice-carousel";
+// import "react-alice-carousel/lib/scss/alice-carousel.scss";
+import { Navigation, Pagination, Scrollbar, A11y, Keyboard } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
 
 export const Main = () => {
   const navigate = useNavigate();
@@ -18,7 +23,9 @@ export const Main = () => {
   const [error, setError] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product>();
 
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(
+    products.findIndex((product) => product._id === productId)
+  );
   // Get some helper functions to dynamically change buttons
   const {
     handleCartClick,
@@ -34,21 +41,24 @@ export const Main = () => {
       setSelectedIndex(products.findIndex((product) => product === result));
     } else setError("No such product found!");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
+  }, [productId, setSelectedIndex]);
 
   // Carousel helper properties / functions
   const responsive = {
-    2000: {
-      items: 10,
-    },
-    1200: {
-      items: 5,
+    0: {
+      slidesPerView: 1,
     },
     800: {
-      items: 3,
+      slidesPerView: 3,
     },
-    0: {
-      items: 1,
+    1200: {
+      slidesPerView: 5,
+    },
+    1800: {
+      slidesPerView: 7,
+    },
+    2200: {
+      slidesPerView: 11,
     },
   };
   const handleDragStart = (e: any) => e.preventDefault();
@@ -57,7 +67,6 @@ export const Main = () => {
       key={product._id}
       className={selectedIndex === index ? "centerImage" : "activeImage"}
       onDragStart={handleDragStart}
-      style={{ height: "150px", width: "150px" }}
       src={product.image}
       alt='Product that is being sold on this page'
     />
@@ -65,23 +74,29 @@ export const Main = () => {
   return (
     <main>
       <div className='details__wrapper'>
-        <AliceCarousel
-          activeIndex={selectedIndex}
-          mouseTracking
-          responsive={responsive}
-          items={items}
-          infinite
-          controlsStrategy={"default"}
-          autoPlayStrategy='all'
-          autoPlayInterval={1000}
-          disableDotsControls
-          disableButtonsControls
-          keyboardNavigation
-          onSlideChanged={(e: EventObject) => {
-            setSelectedIndex(e.item);
-            setSelectedProduct(products[e.item]);
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y, Keyboard]}
+          breakpoints={responsive}
+          initialSlide={selectedIndex}
+          grabCursor
+          slidesPerGroup={1}
+          navigation={true}
+          centeredSlides={true}
+          loop={true}
+          loopFillGroupWithBlank={true}
+          keyboard={true}
+          pagination={{ clickable: true }}
+          onSwiper={(swiper) => {
+            console.log(swiper);
           }}
-        />
+          onSlideChange={(swiper) => {
+            setSelectedIndex(swiper.realIndex);
+            setSelectedProduct(products[swiper.realIndex]);
+          }}>
+          {items.map((product, i) => (
+            <SwiperSlide key={i}>{product}</SwiperSlide>
+          ))}
+        </Swiper>
         <div className='details__wrapper__information'>
           {selectedProduct && selectedProduct ? (
             <>

@@ -782,6 +782,7 @@ button[disabled] {
 .details__wrapper__information--actions .favBtn,
 .details__wrapper__information--actions .editBtn,
 .details__wrapper__information--actions .delBtn {
+  min-width: 22rem;
   margin-bottom: 0.5rem;
   font-size: 0.75rem;
 }
@@ -794,27 +795,31 @@ button[disabled] {
   background-color: darkred;
 }
 
-.alice-carousel {
-  grid-area: suggestions !important;
+.swiper {
+  z-index: 0;
 }
-.alice-carousel__wrapper .alice-carousel__stage-item {
-  z-index: 0 !important;
-}
-.alice-carousel__wrapper .alice-carousel__stage-item img {
-  opacity: 0.5;
-  margin: 0 auto;
-  grid-area: image;
-  display: block;
-  border: 2px solid;
+.swiper-wrapper .swiper-slide {
+  z-index: -3;
   border-radius: 50%;
-  height: 20rem !important;
-  width: 20rem !important;
 }
-.alice-carousel__wrapper .alice-carousel__stage-item.__target {
-  z-index: 1 !important;
+.swiper-wrapper .swiper-slide img {
+  height: 12rem !important;
+  width: 12rem !important;
+  opacity: 0.5;
+  border: 2px solid;
+  display: block;
+  border-radius: 50%;
 }
-.alice-carousel__wrapper .alice-carousel__stage-item.__target .centerImage {
-  opacity: 1 !important;
+.swiper-wrapper .swiper-slide-active {
+  z-index: -2;
+}
+.swiper-wrapper .swiper-slide-active img {
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 1;
+  height: 18rem !important;
+  width: 18rem !important;
+  margin-bottom: 2rem;
 }
 
 .authentication {
@@ -826,6 +831,7 @@ button[disabled] {
   z-index: -1;
 }
 .authentication__form {
+  margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   display: flex;
   flex-direction: row;
@@ -927,7 +933,8 @@ button[disabled] {
   font-size: 12px;
 }
 
-.signUp__form__button, .signIn__form__button {
+.signUp__form__button,
+.signIn__form__button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1136,8 +1143,32 @@ button[disabled] {
   .details__wrapper {
     min-height: 89vh;
   }
-  .details__wrapper .alice-carousel__wrapper .alice-carousel__stage-item img {
-    margin-left: -1rem;
+  .details__wrapper .swiper-wrapper .swiper-slide img {
+    height: 15rem !important;
+    width: 15rem !important;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-prev img {
+    margin-left: auto;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-next img {
+    margin-right: auto;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-active {
+    height: 20rem !important;
+    width: 20rem !important;
+    margin-bottom: 3rem;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-active img {
+    height: 20rem !important;
+    width: 20rem !important;
+  }
+  .details__wrapper__information--actions .cartBtn,
+.details__wrapper__information--actions .favBtn,
+.details__wrapper__information--actions .editBtn,
+.details__wrapper__information--actions .delBtn,
+.details__wrapper__information--actions .backBtn {
+    font-size: 1.15rem;
+    min-width: 35rem;
   }
 
   .orders__wrapper .orderContainer__information {
@@ -1251,10 +1282,41 @@ button[disabled] {
     font-size: 1.65rem;
   }
 
+  .details__wrapper {
+    margin-bottom: 6rem;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide img {
+    margin: 0 auto;
+    height: 15rem !important;
+    width: 15rem !important;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-prev img {
+    margin: 0 auto;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-next img {
+    margin: 0 auto;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-active {
+    height: 20rem !important;
+    width: 20rem !important;
+    margin-bottom: 3rem;
+  }
+  .details__wrapper .swiper-wrapper .swiper-slide-active img {
+    height: 20rem !important;
+    width: 20rem !important;
+  }
   .details__wrapper__information--img {
     margin: 0 auto;
     height: 15rem;
     width: 15rem;
+  }
+  .details__wrapper__information--actions .cartBtn,
+.details__wrapper__information--actions .favBtn,
+.details__wrapper__information--actions .editBtn,
+.details__wrapper__information--actions .delBtn,
+.details__wrapper__information--actions .backBtn {
+    font-size: 1.15rem;
+    min-width: 35rem;
   }
 
   .orders__wrapper {

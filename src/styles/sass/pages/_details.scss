@@ -50,6 +50,7 @@
       .favBtn,
       .editBtn,
       .delBtn {
+        min-width: 22rem;
         margin-bottom: 0.5rem;
         font-size: 0.75rem;
       }
@@ -65,27 +66,29 @@
   }
 }
 
-.alice-carousel {
-  grid-area: suggestions !important;
-  &__wrapper {
-    & .alice-carousel__stage {
-      &-item {
-        z-index: 0 !important;
+.swiper {
+  z-index: 0;
+  &-wrapper {
+    & .swiper-slide {
+      z-index: -3;
+      border-radius: 50%;
+      & img {
+        height: 12rem !important;
+        width: 12rem !important;
+        opacity: 0.5;
+        border: 2px solid;
+        display: block;
+        border-radius: 50%;
+      }
+      &-active {
+        z-index: -2;
         & img {
-          opacity: 0.5;
-          margin: 0 auto;
-          grid-area: image;
-          display: block;
-          border: 2px solid;
-          border-radius: 50%;
-          height: 20rem !important;
-          width: 20rem !important;
-        }
-        &.__target {
-          z-index: 1 !important;
-          .centerImage {
-            opacity: 1 !important;
-          }
+          margin-left: auto;
+          margin-right: auto;
+          opacity: 1;
+          height: 18rem !important;
+          width: 18rem !important;
+          margin-bottom: 2rem;
         }
       }
     }

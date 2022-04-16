@@ -8,6 +8,7 @@
     z-index: -1;
   }
   &__form {
+    margin: 0 auto;
     font-family: var.$ff-primary;
     display: flex;
     flex-direction: row;
@@ -43,7 +44,7 @@
     font-size: 12px;
     margin-bottom: 1rem;
   }
-  .error{
+  .error {
     text-align: center;
     color: red;
     font-style: italic;
@@ -109,12 +110,12 @@
   font-size: 12px;
 }
 
-.signUp__form__button, .signIn__form__button {
+.signUp__form__button,
+.signIn__form__button {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 
 .signUp__form button:hover {
   background: #03e9f4;
