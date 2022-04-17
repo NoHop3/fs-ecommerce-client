@@ -2,6 +2,8 @@
 
 ## Technology stack: React.js, Redux.js, Typescript, SCSS
 
+### The client side of the project
+
 This project was implemented during a 3-week period as a part of the second module during the Fullstack academy course at Integrify.
 
 Deployed at: Link to be added.....
