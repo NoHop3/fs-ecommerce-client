@@ -1,6 +1,7 @@
 import { InitialProductState } from "../../typescript/redux/reducers/reducer_types";
 import { ActionType } from "../../typescript/redux/actions/action_types";
 import {
+  ADD_PRODUCT,
   ADD_TO_CART,
   EDIT_FROM_CART,
   EDIT_PRODUCT,
@@ -79,6 +80,12 @@ const productReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         products: newArray,
+      };
+    }
+    case ADD_PRODUCT: {
+      return {
+        ...state,
+        products: [...state.products, action.payload],
       };
     }
     case EMPTY_CART: {

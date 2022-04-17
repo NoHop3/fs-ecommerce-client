@@ -10,6 +10,17 @@
   @media only screen and (min-width: #{var.$tablet-width}) and (max-width: #{(var.$laptop-width)-1px}) {
     @include var.fs_tablet;
 
+    .modify-product__wrapper {
+      min-height: 89vh;
+      &__form {
+        &--image {
+          & img {
+            width: 25rem;
+          }
+        }
+      }
+    }
+
     .details__wrapper {
       min-height: 89vh;
       .swiper {
@@ -173,6 +184,52 @@
 @mixin laptop {
   @media only screen and (min-width: #{var.$laptop-width}) {
     @include var.fs_laptop;
+
+    .modify-product__wrapper {
+      margin-bottom: 0;
+      &__form {
+        grid-template-areas:
+          "image image image image"
+          "name price category color"
+          "actions actions actions actions"
+          "error error error error";
+        &--image {
+          & img {
+            width: 25rem;
+          }
+        }
+        &__input {
+          &--name,
+          &--price,
+          &--category,
+          &--color {
+            & input {
+              min-width: 15rem;
+              padding: 0.5rem 0.2rem;
+              font-size: 1rem;
+              color: var.$clr-auth;
+              margin-bottom: 1rem;
+              border: 1px solid;
+              outline: none;
+              background: transparent;
+            }
+          }
+        }
+        &--actions {
+          margin: 0 auto;
+          display: flex;
+          flex-direction: row;
+          grid-area: actions;
+          & .editProductBtn,
+          .cancelBtn,
+          .backBtn {
+            min-width: 13rem;
+            margin-right: 0.75rem;
+          }
+          margin-bottom: 2rem;
+        }
+      }
+    }
 
     .details__wrapper {
       margin-bottom: 6rem;

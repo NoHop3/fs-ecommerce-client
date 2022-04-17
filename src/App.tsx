@@ -59,6 +59,7 @@ function App() {
               path='/products/edit/:productId'
               element={<ModifyProduct />}
             />
+            {/* <Route path='/products/add' element={<AddProduct />} /> */}
           </Route>
           {/* Error page */}
           <Route path='*' element={<ErrorPage />} />

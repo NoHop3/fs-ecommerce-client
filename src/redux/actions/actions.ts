@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 
 import {
+  ADD_PRODUCT,
   ADD_TO_CART,
   ADD_TO_FAVS,
   AUTH_ERROR,
@@ -22,6 +23,7 @@ import {
   TOGGLE_THEME,
 } from "../../typescript/redux/actions/action_const";
 import {
+  AddProductAction,
   AddToCartAction,
   AddToFavsAction,
   AuthErrorAction,
@@ -157,6 +159,12 @@ export function editProduct(updatedProduct: Product): EditProductAction {
   return {
     type: EDIT_PRODUCT,
     payload: updatedProduct,
+  };
+}
+export function addProduct(productToAdd: Product): AddProductAction {
+  return {
+    type: ADD_PRODUCT,
+    payload: productToAdd,
   };
 }
 
@@ -339,7 +347,30 @@ export function editProductAxios(values: Partial<Product>, prodId: string) {
     axios
       .put(`http://localhost:5000/api/v1/products/${prodId}`, values, config)
       .then((res: any) => {
+        //if(){dispatch(authError("Product edited successfully!"));}
         dispatch(editProduct(res.data));
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+}
+
+export function addProductAxios(values: Partial<Product>) {
+  const token = JSON.parse(localStorage.getItem("token") as string);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return (dispatch: Dispatch) => {
+    axios
+      .post("http://localhost:5000/api/v1/products", values, config)
+      .then((res: any) => {
+        if (res.status === 200) {
+          dispatch(addProduct(res.data));
+          // dispatch(authError("Product added successfully!"));
+        }
       })
       .catch((err: any) => {
         console.log(err);

@@ -1,8 +1,6 @@
 @use "../sass-utils/variables" as var;
 
 .modify-product__wrapper {
-  max-width: 1400px;
-  margin-bottom: 5rem;
   &__form {
     margin: 0 auto;
     display: grid;
@@ -13,7 +11,8 @@
       "price"
       "category"
       "color"
-      "actions";
+      "actions"
+      "error";
     gap: 1rem;
     align-content: center;
     justify-items: center;
@@ -24,7 +23,7 @@
         display: block;
         border: 2px solid;
         border-radius: 50%;
-        width: 100vw;
+        width: 75vw;
         aspect-ratio: 1;
       }
     }
@@ -65,17 +64,21 @@
       flex-direction: column;
       grid-area: actions;
       & .editProductBtn,
-      .cancelBtn {
+      .cancelBtn,
+      .backBtn {
         margin-bottom: 0.25rem;
       }
     }
-    & .Errors, & .internalErrors {
+    & .Errors,
+    & .internalErrors {
       text-align: center;
       color: red;
       font-style: italic;
       font-size: 12px;
       margin-bottom: 1rem;
     }
-
+    & .internalErrors {
+      grid-area: error;
+    }
   }
 }

@@ -22,6 +22,7 @@ export const EDIT_FROM_CART = "EDIT_FROM_CART";
 export const EMPTY_CART = "EMPTY_CART";
 export const SORT_PRODUCTS = "SORT_PRODUCTS";
 export const EDIT_PRODUCT = "EDIT_PRODUCT";
+export const ADD_PRODUCT = "ADD_PRODUCT";
 
 /* orderReducer */
 export const FETCH_ORDERS = "FETCH_ORDERS";

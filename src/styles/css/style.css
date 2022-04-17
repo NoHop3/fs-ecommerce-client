@@ -830,15 +830,11 @@ button[disabled] {
   margin-bottom: 2rem;
 }
 
-.modify-product__wrapper {
-  max-width: 1400px;
-  margin-bottom: 5rem;
-}
 .modify-product__wrapper__form {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto, minmax(5rem, 1fr));
-  grid-template-areas: "image" "name" "price" "category" "color" "actions";
+  grid-template-areas: "image" "name" "price" "category" "color" "actions" "error";
   gap: 1rem;
   align-content: center;
   justify-items: center;
@@ -851,7 +847,7 @@ button[disabled] {
   display: block;
   border: 2px solid;
   border-radius: 50%;
-  width: 100vw;
+  width: 75vw;
   aspect-ratio: 1;
 }
 .modify-product__wrapper__form__input--name input, .modify-product__wrapper__form__input--price input, .modify-product__wrapper__form__input--category input, .modify-product__wrapper__form__input--color input {
@@ -884,7 +880,8 @@ button[disabled] {
   grid-area: actions;
 }
 .modify-product__wrapper__form--actions .editProductBtn,
-.modify-product__wrapper__form--actions .cancelBtn {
+.modify-product__wrapper__form--actions .cancelBtn,
+.modify-product__wrapper__form--actions .backBtn {
   margin-bottom: 0.25rem;
 }
 .modify-product__wrapper__form .Errors, .modify-product__wrapper__form .internalErrors {
@@ -893,6 +890,9 @@ button[disabled] {
   font-style: italic;
   font-size: 12px;
   margin-bottom: 1rem;
+}
+.modify-product__wrapper__form .internalErrors {
+  grid-area: error;
 }
 
 .authentication {
@@ -1213,6 +1213,13 @@ button[disabled] {
     font-size: 1.125rem;
   }
 
+  .modify-product__wrapper {
+    min-height: 89vh;
+  }
+  .modify-product__wrapper__form--image img {
+    width: 25rem;
+  }
+
   .details__wrapper {
     min-height: 89vh;
   }
@@ -1353,6 +1360,39 @@ button[disabled] {
 
   body {
     font-size: 1.65rem;
+  }
+
+  .modify-product__wrapper {
+    margin-bottom: 0;
+  }
+  .modify-product__wrapper__form {
+    grid-template-areas: "image image image image" "name price category color" "actions actions actions actions" "error error error error";
+  }
+  .modify-product__wrapper__form--image img {
+    width: 25rem;
+  }
+  .modify-product__wrapper__form__input--name input, .modify-product__wrapper__form__input--price input, .modify-product__wrapper__form__input--category input, .modify-product__wrapper__form__input--color input {
+    min-width: 15rem;
+    padding: 0.5rem 0.2rem;
+    font-size: 1rem;
+    color: #3d8170;
+    margin-bottom: 1rem;
+    border: 1px solid;
+    outline: none;
+    background: transparent;
+  }
+  .modify-product__wrapper__form--actions {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    grid-area: actions;
+    margin-bottom: 2rem;
+  }
+  .modify-product__wrapper__form--actions .editProductBtn,
+.modify-product__wrapper__form--actions .cancelBtn,
+.modify-product__wrapper__form--actions .backBtn {
+    min-width: 13rem;
+    margin-right: 0.75rem;
   }
 
   .details__wrapper {

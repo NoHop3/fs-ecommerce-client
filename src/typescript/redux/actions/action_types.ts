@@ -1,5 +1,6 @@
 import { Order, OrderLine, Product, Sort, User } from "../../types";
 import {
+  ADD_PRODUCT,
   ADD_TO_CART,
   ADD_TO_FAVS,
   AUTH_ERROR,
@@ -92,6 +93,10 @@ export type EditProductAction = {
   type: typeof EDIT_PRODUCT;
   payload: Product;
 };
+export type AddProductAction = {
+  type: typeof ADD_PRODUCT;
+  payload: Product;
+};
 
 /* orderReducer */
 export type FetchOrdersAction = {
@@ -117,4 +122,5 @@ export type ActionType =
   | EditFromCartAction
   | FetchOrdersAction
   | SortProductsAction
-  | EditProductAction;
+  | EditProductAction
+  | AddProductAction;

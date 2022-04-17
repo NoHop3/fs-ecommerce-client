@@ -50,7 +50,10 @@ export const UserHasWriteAccess = () => {
   if (localStorage.getItem("token")) {
     let loggedInUser = localStorage.getItem("token");
     const user: any = loggedInUser && jwt_decode(loggedInUser);
-    if ((user?.email || user?.username) && user?.hasWriteAccess) {
+    if (
+      (user?.email || user?.username) &&
+      (user?.hasWriteAccess || user.isAdmin)
+    ) {
       return <Outlet />;
     }
   }
