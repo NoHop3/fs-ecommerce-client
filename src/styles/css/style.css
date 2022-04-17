@@ -540,13 +540,15 @@ button[disabled] {
 .profile__wrapper--grid .edit__group .edit__input {
   font-family: "Roboto", sans-serif;
   margin: 0 auto;
+  border-radius: 0.2rem;
   font-size: 1.2rem;
   padding: 0.1rem 0.75rem;
-  border-radius: 0.2rem;
-  border: none;
   width: 90%;
   display: block;
-  border-bottom: 0.3rem solid transparent;
+  border: 1px solid;
+  outline: none;
+  color: #3d8170;
+  background: transparent;
   margin-bottom: 0.5rem;
 }
 .profile__wrapper--grid .edit__group .edit__input:placeholder-shown + .edit__label {
@@ -568,13 +570,14 @@ button[disabled] {
 }
 .products__wrapper__filter__input {
   font-family: "Roboto", sans-serif;
-  font-size: 1.2rem;
-  padding: 0.1rem 0.75rem;
-  border-radius: 0.2rem;
-  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 0.2rem;
   display: block;
-  border-bottom: 0.3rem solid transparent;
-  margin-bottom: 0.5rem;
+  margin: 1rem 0;
+  border: 1px solid;
+  outline: none;
+  color: #3d8170;
+  background: transparent;
 }
 .products__wrapper__filter__sort {
   display: flex;
@@ -587,7 +590,7 @@ button[disabled] {
 }
 .products__wrapper__add-product {
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 .products__wrapper--grid {
   list-style-type: none;
@@ -608,7 +611,8 @@ button[disabled] {
 .products__wrapper--grid .grid__item .deleteBtn,
 .products__wrapper--grid .grid__item .favBtn,
 .products__wrapper--grid .grid__item .cartBtn,
-.products__wrapper--grid .grid__item .detailsBtn, .products__wrapper--grid .grid__item .editBtn {
+.products__wrapper--grid .grid__item .detailsBtn,
+.products__wrapper--grid .grid__item .editBtn {
   cursor: pointer;
   position: absolute;
   top: 0%;
@@ -654,12 +658,19 @@ button[disabled] {
   grid-area: picture;
   display: block;
   width: 10rem;
+  border: 2px solid;
+  border-radius: 50%;
+  aspect-ratio: 1;
 }
 .cart__wrapper--grid .grid__item__actions {
   grid-area: actions;
   margin-left: 1rem;
 }
 .cart__wrapper--grid .grid__item__actions .quantityInput {
+  color: #3d8170;
+  border: 1px solid;
+  outline: none;
+  background: transparent;
   width: 2rem;
   margin-bottom: 1rem;
 }
@@ -733,6 +744,8 @@ button[disabled] {
 .orders__wrapper .orderContainer__information .orderedline__wrapper__information__image {
   grid-area: productImage;
   width: 4rem;
+  border: 2px solid;
+  border-radius: 50%;
   aspect-ratio: 1;
 }
 .orders__wrapper .orderContainer__information .orderedline__wrapper__information__price {
@@ -834,17 +847,18 @@ button[disabled] {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto, minmax(5rem, 1fr));
-  grid-template-areas: "image" "name" "price" "category" "color" "actions" "error";
-  gap: 1rem;
+  grid-template-areas: "image" "name" "price" "category" "color" "error" "actions";
   align-content: center;
   justify-items: center;
   text-align: center;
+  margin-bottom: 2rem;
 }
 .modify-product__wrapper__form--image {
   grid-area: image;
 }
 .modify-product__wrapper__form--image img {
   display: block;
+  object-fit: cover;
   border: 2px solid;
   border-radius: 50%;
   width: 75vw;
@@ -854,10 +868,10 @@ button[disabled] {
   min-width: 13rem;
   padding: 0.5rem 0.2rem;
   font-size: 1rem;
-  color: #3d8170;
   margin-bottom: 1rem;
   border: 1px solid;
   outline: none;
+  color: #3d8170;
   background: transparent;
 }
 .modify-product__wrapper__form__input--name {
@@ -892,6 +906,8 @@ button[disabled] {
   margin-bottom: 1rem;
 }
 .modify-product__wrapper__form .internalErrors {
+  font-size: 1.5rem;
+  color: #3d8170;
   grid-area: error;
 }
 
@@ -1363,10 +1379,10 @@ button[disabled] {
   }
 
   .modify-product__wrapper {
-    margin-bottom: 0;
+    min-height: 87vh;
   }
   .modify-product__wrapper__form {
-    grid-template-areas: "image image image image" "name price category color" "actions actions actions actions" "error error error error";
+    grid-template-areas: "image image image image" "name price category color" "error error error error" "actions actions actions actions";
   }
   .modify-product__wrapper__form--image img {
     width: 25rem;
@@ -1386,7 +1402,6 @@ button[disabled] {
     display: flex;
     flex-direction: row;
     grid-area: actions;
-    margin-bottom: 2rem;
   }
   .modify-product__wrapper__form--actions .editProductBtn,
 .modify-product__wrapper__form--actions .cancelBtn,
@@ -1396,7 +1411,7 @@ button[disabled] {
   }
 
   .details__wrapper {
-    margin-bottom: 6rem;
+    margin-bottom: 5rem;
   }
   .details__wrapper .swiper-wrapper .swiper-slide img {
     margin: 0 auto;

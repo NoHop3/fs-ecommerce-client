@@ -1,20 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import { Modal, useMantineTheme } from "@mantine/core";
 import axios from "axios";
-import { authError, editProductAxios } from "../../../redux/actions/actions";
+
+import {
+  authError,
+  editProductAxios,
+  setServerResMesssage,
+} from "../../../redux/actions/actions";
 import { dropzoneChildren } from "../../../hooks/useDropzone";
 import { RootState } from "../../../typescript/redux/store";
-import { useNavigate, useParams } from "react-router-dom";
 import { Product } from "../../../typescript/types";
 
 export const Main = () => {
   const navigate = useNavigate();
   const { products } = useSelector((state: RootState) => state.productState);
+  const { response } = useSelector(
+    (state: RootState) => state.serverResponseState
+  );
   const { productId } = useParams();
   const [selectedProduct, setSelectedProduct] = useState<Product>();
   const theme = useMantineTheme();
@@ -27,9 +34,11 @@ export const Main = () => {
     if (result !== undefined) {
       setSelectedProduct(result);
       setImage(result.image);
+      console.log(result)
     } else setError("No such product found!");
   }, [productId, products]);
   const handleBackClick = () => {
+    dispatch(setServerResMesssage(""));
     navigate("/products");
   };
   return (
@@ -87,7 +96,6 @@ export const Main = () => {
               dispatch(editProductAxios(values, productId as string));
             } catch (error: any) {
               console.log(error);
-              setError(error.message as string);
             }
           }}>
           {({ errors, touched, resetForm }) => (
@@ -159,6 +167,7 @@ export const Main = () => {
                   className='btn cancelBtn'
                   onClick={() => {
                     resetForm();
+                    dispatch(setServerResMesssage(""));
                     setImage((selectedProduct as Product).image);
                   }}>
                   Cancel
@@ -170,8 +179,10 @@ export const Main = () => {
                   back
                 </button>
               </div>
-              <div className='internalErrors'>{error}</div>
-              {/* <div className='error'>{authError}</div> */}
+              <div className='internalErrors'>
+                {error}
+                {response.message}
+              </div>
             </Form>
           )}
         </Formik>

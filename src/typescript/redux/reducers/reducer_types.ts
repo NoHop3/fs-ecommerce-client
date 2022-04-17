@@ -1,4 +1,4 @@
-import { Order, OrderLine, Product, User } from "../../types";
+import { Order, OrderLine, Product, ServerResponse, User } from "../../types";
 
 export type InitialNavState = {
   navClass: string;
@@ -25,4 +25,8 @@ export type InitialProductState = {
 
 export type InitialOrderState = {
   orders: Order[];
+};
+
+export type InitialServerResState = {
+  response: ServerResponse;
 };

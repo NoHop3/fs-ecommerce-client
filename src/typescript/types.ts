@@ -47,7 +47,7 @@ export type Order = {
   userId: User;
   orderedlines: OrderLine[];
   totalPrice: number;
-}
+};
 
 export type Sort = {
   keyword: string;
@@ -55,6 +55,11 @@ export type Sort = {
   numerical1__9: boolean;
   favouritesDisplay: boolean;
   favourites: string[];
+};
+
+export type ServerResponse = {
+  status: number;
+  message: string;
 };
 
 export type EvtKeyboardType = React.KeyboardEvent;

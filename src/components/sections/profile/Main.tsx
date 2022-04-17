@@ -10,6 +10,9 @@ import axios from "axios";
 import { dropzoneChildren } from "../../../hooks/useDropzone";
 
 export const Main = () => {
+  const { response } = useSelector(
+    (state: RootState) => state.serverResponseState
+  );
   const theme = useMantineTheme();
   const dispatch = useDispatch();
   const { loggedUser } = useSelector((state: RootState) => state.authState);
@@ -215,6 +218,17 @@ export const Main = () => {
             <button className='btn' onClick={handleCancelClick}>
               cancel
             </button>
+          </div>
+          <div
+            className='internalErrors'
+            style={
+              response.message === "Success! User edited!"
+                ? {
+                    color: "lightgreen",
+                  }
+                : {}
+            }>
+            {response.message}
           </div>
         </div>
       </div>

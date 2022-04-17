@@ -70,10 +70,11 @@ export const Main = () => {
                   <p className='grid__item__details--name'>
                     {shopItem.productId?.name}
                   </p>
-
                   <p className='grid__item__details--price'>
                     {shopItem.price} dkk
                   </p>
+                  <p>{shopItem.productId?.category}</p>
+                  <p>{shopItem.productId?.color}</p>
                 </div>
                 <div className='grid__item__actions'>
                   <input
@@ -97,7 +98,7 @@ export const Main = () => {
                       handleDeleteClick(shopItem.productId?._id as string);
                     }}
                     className='delBtn'
-                    src='/images/delete__btn.png'
+                    src='/images/delete__btn__admin.png'
                     alt=''
                   />
                 </div>
@@ -107,7 +108,7 @@ export const Main = () => {
         <div className='totalOrder'>
           <div className='actions'>
             <button
-              disabled={cart.length > 0 ? false : true}
+              disabled={cart.length < 1 || isNaN(totalPrice) ? true : false}
               className='btn orderBtn'
               onClick={handleOrderClick}>
               All <br />

@@ -186,13 +186,13 @@
     @include var.fs_laptop;
 
     .modify-product__wrapper {
-      margin-bottom: 0;
+      min-height: 87vh;
       &__form {
         grid-template-areas:
           "image image image image"
           "name price category color"
-          "actions actions actions actions"
-          "error error error error";
+          "error error error error"
+          "actions actions actions actions";
         &--image {
           & img {
             width: 25rem;
@@ -226,13 +226,12 @@
             min-width: 13rem;
             margin-right: 0.75rem;
           }
-          margin-bottom: 2rem;
         }
       }
     }
 
     .details__wrapper {
-      margin-bottom: 6rem;
+      margin-bottom: 5rem;
       .swiper {
         &-wrapper {
           & .swiper-slide {

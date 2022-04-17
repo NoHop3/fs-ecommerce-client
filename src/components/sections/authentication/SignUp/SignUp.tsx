@@ -6,7 +6,9 @@ import { RootState } from "../../../../typescript/redux/store";
 
 export const SignUp = ({ style }: any) => {
   const dispatch = useDispatch();
-  const { authError } = useSelector((state: RootState) => state.authState);
+  const { response } = useSelector(
+    (state: RootState) => state.serverResponseState
+  );
   return (
     <div className='authentication__form--signUp' style={style}>
       <Formik
@@ -104,13 +106,13 @@ export const SignUp = ({ style }: any) => {
             <div
               className='error'
               style={
-                authError === "Success! You can now login"
+                response.message === "Success! You can now login"
                   ? {
                       color: "lightgreen",
                     }
                   : {}
               }>
-              {authError}
+              {response.message}
             </div>
           </Form>
         )}

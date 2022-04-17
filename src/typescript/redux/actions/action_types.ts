@@ -12,6 +12,8 @@ import {
   FETCH_PRODUCTS,
   GET_TOKEN,
   REMOVE_FROM_CART,
+  SET_RESPONSE_MESSAGE,
+  SET_RESPONSE_STATUS,
   SIGN_IN_USER,
   SIGN_OUT_USER,
   SORT_PRODUCTS,
@@ -104,6 +106,17 @@ export type FetchOrdersAction = {
   payload: Order[];
 };
 
+/** serverResReducer */
+export type SetServerResStatusAction = {
+  type: typeof SET_RESPONSE_STATUS;
+  payload: number;
+};
+
+export type SetServerResMessageAction = {
+  type: typeof SET_RESPONSE_MESSAGE;
+  payload: string;
+};
+
 export type ActionType =
   | ToggleNavAction
   | ToggleThemeAction
@@ -112,7 +125,6 @@ export type ActionType =
   | GetTokenAction
   | SignInAction
   | SignOutAction
-  | AuthErrorAction
   | EditUserAction
   | FetchProductsAction
   | AddToFavsAction
@@ -123,4 +135,7 @@ export type ActionType =
   | FetchOrdersAction
   | SortProductsAction
   | EditProductAction
-  | AddProductAction;
+  | AddProductAction
+  | AuthErrorAction
+  | SetServerResStatusAction
+  | SetServerResMessageAction;

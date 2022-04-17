@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from "react";
 
 import { Formik, Field, Form } from "formik";
@@ -6,23 +6,29 @@ import * as Yup from "yup";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import { Modal, useMantineTheme } from "@mantine/core";
 import axios from "axios";
-import { addProductAxios } from "../../../redux/actions/actions";
+import {
+  addProductAxios,
+  setServerResMesssage,
+} from "../../../redux/actions/actions";
 import { dropzoneChildren } from "../../../hooks/useDropzone";
 import { useNavigate } from "react-router-dom";
-// import { RootState } from "../../../typescript/redux/store";
+import { RootState } from "../../../typescript/redux/store";
 
 export const Main = () => {
   const navigate = useNavigate();
   const theme = useMantineTheme();
   const dispatch = useDispatch();
-  // const { authError } = useSelector((state: RootState) => state.authState);
+  const { response } = useSelector(
+    (state: RootState) => state.serverResponseState
+  );
   const [opened, setOpened] = useState(false);
-  const [image, setImage] = useState("/images/reset__img.jpg");
-  const [error, setError] = useState("");
+  const [image, setImage] = useState(
+    "https://res.cloudinary.com/dtggdx3hc/image/upload/v1650203970/bgqymelvcfsiqxfnm6sc.jpg"
+  );
   const handleBackClick = () => {
+    dispatch(setServerResMesssage(""));
     navigate("/products");
   };
-
   return (
     <main>
       <Modal
@@ -52,7 +58,7 @@ export const Main = () => {
                   setImage(response.data.secure_url);
                 })
                 .catch((err: any) => {
-                  setError(err.message);
+                  console.log(err);
                 });
             };
             reader.readAsDataURL(new Blob(file));
@@ -77,7 +83,7 @@ export const Main = () => {
               });
               dispatch(addProductAxios(values));
             } catch (error: any) {
-              setError(error.message as string);
+              console.log(error);
             }
           }}>
           {({ errors, touched, resetForm }) => (
@@ -124,8 +130,10 @@ export const Main = () => {
                   className='btn cancelBtn'
                   onClick={() => {
                     resetForm();
-                    setError("");
-                    setImage("/images/reset__img.jpg");
+                    dispatch(setServerResMesssage(""));
+                    setImage(
+                      "https://res.cloudinary.com/dtggdx3hc/image/upload/v1650203970/bgqymelvcfsiqxfnm6sc.jpg"
+                    );
                   }}>
                   Cancel
                 </button>
@@ -136,7 +144,17 @@ export const Main = () => {
                   back
                 </button>
               </div>
-              <div className='internalErrors'>{error}</div>
+              <div
+                className='internalErrors'
+                style={
+                  response.message === "Success! Product added successfully!"
+                    ? {
+                        color: "lightgreen",
+                      }
+                    : {}
+                }>
+                {response.message}
+              </div>
             </Form>
           )}
         </Formik>

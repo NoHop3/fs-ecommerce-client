@@ -1,3 +1,5 @@
+@use "../sass-utils/variables" as var;
+
 .cart__wrapper {
   margin-top: 2rem;
   margin-bottom: 6rem;
@@ -18,12 +20,18 @@
           grid-area: picture;
           display: block;
           width: 10rem;
+          border: 2px solid;
+            border-radius: 50%;aspect-ratio: 1;
         }
       }
       &__actions {
         grid-area: actions;
         margin-left: 1rem;
         & .quantityInput {
+          color: var.$clr-auth;
+          border: 1px solid;
+          outline: none;
+          background: transparent;
           width: 2rem;
           margin-bottom: 1rem;
         }

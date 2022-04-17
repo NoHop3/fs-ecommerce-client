@@ -11,9 +11,8 @@
       "price"
       "category"
       "color"
-      "actions"
-      "error";
-    gap: 1rem;
+      "error"
+      "actions";
     align-content: center;
     justify-items: center;
     text-align: center;
@@ -21,6 +20,7 @@
       grid-area: image;
       & img {
         display: block;
+        object-fit: cover;
         border: 2px solid;
         border-radius: 50%;
         width: 75vw;
@@ -36,10 +36,10 @@
           min-width: 13rem;
           padding: 0.5rem 0.2rem;
           font-size: 1rem;
-          color: var.$clr-auth;
           margin-bottom: 1rem;
           border: 1px solid;
           outline: none;
+          color: var.$clr-auth;
           background: transparent;
         }
       }
@@ -78,7 +78,10 @@
       margin-bottom: 1rem;
     }
     & .internalErrors {
+      font-size: 1.5rem;
+      color: var.$clr-auth;
       grid-area: error;
     }
+    margin-bottom: 2rem;
   }
 }

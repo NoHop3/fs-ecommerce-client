@@ -34,6 +34,11 @@ export const Main = () => {
     handleDeleteClick,
   } = useHelper();
 
+  // Admin edit handler
+  const handleEditClick = (prodId: string) => {
+    navigate(`/products/edit/${prodId}`);
+  };
+
   useEffect(() => {
     const result = products.find((product) => product._id === productId);
     if (result !== undefined) {
@@ -150,7 +155,13 @@ export const Main = () => {
                 </button>
                 {loggedUser.isAdmin ? (
                   <>
-                    <button className='btn editBtn'>edit product 💎</button>
+                    <button
+                      className='btn editBtn'
+                      onClick={() => {
+                        handleEditClick(selectedProduct._id);
+                      }}>
+                      edit product 💎
+                    </button>
                     <button
                       className='btn delBtn'
                       onClick={() => {

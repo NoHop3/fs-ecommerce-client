@@ -14,6 +14,8 @@ import {
   FETCH_PRODUCTS,
   GET_TOKEN,
   REMOVE_FROM_CART,
+  SET_RESPONSE_MESSAGE,
+  SET_RESPONSE_STATUS,
   SIGN_IN_USER,
   SIGN_OUT_USER,
   SORT_PRODUCTS,
@@ -35,6 +37,8 @@ import {
   FetchProductsAction,
   GetTokenAction,
   RemoveFromCartAction,
+  SetServerResMessageAction,
+  SetServerResStatusAction,
   SignInAction,
   SignOutAction,
   SortProductsAction,
@@ -176,6 +180,24 @@ export function fetchOrders(orders: Order[]): FetchOrdersAction {
   };
 }
 
+/* serverResReducer */
+export function setServerResStatus(
+  resStatus: number
+): SetServerResStatusAction {
+  return {
+    type: SET_RESPONSE_STATUS,
+    payload: resStatus,
+  };
+}
+export function setServerResMesssage(
+  resMessage: string
+): SetServerResMessageAction {
+  return {
+    type: SET_RESPONSE_MESSAGE,
+    payload: resMessage,
+  };
+}
+
 /* Helper/Axios actions */
 export function signUpAxios(values: ValuesSignUp) {
   console.log(values);
@@ -191,13 +213,12 @@ export function signUpAxios(values: ValuesSignUp) {
       .then((res: any) => {
         console.log(res);
         if (res.status === 200) {
-          dispatch(authError("Success! You can now login"));
+          dispatch(setServerResMesssage("Success! You can now login!"));
         }
         console.log(res.data);
       })
       .catch((err: any) => {
-        dispatch(authError("Error! Existing email/username!"));
-        throw err;
+        dispatch(setServerResMesssage("Error! Existing credentials!"));
       });
   };
 }
@@ -216,7 +237,6 @@ export function signInAxios(values: Partial<ValuesSignUp>) {
       })
       .catch((err: any) => {
         console.log(err.response);
-        dispatch(authError(err.response.data.message));
       });
   };
 }
@@ -229,7 +249,6 @@ export function signInUserWithIdAxios(userId: string) {
       })
       .catch((err: any) => {
         console.log(err.response);
-        dispatch(authError(err.response.data.message));
       });
   };
 }
@@ -239,11 +258,14 @@ export function editUserAxios(values: Partial<User>, userId: string) {
     axios
       .put(`http://localhost:5000/api/v1/users/${userId}`, values)
       .then((res) => {
-        console.log(res.data);
-        dispatch(editUser(res.data));
+        console.log(res);
+        if (res.status === 201) {
+          dispatch(setServerResMesssage("Success! User edited!"));
+          dispatch(editUser(res.data));
+        }
       })
       .catch((err: any) => {
-        dispatch(authError(err.response.data.message));
+        dispatch(setServerResMesssage("Error! Could not edit user!"));
       });
   };
 }
@@ -306,14 +328,17 @@ export function addOrderAxios(
             totalPrice,
           })
           .then((res: any) => {
-            console.log(res.data);
+            console.log(res.status);
+            if (res.status === 201) {
+              console.log("Success! Order created");
+            }
           })
           .catch((err: any) => {
-            dispatch(authError(err));
+            console.log(err);
           });
       })
       .catch((err: any) => {
-        dispatch(authError(err));
+        console.log(err);
       });
   };
 }
@@ -347,11 +372,14 @@ export function editProductAxios(values: Partial<Product>, prodId: string) {
     axios
       .put(`http://localhost:5000/api/v1/products/${prodId}`, values, config)
       .then((res: any) => {
-        //if(){dispatch(authError("Product edited successfully!"));}
-        dispatch(editProduct(res.data));
+        if (res.status === 200) {
+          dispatch(setServerResMesssage("Success! Product edited!"));
+          dispatch(editProduct(res.data));
+        }
       })
       .catch((err: any) => {
         console.log(err);
+        dispatch(setServerResMesssage("Error! Could not edit product"));
       });
   };
 }
@@ -369,11 +397,14 @@ export function addProductAxios(values: Partial<Product>) {
       .then((res: any) => {
         if (res.status === 200) {
           dispatch(addProduct(res.data));
-          // dispatch(authError("Product added successfully!"));
+          dispatch(
+            setServerResMesssage("Success! Product added successfully!")
+          );
         }
       })
       .catch((err: any) => {
         console.log(err);
+        dispatch(setServerResMesssage("Error! Could not add product!"));
       });
   };
 }

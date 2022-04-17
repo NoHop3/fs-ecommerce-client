@@ -57,6 +57,8 @@
           &__image {
             grid-area: productImage;
             width: 4rem;
+            border: 2px solid;
+            border-radius: 50%;
             aspect-ratio: 1;
           }
           &__price {
