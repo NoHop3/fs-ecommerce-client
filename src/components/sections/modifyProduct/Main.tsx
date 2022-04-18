@@ -34,7 +34,6 @@ export const Main = () => {
     if (result !== undefined) {
       setSelectedProduct(result);
       setImage(result.image);
-      console.log(result)
     } else setError("No such product found!");
   }, [productId, products]);
   const handleBackClick = () => {

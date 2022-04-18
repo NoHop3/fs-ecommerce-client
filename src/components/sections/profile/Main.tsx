@@ -1,19 +1,21 @@
 import { memo, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { authError, editUserAxios } from "../../../redux/actions/actions";
+import { authError, editUserAxios, setServerResMesssage } from "../../../redux/actions/actions";
 import { RootState } from "../../../typescript/redux/store";
 import { EvtChangeType } from "../../../typescript/types";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import { Modal, useMantineTheme } from "@mantine/core";
 import axios from "axios";
 import { dropzoneChildren } from "../../../hooks/useDropzone";
+import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
   const { response } = useSelector(
     (state: RootState) => state.serverResponseState
   );
   const theme = useMantineTheme();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loggedUser } = useSelector((state: RootState) => state.authState);
   const [image, setImage] = useState(
@@ -66,6 +68,10 @@ export const Main = () => {
       if (error instanceof Error) setError(error.message as string);
     }
   }, [dispatch, loggedUser, toSave]);
+  const handleBackClick = () => {
+    dispatch(setServerResMesssage(""));
+    navigate("/");
+  };
   return (
     <main>
       <Modal
@@ -217,6 +223,12 @@ export const Main = () => {
             </button>
             <button className='btn' onClick={handleCancelClick}>
               cancel
+            </button>
+            <button
+              type='button'
+              className='btn backBtn'
+              onClick={handleBackClick}>
+              back
             </button>
           </div>
           <div

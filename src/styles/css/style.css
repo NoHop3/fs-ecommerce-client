@@ -1529,6 +1529,9 @@ button[disabled] {
     height: 26rem;
     width: 26rem;
   }
+  .profile__wrapper--grid .buttons__container .backBtn {
+    margin-left: 0.75rem;
+  }
 
   .home__wrapper {
     height: auto;

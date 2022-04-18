@@ -203,7 +203,7 @@ export function signUpAxios(values: ValuesSignUp) {
   console.log(values);
   return (dispatch: Dispatch) => {
     axios
-      .post("http://localhost:5000/api/v1/users", {
+      .post("https://fs-ecommerce-server.herokuapp.com/api/v1/users", {
         email: values.email,
         username: values.username,
         firstName: values.firstName,
@@ -226,7 +226,7 @@ export function signUpAxios(values: ValuesSignUp) {
 export function signInAxios(values: Partial<ValuesSignUp>) {
   return (dispatch: Dispatch) => {
     axios
-      .post("http://localhost:5000/api/v1/users/login", {
+      .post("https://fs-ecommerce-server.herokuapp.com/api/v1/users/login", {
         email: values.email,
         username: values.username,
         password: values.password,
@@ -243,7 +243,7 @@ export function signInAxios(values: Partial<ValuesSignUp>) {
 export function signInUserWithIdAxios(userId: string) {
   return (dispatch: Dispatch) => {
     axios
-      .get(`http://localhost:5000/api/v1/users/${userId}`)
+      .get(`https://fs-ecommerce-server.herokuapp.com/api/v1/users/${userId}`)
       .then((res: any) => {
         dispatch(signInUser(res.data));
       })
@@ -256,7 +256,7 @@ export function signInUserWithIdAxios(userId: string) {
 export function editUserAxios(values: Partial<User>, userId: string) {
   return (dispatch: Dispatch) => {
     axios
-      .put(`http://localhost:5000/api/v1/users/${userId}`, values)
+      .put(`https://fs-ecommerce-server.herokuapp.com/api/v1/users/${userId}`, values)
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
@@ -273,7 +273,7 @@ export function editUserAxios(values: Partial<User>, userId: string) {
 export function getProductsAxios() {
   return (dispatch: Dispatch) => {
     axios
-      .get("http://localhost:5000/api/v1/products")
+      .get("https://fs-ecommerce-server.herokuapp.com/api/v1/products")
       .then((res) => {
         dispatch(fetchProducts(res.data));
       })
@@ -286,7 +286,7 @@ export function getProductsAxios() {
 export function getOrdersAxios(userId: string) {
   return (dispatch: Dispatch) => {
     axios
-      .get(`http://localhost:5000/api/v1/orders/${userId}`)
+      .get(`https://fs-ecommerce-server.herokuapp.com/api/v1/orders/${userId}`)
       .then((res) => {
         dispatch(fetchOrders(res.data));
       })
@@ -306,7 +306,7 @@ export function addOrderAxios(
     orderLines.forEach((orderLine) => {
       promises.push(
         axios.post(
-          `http://localhost:5000/api/v1/orderLines/${orderLine.productId?._id}`,
+          `https://fs-ecommerce-server.herokuapp.com/api/v1/orderLines/${orderLine.productId?._id}`,
           {
             price: orderLine.price,
             quantity: orderLine.quantity,
@@ -323,7 +323,7 @@ export function addOrderAxios(
           });
         });
         axios
-          .post(`http://localhost:5000/api/v1/orders/${userId}`, {
+          .post(`https://fs-ecommerce-server.herokuapp.com/api/v1/orders/${userId}`, {
             orderedlines,
             totalPrice,
           })
@@ -347,7 +347,7 @@ export function deleteProductAxios(productId: string) {
   const token = JSON.parse(localStorage.getItem("token") as string);
   return (dispatch: Dispatch) => {
     axios
-      .delete(`http://localhost:5000/api/v1/products/${productId}`, {
+      .delete(`https://fs-ecommerce-server.herokuapp.com/api/v1/products/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res: any) => {
@@ -370,7 +370,7 @@ export function editProductAxios(values: Partial<Product>, prodId: string) {
   };
   return (dispatch: Dispatch) => {
     axios
-      .put(`http://localhost:5000/api/v1/products/${prodId}`, values, config)
+      .put(`https://fs-ecommerce-server.herokuapp.com/api/v1/products/${prodId}`, values, config)
       .then((res: any) => {
         if (res.status === 200) {
           dispatch(setServerResMesssage("Success! Product edited!"));
@@ -393,7 +393,7 @@ export function addProductAxios(values: Partial<Product>) {
   };
   return (dispatch: Dispatch) => {
     axios
-      .post("http://localhost:5000/api/v1/products", values, config)
+      .post("https://fs-ecommerce-server.herokuapp.com/api/v1/products", values, config)
       .then((res: any) => {
         if (res.status === 200) {
           dispatch(addProduct(res.data));

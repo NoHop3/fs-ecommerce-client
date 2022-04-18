@@ -378,6 +378,11 @@
             }
           }
         }
+        & .buttons__container{
+          & .backBtn{
+            margin-left: .75rem;
+          }
+        }
       }
     }
     .home__wrapper {
