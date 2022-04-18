@@ -52,7 +52,7 @@ export const UserHasWriteAccess = () => {
     const user: any = loggedInUser && jwt_decode(loggedInUser);
     if (
       (user?.email || user?.username) &&
-      (user?.hasWriteAccess || user.isAdmin)
+      (user?.hasWriteAccess || user?.hasWriteAcces || user?.isAdmin)
     ) {
       return <Outlet />;
     }
