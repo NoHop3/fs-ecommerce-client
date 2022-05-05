@@ -6,7 +6,7 @@
 
 This project was implemented during a 3-week period as a part of the second module during the Fullstack academy course at Integrify.
 
-Deployed at: Link to be added: https://stgecommerce.netlify.app/
+Deployed at: https://stgecommerce.netlify.app/
 
 ##### Sample sign in credentials with write rights to add new products
 
